@@ -16,6 +16,7 @@ import { emailValidator } from '../../shared/form-helpers/validators/email.valid
 export class RegistrationComponent {
   registrationForm: FormGroup;
   validate: boolean = false;
+  validateConfirmPassword: boolean = false;
 
   constructor(private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
@@ -25,9 +26,10 @@ export class RegistrationComponent {
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       userType: ['', [Validators.required]],
+    }, {
+      validator: this.passwordMatchValidator.bind(this)
     });
   }
-
 
   get firstName() { return this.registrationForm.get('firstName'); }
   get lastName() { return this.registrationForm.get('lastName'); }
@@ -35,6 +37,20 @@ export class RegistrationComponent {
   get password() { return this.registrationForm.get('password'); }
   get confirmPassword() { return this.registrationForm.get('confirmPassword'); }
   get userType() { return this.registrationForm.get('userType'); }
+
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password');
+    const confirmPassword = formGroup.get('confirmPassword');
+    console.log(password);
+    this.validateConfirmPassword = !this.validateConfirmPassword;
+    if(!confirmPassword?.value) {
+      confirmPassword?.setErrors({ required: true });
+    } else if (password?.value !== confirmPassword?.value) {
+      confirmPassword?.setErrors({ passwordMismatch: true });
+    } else {
+      confirmPassword?.setErrors(null);
+    }
+  }
 
   onSubmit() {
     this.validate = true;
@@ -45,6 +61,4 @@ export class RegistrationComponent {
       console.log('Please fill out all required fields');
     }
   }
-
-
 }

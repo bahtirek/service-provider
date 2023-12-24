@@ -19,7 +19,6 @@ export class FormErrorComponent {
   controlErrors: any | null = null;
 
   @Input() control!: AbstractControl | null;
-  minlength: any = 0;
 
   @Input() set onValueChanges(onValueChanges: string | undefined) {
     if (this._validate && this.isInitialCallsDone()) this.startValidation();
@@ -33,13 +32,15 @@ export class FormErrorComponent {
     this._initialValidateCallIsDone = true;
   }
 
+  @Input() set validateOnce(validate: boolean | undefined) {
+    if (this._validate && this.isInitialCallsDone()) this.startValidation();
+  }
+
   isInitialCallsDone() {
     return (this._initialValidateCallIsDone && this._initialValueCallIsDone)
   }
 
   startValidation() {
-    console.log(this.control);
-
     if (this.control?.errors) {
       const errors = this.control?.errors;
       for (let i = 0; i < this.rules.length; i++) {
@@ -65,24 +66,7 @@ export class FormErrorComponent {
     {error: "passwordMatchValidator", message: 'Passwords should match'},
     {error: "minlength", message: `length should be`},
     {error: "maxlength", message: `length should be`},
+    {error: "passwordMismatch", message: `Password should match`},
   ]
 
-
-  /*   @Input() set onSubmit(onSubmit: boolean | undefined) {
-    this._onSubmit = onSubmit;
-
-    if (onSubmit) {
-      this._onChange = onSubmit;
-      this.startValidation();
-    }
-  }
-
-  @Input() set onBlur(onBlur: boolean | undefined) {
-    this._onBlur = onBlur;
-
-    if(onBlur) {
-      this._onChange = onBlur;
-      this.startValidation();
-    }
-  } */
 }
