@@ -2,7 +2,6 @@ ul {
   list-style: none;
   li {
     display: inline;
-    padding: 0 12px;
     &:first-child {
       padding-left: 0;
     }
@@ -12,12 +11,21 @@ ul {
 
     a {
       text-decoration: none;
+      display: inline-block;
       color: var(--primary);
+      height: 38px;
+      padding: 10px 20px;
+      border-radius: 8px;
       &.active-link {
         font-weight: bold;
-        text-decoration: underline;
+        /* text-decoration: underline;
         color: var(--primary-hover);
-        text-underline-offset: 3px;
+        text-underline-offset: 3px; */
+        outline: 1px solid var(--primary-hover);
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: var(--grey-lightest);
       }
     }
   }
