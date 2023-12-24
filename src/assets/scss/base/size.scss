@@ -42,6 +42,8 @@ $space-sm : (x: 8px, y: 8px) !default;
 $space-md : (x: 16px, y: 16px) !default;
 $space-lg : (x: 24px, y: 24px) !default;
 $space-xl : (x: 32px, y: 32px) !default;
+$space-xxl : (x: 52px, y: 52px) !default;
+$space-xxxl : (x: 68px, y: 68px) !default;
 $space-auto : (x: auto, y: auto) !default;
 
 
@@ -51,6 +53,8 @@ $spaces: (
   'md': $space-md,
   'lg': $space-lg,
   'xl': $space-xl,
+  'xxl': $space-xxl,
+  'xxxl': $space-xxxl,
   'auto': $space-auto
 );
 
