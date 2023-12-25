@@ -1,12 +1,16 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-
+import { isAuthenticatedGuard, isNonAuthenticatedGuard } from './shared/guards/auth.guard';
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
   {
-    path: 'registration',
-    loadComponent: () => import('./auth/registration/registration.component').then(c => c.RegistrationComponent)
+    path: 'auth',
+    canActivate: [isNonAuthenticatedGuard()],
+    loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  {
+    path: 'home',
+    canActivate: [isAuthenticatedGuard()],
+    loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
+  },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth', pathMatch: 'full' }
 ];
