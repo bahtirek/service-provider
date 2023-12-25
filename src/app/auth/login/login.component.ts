@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormErrorComponent } from '../../shared/form-helpers/form-error/form-error.component';
 import { emailValidator } from '../../shared/form-helpers/validators/email.validator';
+import { Credentials } from '../../shared/interfaces/credentials.interface';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,11 @@ import { emailValidator } from '../../shared/form-helpers/validators/email.valid
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  private router = inject(Router);
   loginForm: FormGroup;
   validate: boolean = true;
+  private auth = inject(AuthService);
+  errorMessage: string = "";
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
@@ -28,10 +33,22 @@ export class LoginComponent {
   onSubmit() {
     this.validate = true;
     if (this.loginForm.valid) {
-      console.log('Registration successful!', this.loginForm);
-      // You can add logic here to send the registration data to your server
-    } else {
-      console.log('Please fill out all required fields');
+      const credentials: Credentials = {
+        email: this.email?.value,
+        password: this.password?.value
+      }
+      this.auth.login(credentials).subscribe ({
+        next: (user) => {
+          this.auth.setUser(user);
+          this.router.navigate(['home']);
+        },
+        error: (error: any) => {
+          console.log(error);
+          if(error.status === 401) {
+            this.errorMessage = 'Invalid credentials';
+          }
+        }
+      })
     }
   }
 }
