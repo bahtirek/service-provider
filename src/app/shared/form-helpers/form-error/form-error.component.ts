@@ -12,8 +12,6 @@ export class FormErrorComponent {
   private _validate: boolean | undefined = undefined;
   private _initialValueCallIsDone: boolean = false;
   private _initialValidateCallIsDone: boolean = false;
-  private _onSubmit: boolean | undefined;
-  private _onBlur: boolean | undefined;
 
   errorMessage: string = "";
   controlErrors: any | null = null;
@@ -34,6 +32,10 @@ export class FormErrorComponent {
 
   @Input() set validateOnce(validate: boolean | undefined) {
     if (this._validate && this.isInitialCallsDone()) this.startValidation();
+  }
+
+  @Input() set message(message: string) {
+    if (message) this.errorMessage = message;
   }
 
   isInitialCallsDone() {
