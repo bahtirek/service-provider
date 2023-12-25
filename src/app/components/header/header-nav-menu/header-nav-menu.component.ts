@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { HeaderNavMenu } from '../../../interfaces/header-nav-menu.interface';
+import { HeaderNavMenu } from '../../../shared/interfaces/header-nav-menu.interface';
 
 @Component({
   selector: 'app-header-nav-menu',
