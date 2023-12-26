@@ -41,7 +41,6 @@ export class RegistrationComponent {
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password');
     const confirmPassword = formGroup.get('confirmPassword');
-    console.log(password);
     this.validateConfirmPassword = !this.validateConfirmPassword;
     if(!confirmPassword?.value) {
       confirmPassword?.setErrors({ required: true });

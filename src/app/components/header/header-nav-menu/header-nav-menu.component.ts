@@ -17,7 +17,9 @@ export class HeaderNavMenuComponent {
     this.auth.isLoggedIn()
   );
 
-  logout = () => {}
+  logout = () => {
+    this.auth.logout();
+  }
 
   menuItems: HeaderNavMenu[] = [
     {
@@ -41,12 +43,16 @@ export class HeaderNavMenuComponent {
     {
       name: 'Logout',
       url: '/logout'
-    }
+    },
   ]
   loggedOutMenuItems: HeaderNavMenu[] = [
     {
       name: 'Login',
-      url: '/login'
+      url: 'auth/login'
+    },
+    {
+      name: 'Sign up',
+      url: 'auth/registration'
     }
   ]
 

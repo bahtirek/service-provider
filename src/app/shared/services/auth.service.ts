@@ -4,11 +4,12 @@ import { Credentials } from '../interfaces/credentials.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export type AuthUser = any | null | undefined;
 
 interface AuthState {
-  user: AuthUser;
+  user?: AuthUser;
 }
 
 @Injectable({
@@ -17,17 +18,18 @@ interface AuthState {
 
 export class AuthService {
   private url = environment.apiUrl;
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
   // state
-  private state = signal<AuthState>({
+  private state = signal<AuthState | null>({
     user: undefined,
   });
 
   isLoggedIn = signal<boolean>(false);
 
   // selectors
-  user = computed(() => this.state().user);
+  user = computed(() => this.state()?.user);
 
   constructor( ) {
     this.getUser()
@@ -39,7 +41,9 @@ export class AuthService {
 
   logout() {
     window.sessionStorage.removeItem('user');
-    //this.state.update((state) => ({null})
+    this.state.update(state => null);
+    this.isLoggedIn.set(false);
+    this.router.navigate(['home']);
   }
 
   setUser(user: User) {

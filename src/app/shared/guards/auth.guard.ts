@@ -5,10 +5,10 @@ import { AuthService } from '../services/auth.service';
 
 export const isAuthenticatedGuard = (): CanActivateFn => {
   return () => {
-    const authService = inject(AuthService);
+    const auth = inject(AuthService);
     const router = inject(Router);
 
-    if (authService.isLoggedIn()) {
+    if (auth.isLoggedIn()) {
       return true;
     }
 
@@ -17,10 +17,10 @@ export const isAuthenticatedGuard = (): CanActivateFn => {
 };
 export const isNonAuthenticatedGuard = (): CanActivateFn => {
   return () => {
-    const authService = inject(AuthService);
+    const auth = inject(AuthService);
     const router = inject(Router);
 
-    if (!authService.isLoggedIn()) {
+    if (!auth.isLoggedIn()) {
       return true;
     }
 
