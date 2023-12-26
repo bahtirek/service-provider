@@ -1,7 +1,10 @@
 
 <div class="header">
-  <div class="container flex justify-between items-center">
-    <div class="">Brand</div>
+  <div class="container items-center flex">
+    <div class="">
+      <a [routerLink]="'home'" routerLinkActive="active-link">Brand</a>
+    </div>
     <app-header-nav-menu></app-header-nav-menu>
+    <app-header-user-menu></app-header-user-menu>
   </div>
 </div>

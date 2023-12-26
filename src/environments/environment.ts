@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://my-prod-url'
+  apiUrl: 'https://octopus-app-omsi2.ondigitalocean.app/api/auth/login'
 };

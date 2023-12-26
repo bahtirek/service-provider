@@ -23,37 +23,14 @@ export class HeaderNavMenuComponent {
 
   menuItems: HeaderNavMenu[] = [
     {
-      name: 'Find Providers',
-      url: '/search-providers'
+      name: 'Providers',
+      url: '/providers'
     },
     {
-      name: 'Find Services',
-      url: '/search-services'
+      name: 'Services',
+      url: '/services'
     },
   ]
   loggedInMenuItems: HeaderNavMenu[] = [
-    {
-      name: 'Find Providers',
-      url: '/search-providers'
-    },
-    {
-      name: 'Find Services',
-      url: '/search-services'
-    },
-    {
-      name: 'Logout',
-      url: '/logout'
-    },
   ]
-  loggedOutMenuItems: HeaderNavMenu[] = [
-    {
-      name: 'Login',
-      url: 'auth/login'
-    },
-    {
-      name: 'Sign up',
-      url: 'auth/registration'
-    }
-  ]
-
 }
