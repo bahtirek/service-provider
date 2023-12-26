@@ -8,9 +8,20 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    canActivate: [isAuthenticatedGuard()],
     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
   },
-  { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth', pathMatch: 'full' }
+  {
+    path: 'providers',
+    loadComponent: () => import('./pages/providers/providers.component').then(c => c.ProvidersComponent),
+  },
+  {
+    path: 'services',
+    loadComponent: () => import('./pages/services/services.component').then(c => c.ServicesComponent),
+  },
+  /* {
+    path: '',
+    loadComponent: () => import('./pages/').then(c => c.Component),
+  }, */
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
