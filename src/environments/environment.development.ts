@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://extension-executor.evendor.app/api'
+  apiUrl: 'https://octopus-app-omsi2.ondigitalocean.app/api'
 };

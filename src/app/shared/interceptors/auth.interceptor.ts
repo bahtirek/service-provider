@@ -12,10 +12,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private auth = inject(AuthService)
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.user().access_token) {
+    if (this.auth.user().accessToken) {
       request = request.clone({
           setHeaders: {
-              Authorization: `Bearer ${this.auth.user().access_token}`
+              Authorization: `Bearer ${this.auth.user().accessToken}`
           }
       });
     }
