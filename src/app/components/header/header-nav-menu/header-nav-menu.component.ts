@@ -24,11 +24,11 @@ export class HeaderNavMenuComponent {
   menuItems: HeaderNavMenu[] = [
     {
       name: 'Providers',
-      url: '/providers'
+      url: '/search/providers'
     },
     {
       name: 'Services',
-      url: '/services'
+      url: '/search/services'
     },
   ]
   loggedInMenuItems: HeaderNavMenu[] = [

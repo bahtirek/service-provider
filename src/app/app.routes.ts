@@ -7,17 +7,14 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
+    path: 'search',
+    loadChildren: () => import('./pages/search/search.routes').then((m) => m.SEARCH_ROUTES),
+  },
+  {
     path: 'home',
     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
   },
-  {
-    path: 'providers',
-    loadComponent: () => import('./pages/providers/providers.component').then(c => c.ProvidersComponent),
-  },
-  {
-    path: 'services',
-    loadComponent: () => import('./pages/services/services.component').then(c => c.ServicesComponent),
-  },
+
   /* {
     path: '',
     loadComponent: () => import('./pages/').then(c => c.Component),
