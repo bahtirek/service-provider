@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordValidator } from '../../shared/form-helpers/validators/password.validator';
 import { passwordMatchValidator } from '../../shared/form-helpers/validators/password-match.validator';
 import { FormErrorComponent } from '../../shared/form-helpers/form-error/form-error.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../shared/form-helpers/validators/email.validator';
+import { AuthService } from '../../shared/services/auth.service';
+import { User } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-registration',
@@ -14,6 +16,8 @@ import { emailValidator } from '../../shared/form-helpers/validators/email.valid
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
+  private router = inject(Router);
+  private auth = inject(AuthService);
   registrationForm: FormGroup;
   validate: boolean = false;
   validateConfirmPassword: boolean = false;
@@ -54,10 +58,27 @@ export class RegistrationComponent {
   onSubmit() {
     this.validate = true;
     if (this.registrationForm.valid) {
-      console.log('Registration successful!', this.registrationForm.value);
-      // You can add logic here to send the registration data to your server
-    } else {
-      console.log('Please fill out all required fields');
+      const user : User = {
+        firstName: this.firstName?.value,
+        lastName: this.lastName?.value,
+        email: this.email?.value,
+        password: this.password?.value,
+      }
+      if(this.userType?.value === 'provider') {
+        user.isProvider = 1;
+      } else {
+        user.isClient = 1;
+      }
+      this.auth.registration(user).subscribe ({
+        next: (user) => {
+          this.auth.setUser(user);
+          //check if client
+          this.router.navigate(['client/provider-list']);
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      })
     }
   }
 }

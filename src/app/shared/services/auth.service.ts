@@ -39,6 +39,10 @@ export class AuthService {
     return this.http.post<User>(this.url + '/auth/login', credentials).pipe(shareReplay());
   }
 
+  registration(user: User) {
+    return this.http.post<User>(this.url + '/users/user', user).pipe(shareReplay());
+  }
+
   logout() {
     window.sessionStorage.removeItem('user');
     this.state.update(state => null);
