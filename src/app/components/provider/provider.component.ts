@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
-import { Subject } from '../../../../shared/interfaces/subject.interface';
+import { SubjectListComponent } from './../../components/subject-list/subject-list.component';
+import { Subject } from './../../shared/interfaces/subject.interface';
 
 @Component({
   selector: 'app-provider',
