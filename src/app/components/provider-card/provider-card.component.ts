@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Provider } from '../../shared/interfaces/provider.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provider-card',
@@ -9,7 +10,14 @@ import { Provider } from '../../shared/interfaces/provider.interface';
   styleUrl: './provider-card.component.scss'
 })
 export class ProviderCardComponent {
+  private router = inject(Router);
 
   @Input() provider: Provider = {};
+
+  openProviderSuibjects(providerId: string | undefined) {
+    console.log(providerId);
+
+    this.router.navigate(['/client/providers', providerId]);
+  }
 
 }

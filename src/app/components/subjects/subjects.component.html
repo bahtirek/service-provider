@@ -1,0 +1,5 @@
+<div class="container pt-xxl column gap-xl">
+  @for (subject of subjects; track $index) {
+    <app-subject-card [subject]="subject"></app-subject-card>
+  }
+</div>

@@ -41,7 +41,7 @@ export class LoginComponent {
         next: (user) => {
           this.auth.setUser(user);
           //check if client
-          this.router.navigate(['client/dashboard']);
+          this.router.navigate(['client/providers']);
         },
         error: (error: any) => {
           console.log(error);

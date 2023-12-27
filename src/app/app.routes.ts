@@ -25,5 +25,5 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/').then(c => c.Component),
   }, */
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  /* { path: '**', redirectTo: 'home', pathMatch: 'full' } */
 ];

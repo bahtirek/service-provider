@@ -25,7 +25,7 @@ export class HeaderUserDropMenuComponent {
   userSubMenuItems: HeaderNavMenu[] = [
     {
       name: 'My providers',
-      url: '/my-providers'
+      url: 'client/providers',
     },
     {
       name: 'Account',
