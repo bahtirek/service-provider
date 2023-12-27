@@ -7,6 +7,11 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
+    path: 'client',
+    canActivate: [isAuthenticatedGuard()],
+    loadChildren: () => import('./pages/client/client.routes').then((m) => m.CLIENT_ROUTES),
+  },
+  {
     path: 'search',
     loadChildren: () => import('./pages/search/search.routes').then((m) => m.SEARCH_ROUTES),
   },

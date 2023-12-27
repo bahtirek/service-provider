@@ -119,6 +119,15 @@ $base-unit:8px;
   @extend .justify-center;
 }
 
+.gap- {
+  &xs {gap: 4px;}
+  &sm {gap: 8px;}
+  &md {gap: 16px;}
+  &lg {gap: 24px;}
+  &xl {gap: 32px;}
+  &xxl {gap: 48px;}
+}
+
 ////////////////////////
 //The Flex Grid
 ////////////////////////

@@ -1,1 +1,5 @@
-<p>dashboard works!</p>
+<div class="container pt-xxl column gap-xl">
+  @for (provider of providers; track $index) {
+    <app-provider-card [provider]="provider"></app-provider-card>
+  }
+</div>

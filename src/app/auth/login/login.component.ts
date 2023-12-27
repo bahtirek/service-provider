@@ -40,7 +40,8 @@ export class LoginComponent {
       this.auth.login(credentials).subscribe ({
         next: (user) => {
           this.auth.setUser(user);
-          this.router.navigate(['home']);
+          //check if client
+          this.router.navigate(['client/dashboard']);
         },
         error: (error: any) => {
           console.log(error);
