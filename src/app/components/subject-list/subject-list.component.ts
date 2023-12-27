@@ -3,12 +3,12 @@ import { SubjectCardComponent } from '../../components/subject-card/subject-card
 import { Subject } from '../../shared/interfaces/subject.interface';
 
 @Component({
-  selector: 'app-subjects',
+  selector: 'app-subject-list',
   standalone: true,
   imports: [SubjectCardComponent],
-  templateUrl: './subjects.component.html',
-  styleUrl: './subjects.component.scss'
+  templateUrl: './subject-list.component.html',
+  styleUrl: './subject-list.component.scss'
 })
-export class SubjectsComponent {
-  @Input() subjects: Subject[] = [];
+export class SubjectListComponent {
+  @Input() subjectList: Subject[] = [];
 }

@@ -3,14 +3,14 @@ import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ProviderCardComponent } from '../../../components/provider-card/provider-card.component';
 
 @Component({
-  selector: 'app-providers',
+  selector: 'app-provider-list',
   standalone: true,
   imports: [ProviderCardComponent],
-  templateUrl: './providers.component.html',
-  styleUrl: './providers.component.scss'
+  templateUrl: './provider-list.component.html',
+  styleUrl: './provider-list.component.scss'
 })
-export class ProvidersComponent {
-  providers: Provider[] = [
+export class ProviderListComponent {
+  providerList: Provider[] = [
     {
       firstName: 'John',
       lastName: 'Doe',

@@ -17,7 +17,7 @@ export class ProviderCardComponent {
   openProviderSuibjects(providerId: string | undefined) {
     console.log(providerId);
 
-    this.router.navigate(['/client/providers', providerId]);
+    this.router.navigate(['/client/provider-list', providerId]);
   }
 
 }

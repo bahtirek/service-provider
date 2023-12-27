@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { SubjectsComponent } from '../../../../components/subjects/subjects.component';
+import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
 import { Subject } from '../../../../shared/interfaces/subject.interface';
 
 @Component({
   selector: 'app-provider',
   standalone: true,
-  imports: [SubjectsComponent],
+  imports: [SubjectListComponent],
   templateUrl: './provider.component.html',
   styleUrl: './provider.component.scss'
 })
 export class ProviderComponent {
-  subjects: Subject[] = [
+  subjectList: Subject[] = [
     {
       'title': 'John',
       id: '1',
