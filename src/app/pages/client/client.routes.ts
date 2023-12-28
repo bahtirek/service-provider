@@ -1,8 +1,9 @@
 import { Route } from '@angular/router';
-import { ClientComponent } from './client.component';
+import { ClientShellComponent } from './client-shell.component';
+
 
 export const CLIENT_ROUTES: Route[] = [
-  {path: '', component: ClientComponent,
+  {path: '', component: ClientShellComponent,
     children: [
       {
         path: 'dashboard',
