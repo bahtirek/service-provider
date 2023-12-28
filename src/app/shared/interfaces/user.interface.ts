@@ -3,7 +3,7 @@ export interface User {
   lastName?: string;
   email?: string;
   id?: string;
-  isProvider?: number;
-  isClient?: number;
+  isProvider?: boolean;
+  isClient?: boolean;
   password?: string
 }
