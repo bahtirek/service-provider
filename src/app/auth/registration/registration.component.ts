@@ -18,6 +18,7 @@ import { User } from '../../shared/interfaces/user.interface';
 export class RegistrationComponent {
   private router = inject(Router);
   private auth = inject(AuthService);
+  registrationIsOn: boolean = true;
   registrationForm: FormGroup;
   validate: boolean = false;
   validateConfirmPassword: boolean = false;
@@ -65,15 +66,13 @@ export class RegistrationComponent {
         password: this.password?.value,
       }
       if(this.userType?.value === 'provider') {
-        user.isProvider = 1;
+        user.isProvider = true;
       } else {
-        user.isClient = 1;
+        user.isClient = true;
       }
       this.auth.registration(user).subscribe ({
         next: (user) => {
-          this.auth.setUser(user);
-          //check if client
-          this.router.navigate(['client/provider-list']);
+          this.registrationIsOn = false;
         },
         error: (error: any) => {
           console.log(error);
