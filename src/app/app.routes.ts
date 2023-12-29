@@ -12,6 +12,11 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/client/client.routes').then((m) => m.CLIENT_ROUTES),
   },
   {
+    path: 'provider',
+    canActivate: [isAuthenticatedGuard()],
+    loadChildren: () => import('./pages/provider/provider.routes').then((m) => m.PROVIDER_ROUTES),
+  },
+  {
     path: 'search',
     loadChildren: () => import('./pages/search/search.routes').then((m) => m.SEARCH_ROUTES),
   },
