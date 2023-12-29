@@ -1,0 +1,74 @@
+<div>
+  <div class="container grid mt-xxl">
+    <div class="col flex flex-center gt-md">
+      <img src="../../../assets/images/login.png" alt="" srcset="">
+    </div>
+    <div class="col flex flex-center">
+      <div class="width-400">
+        <h1 class="mb-xl">Sign up</h1>
+        <form [formGroup]="detailsForm">
+          <div class="form-element">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" formControlName="companyName" />
+            <app-form-error [validate]="validate" [control]="companyName" [onValueChanges]="companyName?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element">
+            <label for="address">Address</label>
+            <input type="text" id="address" formControlName="address" />
+            <app-form-error [validate]="validate" [control]="address" [onValueChanges]="address?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element">
+            <label for="phoneNumber">Phone number</label>
+            <input type="text" id="phoneNumber" formControlName="phoneNumber" />
+            <app-form-error [validate]="validate" [control]="phoneNumber" [onValueChanges]="phoneNumber?.value">
+            </app-form-error>
+          </div>
+
+          <div class="form-element">
+            <textarea id="description" formControlName="description" ></textarea>
+            <label for="description">Description</label>
+            <app-form-error [control]="description" [onValueChanges]="description?.value" [validate]="validate">
+            </app-form-error>
+          </div>
+          <div>
+            <div class="form-element column-content-2 mb-sm" formArrayName="availableDays">
+              <div *ngFor="let availableDayControl of availableDays.controls; let i=index" [formGroupName]="i" class="form-element-checkbox mb-md">
+                <input type="checkbox" formControlName="weekDay" id="{{'weekDayId' + i}}">
+                <label for="{{'weekDayId' + i}}">{{weekDays[i]['weekDay']}}</label>
+              </div>
+            </div>
+            <app-form-error [message]="errorMessage"></app-form-error>
+          </div>
+
+          <div>
+            <div class="form-element grid mt-lg gap-lg">
+              <div formGroupName="availableHours" class="form-element col">
+                <select formControlName="from">
+                  @for (hour of workHours; track $index) {
+                    <option value="{{hour.lkWorkHourId}}">{{hour.workHour}}</option>
+                  }
+                </select>
+                <label for="from">From</label>
+                <app-form-error [validate]="validate" [control]="from" [onValueChanges]="from?.value"></app-form-error>
+              </div>
+              <div formGroupName="availableHours" class="form-element col">
+                <select formControlName="to">
+                  @for (hour of workHours; track $index) {
+                    <option value="{{hour.lkWorkHourId}}">{{hour.workHour}}</option>
+                  }
+                </select>
+                <label for="from">To</label>
+                <app-form-error [validate]="validate" [control]="to" [onValueChanges]="to?.value"></app-form-error>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="text-right mt-md">
+          <button (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
