@@ -45,6 +45,7 @@ $space-xl : (x: 32px, y: 32px) !default;
 $space-xxl : (x: 52px, y: 52px) !default;
 $space-xxxl : (x: 68px, y: 68px) !default;
 $space-auto : (x: auto, y: auto) !default;
+$space-none : (x: 0, y: 0) !default;
 
 
 $spaces: (
@@ -55,7 +56,8 @@ $spaces: (
   'xl': $space-xl,
   'xxl': $space-xxl,
   'xxxl': $space-xxxl,
-  'auto': $space-auto
+  'auto': $space-auto,
+  'none': $space-none
 );
 
 @each $space, $value in $spaces {
