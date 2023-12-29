@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ClientShellComponent } from './client-shell.component';
+import { ClientShellComponent } from '../pages/client/client-shell.component';
 
 
 export const CLIENT_ROUTES: Route[] = [
@@ -7,11 +7,11 @@ export const CLIENT_ROUTES: Route[] = [
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent)
+        loadComponent: () => import('../pages/client/dashboard/dashboard.component').then(c => c.DashboardComponent)
       },
       {
         path: 'provider-list',
-        loadChildren: () => import('../../shared/routes/providers.routes').then((m) => m.PROVIDERS_ROUTES),
+        loadChildren: () => import('./providers.routes').then((m) => m.PROVIDERS_ROUTES),
       },
       {
         path: '',

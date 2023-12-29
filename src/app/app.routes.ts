@@ -4,21 +4,21 @@ export const routes: Routes = [
   {
     path: 'auth',
     canActivate: [isNonAuthenticatedGuard()],
-    loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    loadChildren: () => import('./routes/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
     path: 'client',
     canActivate: [isAuthenticatedGuard()],
-    loadChildren: () => import('./pages/client/client.routes').then((m) => m.CLIENT_ROUTES),
+    loadChildren: () => import('./routes/client.routes').then((m) => m.CLIENT_ROUTES),
   },
   {
     path: 'provider',
     canActivate: [isAuthenticatedGuard()],
-    loadChildren: () => import('./pages/provider/provider.routes').then((m) => m.PROVIDER_ROUTES),
+    loadChildren: () => import('./routes/provider.routes').then((m) => m.PROVIDER_ROUTES),
   },
   {
     path: 'search',
-    loadChildren: () => import('./pages/search/search.routes').then((m) => m.SEARCH_ROUTES),
+    loadChildren: () => import('./routes/search.routes').then((m) => m.SEARCH_ROUTES),
   },
   {
     path: 'home',

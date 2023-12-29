@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ProviderShellComponent } from './provider-shell.component';
+import { ProviderShellComponent } from '../pages/provider/provider-shell.component';
 
 
 export const PROVIDER_ROUTES: Route[] = [
@@ -7,7 +7,7 @@ export const PROVIDER_ROUTES: Route[] = [
     children: [
       {
         path: 'profile-form',
-        loadComponent: () => import('./profile-form/profile-form.component').then((c) =>c.ProfileFormComponent),
+        loadComponent: () => import('../pages/provider/profile-form/profile-form.component').then((c) =>c.ProfileFormComponent),
       },
       /* {
         path: 'profile-details',
