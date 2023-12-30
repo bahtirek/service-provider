@@ -7,5 +7,10 @@ export interface ProviderProfileDetails {
   description: string;
   availableDays: number[];
   category: number[];
-  workHours: WorkHour[];
+  workHours: ProviderProfileDetailsWorkHour[];
+}
+
+export interface ProviderProfileDetailsWorkHour {
+  toWorkHourId: number;
+  fromWorkHourId: number;
 }

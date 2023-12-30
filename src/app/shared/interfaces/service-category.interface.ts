@@ -1,4 +1,5 @@
 export interface ServiceCategory {
-  lkCategoryId?: number;
+  lkCategoryId: number;
   name: string;
+  categoryCheck: boolean;
 }

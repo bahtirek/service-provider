@@ -35,7 +35,7 @@ export class FormErrorComponent {
   }
 
   @Input() set message(message: string) {
-    if (message) this.errorMessage = message;
+    this.errorMessage = message;
   }
 
   isInitialCallsDone() {

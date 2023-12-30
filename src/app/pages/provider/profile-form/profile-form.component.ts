@@ -8,6 +8,7 @@ import { WeekDay } from '../../../shared/interfaces/week-day.interface';
 import { NgFor } from '@angular/common';
 import { WorkHour } from '../../../shared/interfaces/work-hour.interface';
 import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
+import { ProviderProfileDetails } from '../../../shared/interfaces/provider-profile-detail.interface';
 
 @Component({
   selector: 'app-profile-form',
@@ -24,9 +25,10 @@ export class ProfileFormComponent {
   detailsForm: FormGroup;
   validate: boolean = false;
   validateConfirmPassword: boolean = false;
-  workHours: WorkHour[] = [];
-  categorys: ServiceCategory[] = [];
-  errorMessage: string = 'error';
+  workHoursArray: WorkHour[] = [];
+  allCategorys: ServiceCategory[] = [];
+  categoryErrorMessage: string = '';
+  weekdaysErrorMessage: string = '';
 
   constructor(private fb: FormBuilder) {
     this.detailsForm = this.fb.group({
@@ -34,101 +36,164 @@ export class ProfileFormComponent {
       address: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      availableHours: this.fb.group({
-        from: ['', Validators.required],
-        to: ['', Validators.required]
+      workHours: this.fb.group({
+        fromWorkHourId: ['', Validators.required],
+        toWorkHourId: ['', Validators.required]
       }),
-      availableDays: this.fb.array([])
+      availableDays: this.fb.array([]),
+      category: this.fb.array([])
     });
   }
 
   ngOnInit() {
     this.getWeekDays();
     this.getWorkHours();
+    this.getCategory();
   }
 
   get companyName() { return this.detailsForm.get('companyName'); }
   get address() { return this.detailsForm.get('address'); }
   get phoneNumber() { return this.detailsForm.get('phoneNumber'); }
   get description() { return this.detailsForm.get('description'); }
+  get fromWorkHourId() { return this.detailsForm.get('workHours.fromWorkHourId'); }
+  get toWorkHourId() { return this.detailsForm.get('workHours.toWorkHourId'); }
+  get workHours() { return this.detailsForm.get('workHours'); }
   get availableDays() { return this.detailsForm.get('availableDays') as FormArray; }
-  get from() { return this.detailsForm.get('availableHours.from'); }
-  get to() { return this.detailsForm.get('availableHours.to'); }
+  get category() { return this.detailsForm.get('category') as FormArray; }
 
   setAvailableDays() {
     this.availableDays.clear();
-    console.log(this.weekDays);
 
     this.weekDays.forEach(day => {
       const weekDayControl = this.fb.group ({
         lkWeekDayId: [day.lkWeekDayId],
-        weekDay: [false, [Validators.required]],
+        weekDayCheck: [false],
       })
       this.availableDays.push(weekDayControl);
     })
   }
 
+  setCategorys() {
+    this.category.clear();
 
-
-
-
-  onSubmit() {
-    this.validate = true;
-    console.log(this.detailsForm.value);
-
-    if (this.detailsForm.valid) {
-
-
-      /* this.auth.registration(user).subscribe ({
-        next: (user) => {
-          this.registrationIsOn = false;
-        },
-        error: (error: any) => {
-          console.log(error);
-        }
-      }) */
-    }
+    this.allCategorys.forEach(category => {
+      const categoryControl = this.fb.group ({
+        lkCategoryId: [category.lkCategoryId],
+        categoryCheck: [false],
+      })
+      this.category.push(categoryControl);
+    })
   }
 
   getWeekDays() {
     this.providerService.getWeekDays().subscribe({
       next:(response: any) => {
-        console.log(response);
         this.weekDays = response;
-        console.log(this.weekDays);
 
         this.setAvailableDays()
       },
       error: (error: any) => {
         console.log(error);
-
       }
     })
   }
+
   getWorkHours() {
     this.providerService.getWorkHours().subscribe({
       next:(response: any) => {
-        console.log(response);
-        this.workHours = response;
-        console.log(this.workHours);
+        this.workHoursArray = response;
       },
       error: (error: any) => {
         console.log(error);
-
       }
     })
   }
+
   getCategory() {
     this.providerService.getCategory().subscribe({
       next:(response: any) => {
-        console.log(response);
-        this.categorys = response;
-        console.log(this.categorys);
+        this.allCategorys = response;
+        this.setCategorys();
       },
       error: (error: any) => {
         console.log(error);
-
       }
+    })
+  }
+
+  onSubmit() {
+    this.validate = true;
+    const isCategoryValid = this.validateCategorys();
+    const isWeekdaysValid = this.validateWeekdays();
+    this.arrayValidation();
+    if (this.detailsForm.valid && isCategoryValid && isWeekdaysValid) {
+      const form = {
+        companyName: this.companyName?.value,
+        address: this.address?.value,
+        phoneNumber: this.phoneNumber?.value,
+        description: this.description?.value,
+        availableDays: this.filterWeekdays(),
+        category: this.filterCategorys(),
+        workHours: this.workHours?.value
+      }
+
+console.log(form);
+
+      this.providerService.postProviderProfileDetails(form).subscribe ({
+        next: (response) => {
+          console.log(response);
+
+        },
+        error: (error: any) => {
+          console.log(error);
+        }
+      })
+    }
+  }
+
+  validateCategorys() {
+    if (this.filterCategorys().length > 0) {
+      this.categoryErrorMessage = '';
+      return true;
+    }
+    this.categoryErrorMessage = 'Field is required';
+    return false;
+  }
+
+  validateWeekdays() {
+    if (this.filterWeekdays().length > 0) {
+      this.weekdaysErrorMessage = '';
+      return true;
+    }
+    this.weekdaysErrorMessage = 'Field is required';
+    return false;
+  }
+
+  filterWeekdays() {
+    return this.availableDays.value.reduce((filtered: number[], day: WeekDay) => {
+      if (day.weekDayCheck === true) {
+        filtered.push(day.lkWeekDayId)
+      }
+      return filtered;
+    }, []);
+  }
+
+  filterCategorys() {
+    return this.category.value.reduce((filtered: number[], category: ServiceCategory) => {
+      if (category.categoryCheck === true) {
+        filtered.push(category.lkCategoryId);
+      }
+      return filtered;
+    }, []);
+  }
+
+  arrayValidation() {
+    this.detailsForm.controls['category'].valueChanges.subscribe(() => {
+
+      this.validateCategorys()
+    })
+    this.detailsForm.controls['availableDays'].valueChanges.subscribe(() => {
+      this.validateWeekdays()
     })
   }
 }

@@ -32,35 +32,45 @@
             <app-form-error [control]="description" [onValueChanges]="description?.value" [validate]="validate">
             </app-form-error>
           </div>
+
           <div>
-            <div class="form-element column-content-2 mb-sm" formArrayName="availableDays">
+            <div class="form-element column-content-2 mb-sm" formArrayName="category">
+              <div *ngFor="let categoryControl of category.controls; let i=index" [formGroupName]="i" class="form-element-checkbox mb-md">
+                <input type="checkbox" formControlName="categoryCheck" id="{{'categoryId' + i}}">
+                <label for="{{'categoryId' + i}}">{{allCategorys[i]['name']}}</label>
+              </div>
+            </div>
+            <app-form-error [message]="categoryErrorMessage"></app-form-error>
+          </div>
+          <div>
+            <div class="form-element column-content-2 mb-sm mt-lg" formArrayName="availableDays">
               <div *ngFor="let availableDayControl of availableDays.controls; let i=index" [formGroupName]="i" class="form-element-checkbox mb-md">
-                <input type="checkbox" formControlName="weekDay" id="{{'weekDayId' + i}}">
+                <input type="checkbox" formControlName="weekDayCheck" id="{{'weekDayId' + i}}">
                 <label for="{{'weekDayId' + i}}">{{weekDays[i]['weekDay']}}</label>
               </div>
             </div>
-            <app-form-error [message]="errorMessage"></app-form-error>
+            <app-form-error [message]="weekdaysErrorMessage"></app-form-error>
           </div>
 
           <div>
             <div class="form-element grid mt-lg gap-lg">
-              <div formGroupName="availableHours" class="form-element col">
-                <select formControlName="from">
-                  @for (hour of workHours; track $index) {
+              <div formGroupName="workHours" class="form-element col">
+                <select formControlName="fromWorkHourId">
+                  @for (hour of workHoursArray; track $index) {
                     <option value="{{hour.lkWorkHourId}}">{{hour.workHour}}</option>
                   }
                 </select>
-                <label for="from">From</label>
-                <app-form-error [validate]="validate" [control]="from" [onValueChanges]="from?.value"></app-form-error>
+                <label for="fromWorkHourId">From</label>
+                <app-form-error [validate]="validate" [control]="fromWorkHourId" [onValueChanges]="fromWorkHourId?.value"></app-form-error>
               </div>
-              <div formGroupName="availableHours" class="form-element col">
-                <select formControlName="to">
-                  @for (hour of workHours; track $index) {
+              <div formGroupName="workHours" class="form-element col">
+                <select formControlName="toWorkHourId">
+                  @for (hour of workHoursArray; track $index) {
                     <option value="{{hour.lkWorkHourId}}">{{hour.workHour}}</option>
                   }
                 </select>
-                <label for="from">To</label>
-                <app-form-error [validate]="validate" [control]="to" [onValueChanges]="to?.value"></app-form-error>
+                <label for="toWorkHourId">To</label>
+                <app-form-error [validate]="validate" [control]="toWorkHourId" [onValueChanges]="toWorkHourId?.value"></app-form-error>
               </div>
             </div>
           </div>
