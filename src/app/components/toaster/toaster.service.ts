@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, filter, Observable, Subject } from 'rxjs';
 import { Toast, ToastType } from '../../shared/interfaces/toaster.interface';
 
@@ -17,7 +17,18 @@ export class ToasterService {
       .pipe(filter(toast => toast !== null));
   }
 
+  toasts = signal<Toast[]>([]);
+
   show(type: ToastType, title?: string, body?: string, delay?: number) {
-    this.subject.next({ type, title, body, delay });
+    const toast = { type, title, body, delay };
+    const toasts = [toast, ...this.toasts()];
+
+    this.toasts.set(toasts);
+  }
+  removeToast(index: number) {
+    this.toasts().splice(index, 1);
+  }
+  removeLastToast() {
+    this.toasts().pop();
   }
 }

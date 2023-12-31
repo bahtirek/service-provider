@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Toast } from '../../../shared/interfaces/toaster.interface';
+import { ToasterService } from '../toaster.service';
 
 @Component({
   selector: 'app-toaster-details',
@@ -23,16 +24,16 @@ import { Toast } from '../../../shared/interfaces/toaster.interface';
 
 })
 export class ToasterDetailsComponent {
+  private toaster = inject(ToasterService)
+
   @Input() toast!: Toast;
   @Input() i!: number;
 
-  @Output() remove = new EventEmitter<number>();
-
   ngOnInit() {
-    setTimeout(() => this.removeToast(), this.toast.delay || 60000);
+    setTimeout(() => this.toaster.removeLastToast(), this.toast.delay || 6000);
   }
 
   removeToast() {
-    this.remove.emit(this.i)
+    this.toaster.removeToast(this.i);
   }
 }

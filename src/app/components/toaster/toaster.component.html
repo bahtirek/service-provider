@@ -1,4 +1,4 @@
 
-@for (toast of toasts; track $index;) {
-  <app-toaster-details [toast]="toast" [i]="$index" (remove)="remove($event)"></app-toaster-details>
+@for (toast of toasts(); track $index;) {
+  <app-toaster-details [toast]="toast" [i]="$index"></app-toaster-details>
 }
