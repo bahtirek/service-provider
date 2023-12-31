@@ -9,13 +9,13 @@ export const PROVIDER_ROUTES: Route[] = [
         path: 'profile-form',
         loadComponent: () => import('../pages/provider/profile-form/profile-form.component').then((c) =>c.ProfileFormComponent),
       },
-      /* {
-        path: 'profile-details',
-        loadComponent: () => import('./profile-details/profile-details.component').then((c) =>c.ProfileDetailsComponent),
-      }, */
+      {
+        path: 'dashboard',
+        loadComponent: () => import('../pages/provider/dashboard/dashboard.component').then((c) =>c.DashboardComponent),
+      },
       {
         path: '',
-        redirectTo: 'profile-form',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
     ]

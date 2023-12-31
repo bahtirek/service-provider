@@ -27,4 +27,8 @@ export class ProviderProfileService {
   postProviderProfileDetails(providerProfileDetails: ProviderProfileDetails) {
     return this.http.post(this.url + '/providers/details', providerProfileDetails);
   }
+
+  getProviderProfileDetails() {
+    return this.http.get(this.url + '/providers/details');
+  }
 }

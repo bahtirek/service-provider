@@ -15,7 +15,7 @@ export const CLIENT_ROUTES: Route[] = [
       },
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
     ]

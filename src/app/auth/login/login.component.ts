@@ -5,6 +5,8 @@ import { FormErrorComponent } from '../../shared/form-helpers/form-error/form-er
 import { emailValidator } from '../../shared/form-helpers/validators/email.validator';
 import { Credentials } from '../../shared/interfaces/credentials.interface';
 import { AuthService } from '../../shared/services/auth.service';
+import { User } from '../../shared/interfaces/user.interface';
+import { ProviderProfileService } from '../../pages/provider/provider-profile.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +17,11 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class LoginComponent {
   private router = inject(Router);
+  private auth = inject(AuthService);
+  private providerProfileService = inject(ProviderProfileService);
+
   loginForm: FormGroup;
   validate: boolean = true;
-  private auth = inject(AuthService);
   errorMessage: string = "";
 
   constructor(private fb: FormBuilder) {
@@ -38,10 +42,14 @@ export class LoginComponent {
         password: this.password?.value
       }
       this.auth.login(credentials).subscribe ({
-        next: (user) => {
-          this.auth.setUser(user);
-          //check if client
-          this.router.navigate(['provider']);
+        next: (response) => {
+          response.user.accessToken = response.accessToken;
+          this.auth.setUser(response.user);
+          if(response.user.isProvider) {
+            this.checkIfProfileComplete(response.user);
+          } else {
+            this.router.navigate(['client']);
+          }
         },
         error: (error: any) => {
           console.log(error);
@@ -51,5 +59,24 @@ export class LoginComponent {
         }
       })
     }
+  }
+
+  checkIfProfileComplete(user: User) {
+    this.providerProfileService.getProviderProfileDetails().subscribe({
+      next: (response) => {
+        if(!response || this.isEmpty(response)) {
+          this.router.navigate(['provider/profile-form']);
+        } else {
+          this.router.navigate(['provider']);
+        }
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
+  }
+
+  isEmpty(obj: any) {
+    return Object.keys(obj).length === 0;
   }
 }
