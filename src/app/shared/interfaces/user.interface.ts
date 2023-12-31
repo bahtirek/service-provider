@@ -1,9 +1,13 @@
 export interface User {
-  firstName?: string;
-  lastName?: string;
+  clientId?: number;
+  createdAt?: string;
   email?: string;
-  id?: string;
-  isProvider?: boolean;
+  firstName?: string;
   isClient?: boolean;
-  password?: string
+  isProvider?: boolean;
+  lastName?: string;
+  userId?: number;
+  providerId?: number;
+  password?: string;
+  accessToken?: string;
 }

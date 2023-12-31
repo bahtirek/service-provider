@@ -5,11 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-export type AuthUser = any | null | undefined;
+import { AuthUser } from '../interfaces/auth.interface';
 
 interface AuthState {
-  user?: AuthUser;
+  user?: User;
 }
 
 @Injectable({
@@ -36,7 +35,7 @@ export class AuthService {
   }
 
   login(credentials: Credentials) {
-    return this.http.post<User>(this.url + '/auth/login', credentials).pipe(shareReplay());
+    return this.http.post<AuthUser>(this.url + '/auth/login', credentials).pipe(shareReplay());
   }
 
   registration(user: User) {
