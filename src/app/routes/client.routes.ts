@@ -14,6 +14,10 @@ export const CLIENT_ROUTES: Route[] = [
         loadChildren: () => import('./providers.routes').then((m) => m.PROVIDERS_ROUTES),
       },
       {
+        path: 'messages',
+        loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

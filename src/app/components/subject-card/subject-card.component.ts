@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Subject } from '../../shared/interfaces/subject.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subject-card',
@@ -9,5 +10,10 @@ import { Subject } from '../../shared/interfaces/subject.interface';
   styleUrl: './subject-card.component.scss'
 })
 export class SubjectCardComponent {
+  private router = inject(Router);
   @Input() subject: Subject = {};
+
+  goToMessages() {
+    this.router.navigate(['client/messages']);
+  }
 }
