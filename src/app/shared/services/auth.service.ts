@@ -3,9 +3,10 @@ import { User } from '../interfaces/user.interface';
 import { Credentials } from '../interfaces/credentials.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthUser } from '../interfaces/auth.interface';
+import { lastValueFrom } from 'rxjs';
 
 interface AuthState {
   user?: User;
@@ -38,15 +39,20 @@ export class AuthService {
     return this.http.post<AuthUser>(this.url + '/auth/login', credentials).pipe(shareReplay());
   }
 
+  refreshToken() {
+    const accessToken = this.user()?.accessToken;
+    return this.http.post<AuthUser>(this.url + '/auth/refresh', {accessToken: accessToken});
+  }
+
   registration(user: User) {
     return this.http.post<User>(this.url + '/users/user', user).pipe(shareReplay());
   }
 
-  logout() {
+  logout(route: string = 'home') {
     window.sessionStorage.removeItem('user');
     this.state.update(state => null);
     this.isLoggedIn.set(false);
-    this.router.navigate(['home']);
+    this.router.navigate([route]);
   }
 
   setUser(user: User) {
@@ -62,10 +68,33 @@ export class AuthService {
     if(window.sessionStorage.getItem('user') == null) return;
     const user = JSON.parse(window.sessionStorage.getItem('user')!);
 
-    this.state.update((state) => ({
-      ...state,
-      user,
-    }))
-    this.isLoggedIn.set(true);
+    if(this.isTokenExpired()) {
+      this.refreshToken();
+    } else {
+      this.isLoggedIn.set(true);
+    }
+  }
+
+  refreshTokenIfExpired() {
+    if(this.isTokenExpired()) {
+      this.refreshToken().subscribe({
+        next: (user) => {
+          this.setUser(user);
+        },
+        error: (err) => {
+          this.isLoggedIn.set(false);
+          this.logout('login');
+        }
+      })
+    }
+  }
+
+  isTokenExpired() {
+    const JWT = this.user()?.accessToken;
+    if(!JWT) return;
+    const jwtPayload = JSON.parse(window.atob(JWT.split('.')[1]));
+    const currentTime = Math.floor(Date.now() / 1000);
+    if(jwtPayload.exp - currentTime > 10) return false;
+    return true;
   }
 }
