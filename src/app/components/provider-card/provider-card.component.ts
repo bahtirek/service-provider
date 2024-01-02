@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { Provider } from '../../shared/interfaces/provider.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provider-card',
@@ -10,13 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './provider-card.component.scss'
 })
 export class ProviderCardComponent {
-  private router = inject(Router);
   providerDetails: Provider = {};
-  showFullDetails: boolean = false;
-
-  @Input() set fullDetails (value: boolean) {
-    this.showFullDetails = value;
-  }
 
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
