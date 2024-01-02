@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, SimpleChange, inject } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
+import { ProviderProfileDetails } from '../../shared/interfaces/provider-profile-detail.interface';
+import { Provider } from '../../shared/interfaces/provider.interface';
 
 @Component({
   selector: 'app-provider-details',
@@ -10,11 +12,30 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class ProviderDetailsComponent {
   private auth = inject(AuthService);
-  showProviderFullDetails = true;
+  providerDetails: Provider = {};
+  providerProfileDetails: ProviderProfileDetails = {};
+
+  @Input() set provider (value: Provider) {
+    this.providerDetails = value;
+    console.log(this.providerDetails);
+
+  }
+
+  @Input() set providerProfile (value: ProviderProfileDetails) {
+    this.providerProfileDetails = value;
+  }
 
   ngOnInit(){
     this.checkIfClient()
   }
+
+  ngOnChanges(changes: SimpleChange){
+    console.log(changes);
+    console.log(this.providerProfileDetails);
+
+
+  }
+
   checkIfClient() {
     if(this.auth.user()?.isClient) {
       /**
@@ -23,5 +44,9 @@ export class ProviderDetailsComponent {
        *
        */
     }
+  }
+
+  cardClicked() {
+
   }
 }

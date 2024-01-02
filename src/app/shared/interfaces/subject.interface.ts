@@ -1,4 +1,5 @@
 export interface Subject {
   title?: string;
-  id?: string;
+  providerId?: number | null;
+  clientProviderId?:number | null;
 }
