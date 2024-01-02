@@ -13,8 +13,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error) => {
       if([401, 403].includes(error.status)) {
-        toaster.show('error', `Sorry!`, 'Unathorized. Please login again.');
-        authService.logout();
+        toaster.show('error', `Sorry!`, 'Unathorized. Please login again.12');
+        //authService.logout();
       } else {
         toaster.show('error', 'Sorry!', 'Something went wrong. Please try later. ')
       }

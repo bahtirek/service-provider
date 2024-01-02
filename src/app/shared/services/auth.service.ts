@@ -33,6 +33,7 @@ export class AuthService {
 
   constructor( ) {
     this.getUser()
+
   }
 
   login(credentials: Credentials) {
@@ -41,6 +42,8 @@ export class AuthService {
 
   refreshToken() {
     const accessToken = this.user()?.accessToken;
+    console.log(accessToken);
+
     return this.http.post<AuthUser>(this.url + '/auth/refresh', {accessToken: accessToken});
   }
 
@@ -69,8 +72,12 @@ export class AuthService {
     const user = JSON.parse(window.sessionStorage.getItem('user')!);
 
     if(this.isTokenExpired()) {
-      this.refreshToken();
+      this.refreshTokenIfExpired();
     } else {
+      this.state.update((state) => ({
+        ...state,
+        user,
+      }))
       this.isLoggedIn.set(true);
     }
   }
@@ -83,7 +90,7 @@ export class AuthService {
         },
         error: (err) => {
           this.isLoggedIn.set(false);
-          this.logout('login');
+          //this.logout('login');
         }
       })
     }
@@ -91,7 +98,7 @@ export class AuthService {
 
   isTokenExpired() {
     const JWT = this.user()?.accessToken;
-    if(!JWT) return;
+    if(!JWT) return false;
     const jwtPayload = JSON.parse(window.atob(JWT.split('.')[1]));
     const currentTime = Math.floor(Date.now() / 1000);
     if(jwtPayload.exp - currentTime > 10) return false;

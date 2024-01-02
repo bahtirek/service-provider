@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { LeftNavComponent } from './components/left-nav/left-nav.component';
 import { ToasterComponent } from './components/toaster/toaster.component';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,11 @@ import { ToasterComponent } from './components/toaster/toaster.component';
 })
 export class AppComponent {
   title = 'socket-io';
+
+  private authService = inject(AuthService);
+
+  ngOnInit() {
+    console.log('app component initialized', this.authService.user()?.accessToken);
+
+  }
 }
