@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Provider } from './../../shared/interfaces/provider.interface';
 import { ProviderCardComponent } from './../../components/provider-card/provider-card.component';
 
@@ -10,18 +10,15 @@ import { ProviderCardComponent } from './../../components/provider-card/provider
   styleUrl: './provider-list.component.scss'
 })
 export class ProviderListComponent {
-  providerList: Provider[] = [
-    {
-      firstName: 'John',
-      lastName: 'Doe',
-      id: '1',
-      email: 'john.doe@example.com'
-    },
-    {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      id: '2',
-      email: 'jane.doe@example.com'
-    }
-  ]
+  providerList: Provider[] = [];
+
+  @Input() set providers (providers: Provider[]) {
+    this.providerList = providers
+  }
+
+  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+
+  cardClicked(providedId: number) {
+    this.cardClickled.emit(providedId)
+  }
 }

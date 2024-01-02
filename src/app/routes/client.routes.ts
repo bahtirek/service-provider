@@ -10,8 +10,8 @@ export const CLIENT_ROUTES: Route[] = [
         loadComponent: () => import('../pages/client/dashboard/dashboard.component').then(c => c.DashboardComponent)
       },
       {
-        path: 'provider-list',
-        loadChildren: () => import('./providers.routes').then((m) => m.PROVIDERS_ROUTES),
+        path: 'my-provider/:id',
+        loadComponent: () => import('../pages/client/my-provider/my-provider.component').then((c) => c.MyProviderComponent),
       },
       {
         path: 'messages',

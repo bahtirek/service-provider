@@ -1,5 +1,8 @@
-<div class="container pt-xxl column gap-xl">
-  @for (provider of providers; track $index) {
-    <app-provider-card [provider]="provider"></app-provider-card>
-  }
+<div class="container container-md pt-xxl column gap-xl">
+
+  <app-provider-search (foundProviders)="foundProviders($event)"></app-provider-search>
+
+
+  <app-provider-list [providers]="providers" (cardClickled)="cardClicked($event)"></app-provider-list>
+
 </div>

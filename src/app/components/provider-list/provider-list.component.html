@@ -1,5 +1,5 @@
-<div class="container pt-xxl column gap-xl">
+<div class="container column gap-xl">
   @for (provider of providerList; track $index) {
-    <app-provider-card [provider]="provider"></app-provider-card>
+    <app-provider-card [provider]="provider" (cardClickled)="cardClicked($event)"></app-provider-card>
   }
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Provider } from '../../shared/interfaces/provider.interface';
 import { Router } from '@angular/router';
 
@@ -11,13 +11,21 @@ import { Router } from '@angular/router';
 })
 export class ProviderCardComponent {
   private router = inject(Router);
+  providerDetails: Provider = {};
+  showFullDetails: boolean = false;
 
-  @Input() provider: Provider = {};
+  @Input() set fullDetails (value: boolean) {
+    this.showFullDetails = value;
+  }
 
-  openProviderSuibjects(providerId: string | undefined) {
-    console.log(providerId);
+  @Input() set provider (value: Provider) {
+    this.providerDetails = value;
+  }
 
-    this.router.navigate(['/client/provider-list', providerId]);
+  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+
+  cardClicked() {
+    this.cardClickled.emit(this.providerDetails.providerId)
   }
 
 }

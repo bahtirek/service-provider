@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProviderCardComponent } from '../../../components/provider-card/provider-card.component';
 import { Provider } from '../../../shared/interfaces/provider.interface';
+import { ProviderService } from '../../../shared/services/provider.service';
+import { ProviderSearchComponent } from '../../../components/provider-search/provider-search.component';
+import { ProviderListComponent } from '../../../components/provider-list/provider-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ProviderCardComponent],
+  imports: [ProviderListComponent, ProviderSearchComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  providers: Provider[] = [
-    {
-      firstName: 'John',
-      lastName: 'Doe',
-      id: '1',
-      email: 'john.doe@example.com'
-    },
-    {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      id: '2',
-      email: 'jane.doe@example.com'
-    }
-  ]
+  private router = inject(Router);
+  private providerService = inject(ProviderService);
+
+  providers: Provider[] = [];
+
+  ngOnInint(){}
+
+  foundProviders(providers: Provider[]){
+    this.providers = providers;
+  }
+
+  cardClicked(providerId: number){
+    this.router.navigate(['/client/my-provider', providerId]);
+  }
 
 }
