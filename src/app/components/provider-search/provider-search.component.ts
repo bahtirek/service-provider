@@ -27,7 +27,7 @@ export class ProviderSearchComponent {
     const searchKeyword = this.searchKeyword.trim();
     if (!searchKeyword && !this.category) return;
     const searchQuery = {
-      lkCategoryId: null,
+      lkCategoryId: this.category,
       searchKeyword: searchKeyword
     }
 
@@ -41,14 +41,8 @@ export class ProviderSearchComponent {
     })
   }
 
-  onCategoryCheck(categorys: number[]){
-    console.log(categorys);
-
-  }
-
   onCategorySelect(categoryId: number) {
-    console.log(categoryId);
-
+    this.category = categoryId
   }
 }
 
