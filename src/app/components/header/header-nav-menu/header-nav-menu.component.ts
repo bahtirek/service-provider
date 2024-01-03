@@ -30,7 +30,26 @@ export class HeaderNavMenuComponent {
       name: 'Services',
       url: '/search/services'
     },
+
   ]
   loggedInMenuItems: HeaderNavMenu[] = [
+    {
+      name: 'Dashboard',
+      url: 'client'
+    },
+    {
+      name: 'Account',
+      url: 'client/account'
+    }
+  ]
+  authMenuItems: HeaderNavMenu[] = [
+    {
+      name: 'Login',
+      url: 'auth/login'
+    },
+    {
+      name: 'Sign up',
+      url: 'auth/registration'
+    }
   ]
 }

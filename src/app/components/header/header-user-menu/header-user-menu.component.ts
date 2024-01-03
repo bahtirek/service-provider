@@ -23,13 +23,13 @@ export class HeaderUserMenuComponent {
   }
 
   loggedOutMenuItems: HeaderNavMenu[] = [
-    {
+    /* {
       name: 'Login',
       url: 'auth/login'
     },
     {
       name: 'Sign up',
       url: 'auth/registration'
-    }
+    } */
   ]
 }

@@ -1,12 +1,22 @@
 <ul class="nav-links">
-  @for (item of menuItems; track $index) {
-    <li>
-      <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
-    </li>
-  }
-
   @if (loggedIn()) {
     @for (item of loggedInMenuItems; track $index) {
+      <li>
+        <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+      </li>
+    }
+    <span class="pa-md"></span>
+    <li>
+      <a class="nav-link" (click)="logout()">Logout</a>
+    </li>
+  } @else {
+    @for (item of menuItems; track $index) {
+      <li>
+        <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+      </li>
+    }
+    <span class="pa-md"></span>
+    @for (item of authMenuItems; track $index) {
       <li>
         <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
       </li>
