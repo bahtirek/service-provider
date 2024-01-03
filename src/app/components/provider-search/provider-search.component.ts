@@ -19,9 +19,7 @@ export class ProviderSearchComponent {
 
   @Output() foundProviders: EventEmitter<Provider[]> = new EventEmitter();
 
-  ngOnInit() {
-    this.searchProviders()
-  }
+  ngOnInit() {}
 
   searchProviders() {
     const searchKeyword = this.searchKeyword.trim();

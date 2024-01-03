@@ -2,4 +2,7 @@
   <app-provider-details [provider]="providerDetails" [providerProfile]="providerProfileDetails"></app-provider-details>
 
   <button (click)="startSession()" class="ml-auto">Start session</button>
+  <app-modal [(modal)]="toggleModal">
+    <app-new-subject [subjectDetails]="subjectDetails" (cancel)="cancel()" (setSubjectId)="setSubjectId($event)" [toggleModal]="toggleModal"></app-new-subject>
+  </app-modal>
 </div>
