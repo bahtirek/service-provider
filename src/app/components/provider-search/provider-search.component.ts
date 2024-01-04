@@ -24,10 +24,14 @@ export class ProviderSearchComponent {
   ngOnInit() {}
 
   searchProviders() {
+    let category = null;
     const searchKeyword = this.searchKeyword.trim();
     if (!searchKeyword && !this.category) return;
+
+    if(this.category) category = parseInt(this.category);
+
     const searchQuery = {
-      lkCategoryId: this.category,
+      lkCategoryId: parseInt(this.category),
       searchKeyword: searchKeyword
     }
 

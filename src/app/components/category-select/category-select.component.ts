@@ -15,6 +15,7 @@ export class CategorySelectComponent {
   private providerService = inject(ProviderProfileService);
   allCategorys: ServiceCategory[] = [];
   category: number | null = null;
+  nullValue: null = null;
 
   ngOnInit(){
     this.getCategory()

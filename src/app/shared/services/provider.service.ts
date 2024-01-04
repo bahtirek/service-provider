@@ -17,7 +17,7 @@ export class ProviderService {
     return this.http.get<ProviderProfileDetails[]>(this.url + '/providers/my-providers');
   }
 
-  providerSearch(searchQuery: ProviderSearch) {
+  providerSearch(searchQuery: any) {
     return this.http.post<Provider[]>(this.url + '/providers/provider-search', searchQuery);
   }
 
