@@ -1,6 +1,10 @@
 <div class="container container-md mt-xl">
   <div class="message-container">
-    <div class="card"></div>
+    <div class="card pa-xl">
+      @for (message of messages(); track $index) {
+        <app-message [message$]="message"></app-message>
+      }
+    </div>
     <app-message-toolbar></app-message-toolbar>
   </div>
 </div>

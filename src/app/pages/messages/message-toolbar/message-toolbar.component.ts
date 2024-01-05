@@ -2,6 +2,7 @@ import { Component, Renderer2, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -12,6 +13,7 @@ import { NgClass } from '@angular/common';
 })
 export class MessageToolbarComponent {
   private renderer = inject(Renderer2);
+  private messageService = inject(MessageService);
   message: string = "";
   showCursor: boolean = true;
 
@@ -19,6 +21,9 @@ export class MessageToolbarComponent {
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
 
   onSubmit(){
+    const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
+    if (!newMessage) return;
+    this.messageService.addMessage({type: 'out', text: newMessage})
     this.renderer.setAttribute(this.textAreaContainer.nativeElement, 'data-replicated-value',  "")
     this.textArea.nativeElement.value = "";
     this.showCursor = true;
