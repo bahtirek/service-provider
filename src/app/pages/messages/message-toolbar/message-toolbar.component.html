@@ -1,12 +1,11 @@
-<div class="flex message-toolbar">
-  <div class="text-container mx-xxl" #textAreaContainer [ngClass]="{'show-cursor': showCursor}">
+<div class="message-toolbar">
+  <div class="text-container" #textAreaContainer [ngClass]="{'show-cursor': showCursor}">
     <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()"></textarea>
   </div>
-</div>
-<button (click)="onSubmit()">submit</button>
-
-<!-- <div class="flex message-toolbar" style="height: 500px;">
-  <div class="text-container mx-xxl grow-wrap" #textAreaContainer>
-    <textarea [(ngModel)]="message" rows="1"></textarea>
+  <div class="action-btn">
+    <span class="material-symbols-outlined text-primary" (click)="onSubmit()" >send</span>
   </div>
-</div> -->
+  <div class="action-btn">
+    <span class="material-symbols-outlined text-primary" (click)="onAttach()" >attach_file</span>
+  </div>
+</div>

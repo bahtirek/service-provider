@@ -24,6 +24,10 @@ export class MessageToolbarComponent {
     this.showCursor = true;
   }
 
+  onAttach(){
+
+  }
+
   onBlur(){
     if (this.textArea.nativeElement.value) {
       this.showCursor = false;

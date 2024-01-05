@@ -13,3 +13,10 @@
   --grey-light: #c4c8c7;
   --grey-lightest: #eef1f2;
 }
+
+.text-primary {
+  color: var(--primary);
+}
+.bg-primary {
+  background-color: var(--primary);
+}

@@ -5,12 +5,16 @@
   border-bottom-right-radius: 10px;
   min-height: 46px;
   display: flex;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 10px 10px 12px 30px;
 
   .text-container {
     width: 100%;
     display: grid;
     position: relative;
+    margin-right: 10px;
     &::after {
       content: attr(data-replicated-value) " ";
       white-space: pre-wrap;
@@ -39,6 +43,15 @@
       font-size: 15px;
       grid-area: 1 / 1 / 2 / 2;
       font-family: Roboto;
+    }
+  }
+  .action-btn {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      cursor: pointer;
     }
   }
 }
