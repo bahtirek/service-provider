@@ -1,0 +1,12 @@
+<div class="flex message-toolbar">
+  <div class="text-container mx-xxl" #textAreaContainer [ngClass]="{'show-cursor': showCursor}">
+    <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()"></textarea>
+  </div>
+</div>
+<button (click)="onSubmit()">submit</button>
+
+<!-- <div class="flex message-toolbar" style="height: 500px;">
+  <div class="text-container mx-xxl grow-wrap" #textAreaContainer>
+    <textarea [(ngModel)]="message" rows="1"></textarea>
+  </div>
+</div> -->

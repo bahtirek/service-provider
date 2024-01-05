@@ -1,0 +1,10 @@
+.message-container {
+  height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+  .card {
+    height: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

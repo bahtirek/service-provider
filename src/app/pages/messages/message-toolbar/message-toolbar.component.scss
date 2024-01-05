@@ -1,0 +1,49 @@
+.message-toolbar {
+  border: 1px solid #d2d2d7;
+  border-top: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+
+  .text-container {
+    width: 100%;
+    display: grid;
+    position: relative;
+    &::after {
+      content: attr(data-replicated-value) " ";
+      white-space: pre-wrap;
+      visibility: hidden;
+    }
+    &.show-cursor {
+      &::before {
+        content: "";
+        width: 1px;
+        height: 18px;
+        background: #000000;
+        display: inline-block;
+        animation: cursor-blink 1s steps(2) infinite;
+        position: absolute;
+      }
+    }
+    &>textarea {
+      outline: none;
+      resize: none;
+      overflow: hidden;
+    }
+    &::after, &>textarea {
+      border: none;
+      border-bottom: 1px solid #d2d2d7;
+      padding: 0;
+      font-size: 15px;
+      grid-area: 1 / 1 / 2 / 2;
+      font-family: Roboto;
+    }
+  }
+}
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
