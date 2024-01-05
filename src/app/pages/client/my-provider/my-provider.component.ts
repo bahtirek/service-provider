@@ -5,8 +5,6 @@ import { ProviderProfileDetails } from '../../../shared/interfaces/provider-prof
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProviderService } from '../../../shared/services/provider.service';
 import { Provider } from '../../../shared/interfaces/provider.interface';
-import { MessageService } from '../../../shared/services/message.service';
-import { Subject } from '../../../shared/interfaces/subject.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { NewSubjectComponent } from './new-subject/new-subject.component';
 
