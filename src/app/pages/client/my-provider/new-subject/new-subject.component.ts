@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormErrorComponent } from '../../../../shared/form-helpers/form-error/form-error.component';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from '../../../../shared/services/message.service';
+import { SubjectService } from '../../../../shared/services/subject.service';
 
 @Component({
   selector: 'app-new-subject',
@@ -11,7 +11,7 @@ import { MessageService } from '../../../../shared/services/message.service';
   styleUrl: './new-subject.component.scss'
 })
 export class NewSubjectComponent {
-  private merssageService = inject(MessageService);
+  private subjectService = inject(SubjectService);
 
   sessionTitle: string = "";
   errorMessage: string = "";
@@ -37,7 +37,7 @@ export class NewSubjectComponent {
 
     this.subjectDetails.title = title
 
-    this.merssageService.createSubject(this.subjectDetails).subscribe({
+    this.subjectService.createSubject(this.subjectDetails).subscribe({
       next: (response) => {
         if(response.subjectId) this.setSubjectId.emit();
         this.sessionTitle = "";
