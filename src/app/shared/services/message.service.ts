@@ -9,7 +9,20 @@ export class MessageService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
 
-  messages = signal<any[]>([])
+  messages = signal<any[]>([
+    {
+      type: 'out',
+      text: "message"
+    },
+    {
+      type: 'out',
+      text: "message"
+    },
+    {
+      type: 'in',
+      text: "message"
+    },
+  ])
 
   addMessage(message: any){
 

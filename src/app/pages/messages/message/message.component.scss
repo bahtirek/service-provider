@@ -1,0 +1,33 @@
+.message-container {
+  background-color: #efefef;
+  border-radius: 10px;
+  padding: 6px;
+  margin-top: 10px;
+  &>div {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #dadce0;
+    background-image: url('../../../../assets/images/bola_avatar.png');
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .message-text {
+    white-space: pre-line;
+  }
+  .message-author, .message-date {
+    display: inline-block;
+    font-size: 10px;
+    color: #404040;
+  }
+  .message-date {
+    font-size: 9px;
+  }
+}
