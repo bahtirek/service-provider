@@ -14,7 +14,7 @@ export const CLIENT_ROUTES: Route[] = [
         loadComponent: () => import('../pages/client/my-provider/my-provider.component').then((c) => c.MyProviderComponent),
       },
       {
-        path: 'messages',
+        path: 'messages/:id',
         loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
       },
       {
