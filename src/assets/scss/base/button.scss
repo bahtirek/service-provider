@@ -14,4 +14,22 @@ button, .btn {
   &:active {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
+  &.cta-btn {
+    border: none;
+    padding: 0;
+    color: var(--primary);
+    background-color: transparent;
+    min-width: initial;
+    height: 20px;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  &.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    .material-symbols-outlined {
+      font-size: 15px;
+    }
+  }
 }
