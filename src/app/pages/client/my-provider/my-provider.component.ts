@@ -7,11 +7,15 @@ import { ProviderService } from '../../../shared/services/provider.service';
 import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { NewSubjectComponent } from './new-subject/new-subject.component';
+import { SubjectService } from '../../../shared/services/subject.service';
+import { Subject } from '../../../shared/interfaces/subject.interface';
+import { SubjectListComponent } from '../../../components/subject-list/subject-list.component';
+import { BackButtonComponent } from '../../../components/back-button/back-button.component';
 
 @Component({
   selector: 'app-my-provider',
   standalone: true,
-  imports: [ProviderDetailsComponent, ProviderCardComponent, ModalComponent, NewSubjectComponent],
+  imports: [ProviderDetailsComponent, ProviderCardComponent, ModalComponent, NewSubjectComponent, SubjectListComponent, BackButtonComponent],
   templateUrl: './my-provider.component.html',
   styleUrl: './my-provider.component.scss'
 })
@@ -19,6 +23,7 @@ export class MyProviderComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private providerService = inject(ProviderService);
+  private subjectService = inject(SubjectService);
 
   showFullDetails = true;
   providerProfileDetails: ProviderProfileDetails = {};
@@ -27,22 +32,20 @@ export class MyProviderComponent {
   clientProviderId: number | null = null;
   toggleModal: boolean = false;
   subjectDetails: any = {};
+  subjectList: Subject[] = [];
 
   ngOnInit(){
     this.getProviderDetails();
     this.providerDetails = this.providerService.provider;
     console.log(this.providerDetails);
-
   }
 
   startSession(){
     this.toggleModal = true;
-    const providerId = this.clientProviderId ? null : parseInt(this.providerId!);
 
     this.subjectDetails = {
       title: "",
-      providerId: providerId,
-      clientProviderId: this.clientProviderId
+      providerId: this.providerId
     }
   }
 
@@ -56,7 +59,6 @@ export class MyProviderComponent {
       },
       error: (error) => {
         console.log(error);
-
       }
     })
   }
@@ -65,7 +67,10 @@ export class MyProviderComponent {
     this.providerService.getMyProviders().subscribe({
       next: (response) => {
         const provider = response.find(item => item.providerId == parseInt(this.providerId!))
-        if(provider?.clientProviderId) this.clientProviderId = provider?.clientProviderId;
+        if(provider?.clientProviderId) {
+          this.clientProviderId = provider?.clientProviderId;
+          this.getSubjects();
+        }
       },
       error: (error) => {
         console.log(error);
@@ -76,7 +81,20 @@ export class MyProviderComponent {
 
   setSubjectId(subjectId: number){
     this.cancel();
-    this.router.navigate(['client/messages'])
+    this.router.navigate(['client/messages/subjectId'])
+  }
+
+  getSubjects(){
+    this.subjectService.getAllSubjects(this.clientProviderId!).subscribe({
+      next: (response) => {
+        console.log(response);
+
+        this.subjectList = response
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   cancel() {

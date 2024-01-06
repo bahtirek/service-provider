@@ -14,6 +14,6 @@ export class SubjectCardComponent {
   @Input() subject: Subject = {};
 
   goToMessages() {
-    this.router.navigate(['client/messages']);
+    this.router.navigate([`client/messages/${this.subject.subjectId}`]);
   }
 }
