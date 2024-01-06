@@ -6,4 +6,15 @@ export interface Provider {
   companyName?: string;
   phoneNumber?: string;
   description?: string;
+  address?: string;
+  availableDays?: number[];
+  category?: number[];
+  workHours?: ProviderProfileDetailsWorkHour[];
+  clientProviderId?: number;
+  providerUserId?: number;
+}
+
+export interface ProviderProfileDetailsWorkHour {
+  toWorkHourId?: number;
+  fromWorkHourId?: number;
 }

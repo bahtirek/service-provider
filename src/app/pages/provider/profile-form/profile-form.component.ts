@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../shared/services/auth.service';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../../../shared/form-helpers/form-error/form-error.component';
 import { ProviderProfileService } from '../provider-profile.service';
@@ -8,7 +7,6 @@ import { WeekDay } from '../../../shared/interfaces/week-day.interface';
 import { NgFor } from '@angular/common';
 import { WorkHour } from '../../../shared/interfaces/work-hour.interface';
 import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
-import { ProviderProfileDetails } from '../../../shared/interfaces/provider-profile-detail.interface';
 
 @Component({
   selector: 'app-profile-form',

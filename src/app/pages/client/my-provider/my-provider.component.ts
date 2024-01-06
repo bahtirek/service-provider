@@ -1,7 +1,6 @@
 import { Component, SimpleChange, inject } from '@angular/core';
 import { ProviderDetailsComponent } from '../../../components/provider-details/provider-details.component';
 import { ProviderCardComponent } from '../../../components/provider-card/provider-card.component';
-import { ProviderProfileDetails } from '../../../shared/interfaces/provider-profile-detail.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProviderService } from '../../../shared/services/provider.service';
 import { Provider } from '../../../shared/interfaces/provider.interface';
@@ -26,7 +25,7 @@ export class MyProviderComponent {
   private subjectService = inject(SubjectService);
 
   showFullDetails = true;
-  providerProfileDetails: ProviderProfileDetails = {};
+  providerProfileDetails: Provider = {};
   providerDetails: Provider = {};
   providerId: string | null = null;
   clientProviderId: number | null = null;

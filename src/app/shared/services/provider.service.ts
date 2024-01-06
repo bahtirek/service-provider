@@ -2,8 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Provider } from '../interfaces/provider.interface';
-import { ProviderSearch } from '../interfaces/provider-search.interface';
-import { ProviderProfileDetails } from '../interfaces/provider-profile-detail.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +12,7 @@ export class ProviderService {
   provider: Provider = {};
 
   getMyProviders() {
-    return this.http.get<ProviderProfileDetails[]>(this.url + '/providers/my-providers');
+    return this.http.get<Provider[]>(this.url + '/providers/my-providers');
   }
 
   providerSearch(searchQuery: any) {

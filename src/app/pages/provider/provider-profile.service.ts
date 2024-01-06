@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ProviderProfileDetails } from '../../shared/interfaces/provider-profile-detail.interface';
+import { Provider } from '../../shared/interfaces/provider.interface';
 
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ProviderProfileService {
     return this.http.get(this.url + '/providers/lk-category');
   }
 
-  postProviderProfileDetails(providerProfileDetails: ProviderProfileDetails) {
+  postProviderProfileDetails(providerProfileDetails: Provider) {
     return this.http.post(this.url + '/providers/details', providerProfileDetails);
   }
 

@@ -1,6 +1,5 @@
 import { Component, Input, SimpleChange, inject } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { ProviderProfileDetails } from '../../shared/interfaces/provider-profile-detail.interface';
 import { Provider } from '../../shared/interfaces/provider.interface';
 
 @Component({
@@ -13,7 +12,7 @@ import { Provider } from '../../shared/interfaces/provider.interface';
 export class ProviderDetailsComponent {
   private auth = inject(AuthService);
   providerDetails: Provider = {};
-  providerProfileDetails: ProviderProfileDetails = {};
+  providerProfileDetails: Provider = {};
 
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
@@ -21,7 +20,7 @@ export class ProviderDetailsComponent {
 
   }
 
-  @Input() set providerProfile (value: ProviderProfileDetails) {
+  @Input() set providerProfile (value: Provider) {
     this.providerProfileDetails = value;
   }
 
