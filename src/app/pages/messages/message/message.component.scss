@@ -22,7 +22,8 @@
     margin-top: 5px;
     margin-right: auto;
     margin-left: initial;
-    max-width: 90%;
+    max-width: 80%;
+    font-size: 14px;
   }
   .message-author, .message-date {
     display: inline-block;
@@ -33,16 +34,29 @@
     font-size: 11px;
     margin-left: 10px;
   }
-  .message-date-message {
+  .message-content {
     width: 100%;
     display: flex;
     flex-direction: column;
+    .message-heading{
+      .done-all {
+        display: none;
+      }
+    }
   }
   &.out {
-    .message-date-message {
+    .message-content {
       justify-content: flex-end;
-      &>div{
+      .message-heading{
         text-align: right;
+        position: relative;
+        .done-all {
+          display: block;
+          position: absolute;
+          right: -20px;
+          font-size: 17px;
+          top: 2px;
+        }
       }
       .message-text {
         margin-left: auto;
@@ -53,14 +67,6 @@
     }
     .message-author, .message-avatar {
       display: none;
-    }
-    &+.in {
-      margin-top: 15px;
-    }
-  }
-  &.in {
-    &+.out {
-      margin-top: 15px;
     }
   }
 }

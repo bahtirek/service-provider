@@ -1,10 +1,15 @@
 <div class="message-container" [ngClass]="message.type">
   <div class="message-avatar"></div>
-  <div class="message-date-message">
-    <div>
+  <div class="message-content">
+    <div class="message-heading">
       <span class="message-author">John Doe</span>
       <span class="message-date">01/01/2024</span>
       <span class="message-date">10:22</span>
+      @if (message.viewed) {
+        <span class="material-symbols-outlined text-primary done-all">done_all</span>
+      } @else {
+        <span class="material-symbols-outlined text-primary done-all">done</span>
+      }
     </div>
     <div class="message-text">
       {{message.text}}

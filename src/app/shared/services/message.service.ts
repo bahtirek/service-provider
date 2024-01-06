@@ -11,14 +11,17 @@ export class MessageService {
 
   messages = signal<any[]>([
     {
+      viewed: true,
       type: 'out',
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
     },
     {
+      viewed: true,
       type: 'out',
       text: "message"
     },
     {
+      viewed: true,
       type: 'in',
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
     },

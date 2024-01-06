@@ -1,3 +1,5 @@
+@import "../../../assets/scss/base/breakpoints.scss";
+
 .message-container {
   height: calc(100vh - 160px);
   display: flex;
@@ -6,8 +8,20 @@
     height: 100%;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    padding: 10px 32px;
+    padding: 10px 32px 10px 12px;
     display: flex;
     flex-direction: column-reverse;
+  }
+  @media (max-width: $screen-sm-max){
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 60px;
+    height: initial;
+    .card {
+      border: none;
+      border-bottom: 1px solid #dadce0;
+    }
   }
 }
