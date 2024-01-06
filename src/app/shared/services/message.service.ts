@@ -12,7 +12,7 @@ export class MessageService {
   messages = signal<any[]>([
     {
       type: 'out',
-      text: "message"
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
     },
     {
       type: 'out',
@@ -20,7 +20,7 @@ export class MessageService {
     },
     {
       type: 'in',
-      text: "message"
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
     },
   ])
 

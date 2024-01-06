@@ -1,14 +1,9 @@
 .message-container {
-  background-color: #efefef;
-  border-radius: 10px;
-  padding: 6px;
   margin-top: 10px;
-  &>div {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    align-items: flex-end;
-  }
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: 100%;
   .message-avatar {
     width: 40px;
     height: 40px;
@@ -21,13 +16,51 @@
   }
   .message-text {
     white-space: pre-line;
+    background-color: #e8f3ff;
+    border-radius: 10px;
+    padding: 5px 9px 7px;
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: initial;
+    max-width: 90%;
   }
   .message-author, .message-date {
     display: inline-block;
-    font-size: 10px;
+    font-size: 13px;
     color: #404040;
   }
-  .message-date {
-    font-size: 9px;
+  .message-date, .message-time {
+    font-size: 11px;
+    margin-left: 10px;
+  }
+  .message-date-message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  &.out {
+    .message-date-message {
+      justify-content: flex-end;
+      &>div{
+        text-align: right;
+      }
+      .message-text {
+        margin-left: auto;
+        margin-right: initial;
+        background-color: #f3f3f3;
+        text-align: left;
+      }
+    }
+    .message-author, .message-avatar {
+      display: none;
+    }
+    &+.in {
+      margin-top: 15px;
+    }
+  }
+  &.in {
+    &+.out {
+      margin-top: 15px;
+    }
   }
 }
