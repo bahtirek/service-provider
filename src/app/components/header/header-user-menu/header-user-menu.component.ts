@@ -19,7 +19,7 @@ export class HeaderUserMenuComponent {
   );
 
   logout = () => {
-    this.auth.logout();
+    this.auth.logout('home');
   }
 
   loggedOutMenuItems: HeaderNavMenu[] = [

@@ -51,11 +51,11 @@ export class AuthService {
     return this.http.post<User>(this.url + '/users/user', user).pipe(shareReplay());
   }
 
-  logout(route: string = 'home') {
+  logout(route?: string) {
     window.sessionStorage.removeItem('user');
     this.state.update(state => null);
     this.isLoggedIn.set(false);
-    this.router.navigate([route]);
+    if(route) this.router.navigate([route]);
   }
 
   setUser(user: User) {

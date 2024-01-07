@@ -34,7 +34,7 @@ export class AuthRefreshInterceptor implements HttpInterceptor {
 
     if (this.auth.isTokenExpired() && this.count == 2) {
       this.count = 0;
-      this.auth.logout();
+      this.auth.logout('login');
     }
 
     if (this.auth.isTokenExpired() && this.count == 0) {
