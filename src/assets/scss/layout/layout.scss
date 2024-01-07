@@ -20,3 +20,27 @@
     }
   }
 }
+
+li.hoverable {
+  cursor: pointer;
+  &:not(:last-child){
+    border-bottom: 1px solid #dadce0;
+  }
+  &:first-child {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  &:last-child {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &:hover {
+    background-color: #efefef;
+  }
+}
+
+ul.reset {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

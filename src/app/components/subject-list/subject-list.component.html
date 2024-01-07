@@ -1,5 +1,17 @@
-<div class="container column gap-md">
-  @for (subject of subjectList; track $index) {
-    <app-subject-card [subject]="subject"></app-subject-card>
+<div class="container column gap-xl">
+  @if(displayAsCard){
+    @for (subject of subjectList; track $index) {
+      <app-subject-card [subject]="subject"></app-subject-card>
+    }
+  } @else {
+    <div class="card pa-none">
+      <ul class="reset">
+        @for (subject of subjectList; track $index) {
+          <li class="hoverable">
+            <app-subject [subject]="subject"></app-subject>
+          </li>
+        }
+      </ul>
+    </div>
   }
 </div>

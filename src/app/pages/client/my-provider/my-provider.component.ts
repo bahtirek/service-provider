@@ -32,6 +32,7 @@ export class MyProviderComponent {
   toggleModal: boolean = false;
   subjectDetails: any = {};
   subjectList: Subject[] = [];
+  displayAsCard: boolean = false
 
   ngOnInit(){
     this.getProviderDetails();
