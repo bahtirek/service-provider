@@ -10,8 +10,10 @@ import { AuthRefreshInterceptor } from './shared/interceptors/auth-refresh.inter
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthRefreshInterceptor, multi: true },
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([errorInterceptor, authInterceptor]))
+      withInterceptorsFromDi(),
+      withInterceptors([errorInterceptor]))
   ]
 };

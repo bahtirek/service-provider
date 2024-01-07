@@ -18,20 +18,32 @@ export class AuthRefreshInterceptor implements HttpInterceptor {
 
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     if (!this.auth?.user()?.accessToken) return await lastValueFrom(next.handle(req));
-    console.log(this.count);
+
+    if(!this.auth.isTokenExpired()) {
+      this.count = 0
+      const authReq = injectToken(req, this.auth.user()?.accessToken);
+
+      return await lastValueFrom(next.handle(authReq));
+    }
+
+    if (this.auth.isTokenExpired() && this.count == 1) {
+      const authReq = injectToken(req, this.auth.user()?.accessToken);
+
+      return await lastValueFrom(next.handle(authReq));
+    }
+
+    if (this.auth.isTokenExpired() && this.count == 2) {
+      this.count = 0;
+      this.auth.logout();
+    }
 
     if (this.auth.isTokenExpired() && this.count == 0) {
-      console.log('ini');
       this.count++
       const user$ = this.auth.refreshToken();
       const user = await lastValueFrom(user$);
       this.auth.setUser(user);
       this.toaster.show('success', `Attn`, 'Token refreshed.');
-      const authReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.auth.user()?.accessToken}`
-        }
-      })
+      const authReq = injectToken(req, this.auth.user()?.accessToken);
 
       return await lastValueFrom(next.handle(authReq));
     } else {
@@ -39,4 +51,12 @@ export class AuthRefreshInterceptor implements HttpInterceptor {
     }
 
   }
+}
+
+const injectToken = (request: HttpRequest<any>, token?: string) => {
+  return request.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }

@@ -44,7 +44,7 @@ export class AuthService {
     const accessToken = this.user()?.accessToken;
     console.log(accessToken);
 
-    return this.http.post<AuthUser>(this.url + '/auth/refresh', {accessToken: accessToken});
+    return this.http.post<AuthUser>(this.url + '/auth/refresh', {accessToken: accessToken}).pipe(take(1));
   }
 
   registration(user: User) {
