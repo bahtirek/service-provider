@@ -90,7 +90,7 @@ export class AuthService {
         },
         error: (err) => {
           this.isLoggedIn.set(false);
-          //this.logout('login');
+          this.logout('login');
         }
       })
     }
