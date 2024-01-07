@@ -25,7 +25,7 @@ export class NewSubjectComponent {
 
   @Output() cancel = new EventEmitter<null>();
 
-  @Output() setSubjectId = new EventEmitter<number>();
+  @Output() openSession = new EventEmitter<number>();
 
   createSession(){
     const title = this.sessionTitle.trim();
@@ -39,7 +39,7 @@ export class NewSubjectComponent {
 
     this.subjectService.createSubject(this.subjectDetails).subscribe({
       next: (response) => {
-        if(response.subjectId) this.setSubjectId.emit();
+        if(response.subjectId) this.openSession.emit();
         this.sessionTitle = "";
       },
       error: (error) => {

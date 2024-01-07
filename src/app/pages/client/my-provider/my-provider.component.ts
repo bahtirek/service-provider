@@ -39,12 +39,13 @@ export class MyProviderComponent {
     console.log(this.providerDetails);
   }
 
-  startSession(){
+  createSession(){
     this.toggleModal = true;
+    const providerId = parseInt(this.providerId!)
 
     this.subjectDetails = {
       title: "",
-      providerId: this.providerId
+      providerId: providerId
     }
   }
 
@@ -78,9 +79,9 @@ export class MyProviderComponent {
     })
   }
 
-  setSubjectId(subjectId: number){
+  openSession(subjectId: number){
     this.cancel();
-    this.router.navigate(['client/messages/subjectId'])
+    this.router.navigate([`client/messages/${subjectId}`])
   }
 
   getSubjects(){

@@ -11,7 +11,9 @@ export class SubjectService {
   private http = inject(HttpClient);
 
   createSubject(subjectDetails: any){
-    return this.http.post<any>(this.url + '/messages/subject', subjectDetails);;
+    console.log(subjectDetails);
+
+    return this.http.post<any>(this.url + '/messages/subject', subjectDetails);
   }
 
   getAllSubjects(providerId: number){
