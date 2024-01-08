@@ -43,10 +43,9 @@ export class LoginComponent {
       }
       this.auth.login(credentials).subscribe ({
         next: (response) => {
-          response.user.accessToken = response.accessToken;
-          this.auth.setUser(response.user);
-          if(response.user.isProvider) {
-            this.checkIfProfileComplete(response.user);
+          this.auth.setUser(response);
+          if(response?.user?.isProvider) {
+            this.checkIfProfileComplete(response);
           } else {
             this.router.navigate(['client']);
           }

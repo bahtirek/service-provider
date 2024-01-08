@@ -23,17 +23,21 @@ export class AuthService {
 
   // state
   private state = signal<AuthState | null>({
-    user: undefined,
+
   });
 
   isLoggedIn = signal<boolean>(false);
 
   // selectors
-  user = computed(() => this.state()?.user);
+ /*  user = computed(() => {
+    console.log(this.state()?.user?.userId);
+
+    return this.state()?.user
+  }); */
+  user = signal<AuthUser>({})
 
   constructor( ) {
     this.getUser()
-
   }
 
   login(credentials: Credentials) {
@@ -60,24 +64,20 @@ export class AuthService {
 
   setUser(user: User) {
     window.sessionStorage.setItem('user', JSON.stringify(user));
-    this.state.update((state) => ({
-      ...state,
-      user,
-    }))
+    this.user.update(() => (user))
     this.isLoggedIn.set(true);
   }
 
   getUser() {
     if(window.sessionStorage.getItem('user') == null) return;
     const user = JSON.parse(window.sessionStorage.getItem('user')!);
+    console.log(user);
+
 
     if(this.isTokenExpired()) {
       this.refreshTokenIfExpired();
     } else {
-      this.state.update((state) => ({
-        ...state,
-        user,
-      }))
+      this.user.update(() => (user))
       this.isLoggedIn.set(true);
     }
   }

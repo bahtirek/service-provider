@@ -36,7 +36,7 @@ export class ProviderDetailsComponent {
   }
 
   checkIfClient() {
-    if(this.auth.user()?.isClient) {
+    if(this.auth.user()?.user?.isClient) {
       /**
        *  get Subjects
        *  if subjects this.showProviderFullDetails = false;
