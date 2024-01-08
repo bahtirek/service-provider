@@ -37,7 +37,6 @@ export class MyProviderComponent {
   ngOnInit(){
     this.getProviderDetails();
     this.providerDetails = this.providerService.provider;
-    console.log(this.providerDetails);
   }
 
   createSession(){
@@ -75,7 +74,6 @@ export class MyProviderComponent {
       },
       error: (error) => {
         console.log(error);
-
       }
     })
   }
@@ -88,8 +86,6 @@ export class MyProviderComponent {
   getSubjects(){
     this.subjectService.getAllSubjects(this.clientProviderId!).subscribe({
       next: (response) => {
-        console.log(response);
-
         this.subjectList = response
       },
       error: (error) => {

@@ -39,7 +39,7 @@ export class NewSubjectComponent {
 
     this.subjectService.createSubject(this.subjectDetails).subscribe({
       next: (response) => {
-        if(response.subjectId) this.openSession.emit();
+        if(response.subjectId) this.openSession.emit(response.subjectId);
         this.sessionTitle = "";
       },
       error: (error) => {
