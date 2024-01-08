@@ -34,4 +34,21 @@
     border-radius: 15px;
     border: 5px solid #fff;
   }
+
+  .date-separator {
+    border-top: 1px solid #dadce0;
+    //background-color: #58ff7440;
+    //background-color: var(--primary);
+    color: var(--primary);
+    //color: white;
+    //padding: 4px 30px;
+    //border-radius: 10px;
+    //max-width: 200px;
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 10px;
+    font-size: 14px;
+    //margin-left: auto;
+    //margin-right: auto;
+  }
 }

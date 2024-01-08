@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, WritableSignal, inject } from '@angular/core';
 import { MessageToolbarComponent } from './message-toolbar/message-toolbar.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
+import { ActivatedRoute } from '@angular/router';
+import { Message } from '../../shared/interfaces/message.interface';
 
 
 @Component({
@@ -14,21 +16,40 @@ import { BackButtonComponent } from '../../components/back-button/back-button.co
 })
 export class MessagesComponent {
   private messageService = inject(MessageService);
-  messages = this.messageService.messages;
+  private route = inject(ActivatedRoute);
 
-/*   messages: any = [
-    {
-      type: 'out',
-      text: "message"
-    },
-    {
-      type: 'out',
-      text: "message"
-    },
-    {
-      type: 'in',
-      text: "message"
-    },
-  ]
- */
+  messages: WritableSignal<Message[]> = this.messageService.messages;
+  chunkNum: number = 1;
+
+  ngOnInit(){
+    this.getMessages()
+  }
+  getMessages() {
+    this.messageService.resetMessages();
+    const subjectId = this.route.snapshot.paramMap.get('id');
+    if(!subjectId) return
+    this.messageService.getMessages(subjectId, this.chunkNum).subscribe({
+      next: (response) => {
+        this.messageService.addMessages(response);
+        this.chunkNum++
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  displayDate(index: number, UTC?: string){
+    //console.log(index == this.messages.length - 1);
+    console.log(this.getLocalDate(UTC) != this.getLocalDate(this.messages()[index+1]?.createdAt));
+
+    if(index == this.messages.length - 1) return false;
+    return this.getLocalDate(UTC) != this.getLocalDate(this.messages()[index+1]?.createdAt);
+  }
+
+  getLocalDate(UTC?: string) {
+    if(!UTC) return;
+    return new Date(UTC).toLocaleDateString()
+  }
+
 }

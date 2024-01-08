@@ -1,10 +1,11 @@
-<div class="message-container" [ngClass]="message.type">
+<div class="message-container" [ngClass]="messageType()">
   <div class="message-avatar"></div>
   <div class="message-content">
     <div class="message-heading">
       <span class="message-author">John Doe</span>
-      <span class="message-date">01/01/2024</span>
-      <span class="message-date">10:22</span>
+      <!-- <span class="message-date">{{message.createdAt | date:'short'}}</span>
+      <span class="message-date">{{message.createdAt | date:'shortTime'}}</span> -->
+      <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>
       @if (message.viewed) {
         <span class="material-symbols-outlined text-primary done-all">done_all</span>
       } @else {
@@ -12,7 +13,7 @@
       }
     </div>
     <div class="message-text">
-      {{message.text}}
+      {{message.message}}
     </div>
   </div>
 </div>
