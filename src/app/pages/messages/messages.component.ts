@@ -5,12 +5,13 @@ import { MessageService } from '../../shared/services/message.service';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from '../../shared/interfaces/message.interface';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent],
+  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })

@@ -5,7 +5,7 @@
       @for (message of messages(); track $index) {
         <app-message [message$]="message"></app-message>
         @if(displayDate($index, message.createdAt)){
-          <div class="date-separator">{{getLocalDate(message.createdAt)}}</div>
+          <div class="date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
         }
       }
     </div>
