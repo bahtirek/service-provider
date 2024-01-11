@@ -16,8 +16,12 @@ export class SubjectService {
     return this.http.post<any>(this.url + '/messages/subject', subjectDetails);
   }
 
-  getAllSubjects(providerId: number){
+  getProviderSubjects(providerId: number){
     const params = new HttpParams().set('providerId', providerId);
     return this.http.get<Subject[]>(this.url + '/messages/clinet-provider-subjects', {params})
+  }
+  getClientSubjects(providerId: number){
+    const params = new HttpParams().set('clientId', providerId);
+    return this.http.get<Subject[]>(this.url + '/messages/provider-client-subjects', {params})
   }
 }

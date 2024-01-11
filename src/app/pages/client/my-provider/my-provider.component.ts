@@ -83,7 +83,7 @@ export class MyProviderComponent {
   }
 
   getSubjects(){
-    this.subjectService.getAllSubjects(this.clientProviderId!).subscribe({
+    this.subjectService.getProviderSubjects(this.clientProviderId!).subscribe({
       next: (response) => {
         this.subjectList = response
       },
