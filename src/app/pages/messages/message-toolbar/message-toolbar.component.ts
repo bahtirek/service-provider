@@ -5,6 +5,7 @@ import { NgClass } from '@angular/common';
 import { MessageService } from '../../../shared/services/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ChatService } from '../../../shared/services/chat.service';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -18,6 +19,7 @@ export class MessageToolbarComponent {
   private messageService = inject(MessageService);
   private route = inject(ActivatedRoute);
   private auth = inject(AuthService);
+  private chatService = inject(ChatService);
 
   message: string = "";
   showCursor: boolean = true;
@@ -26,13 +28,24 @@ export class MessageToolbarComponent {
   @ViewChild('textAreaContainer') textAreaContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
 
+  ngOnInit(){
+    this.chatService.connect(this.auth.user().accessToken)
+  }
+
   onSubmit(){
     this.subjectId = this.route.snapshot.paramMap.get('id');
     if(!this.subjectId) return;
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
-    const messageDetails = {subjectId: parseInt(this.subjectId), message: newMessage};
-    this.messageService.postMessage(messageDetails).subscribe({
+    const messageDetails = {
+      subjectId: parseInt(this.subjectId),
+      message: newMessage,
+      accessToken: this.auth.user().accessToken,
+      toUserId: 1000
+    };
+
+    this.chatService.sendMessage(messageDetails)
+    /* this.messageService.postMessage(messageDetails).subscribe({
       next: (response) => {
         if(!response?.messageId) return;
         this.messageService.addMessage({
@@ -45,9 +58,8 @@ export class MessageToolbarComponent {
       },
       error: (error) => {
         console.log(error);
-
       }
-    })
+    }) */
   }
 
   resetMessageInputField() {
