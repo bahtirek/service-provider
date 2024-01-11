@@ -27,7 +27,7 @@ export class MessagesComponent {
   }
   getMessages() {
     this.messageService.resetMessages();
-    const subjectId = this.route.snapshot.paramMap.get('id');
+    const subjectId = this.route.snapshot.paramMap.get('subjectId');
     if(!subjectId) return
     this.messageService.getMessages(subjectId, this.chunkNum).subscribe({
       next: (response) => {
@@ -41,9 +41,6 @@ export class MessagesComponent {
   }
 
   displayDate(index: number, UTC?: string){
-    //console.log(index == this.messages.length - 1);
-    console.log(this.getLocalDate(UTC) != this.getLocalDate(this.messages()[index+1]?.createdAt));
-
     if(index == this.messages.length - 1) return false;
     return this.getLocalDate(UTC) != this.getLocalDate(this.messages()[index+1]?.createdAt);
   }

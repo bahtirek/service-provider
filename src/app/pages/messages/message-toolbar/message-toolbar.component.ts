@@ -33,7 +33,8 @@ export class MessageToolbarComponent {
   }
 
   onSubmit(){
-    this.subjectId = this.route.snapshot.paramMap.get('id');
+    this.subjectId = this.route.snapshot.paramMap.get('subjectId');
+    const providerId = this.route.snapshot.paramMap.get('providerId');
     if(!this.subjectId) return;
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
@@ -41,10 +42,10 @@ export class MessageToolbarComponent {
       subjectId: parseInt(this.subjectId),
       message: newMessage,
       accessToken: this.auth.user().accessToken,
-      toUserId: 1000
+      toUserId: providerId
     };
 
-    this.chatService.sendMessage(messageDetails)
+    this.chatService.sendMessage(messageDetails);
     /* this.messageService.postMessage(messageDetails).subscribe({
       next: (response) => {
         if(!response?.messageId) return;

@@ -36,7 +36,6 @@ export class MyProviderComponent {
 
   ngOnInit(){
     this.getProviderDetails();
-    this.providerDetails = this.providerService.provider;
   }
 
   createSession(){
@@ -50,7 +49,7 @@ export class MyProviderComponent {
   }
 
   getProviderDetails(){
-    this.providerId = this.route.snapshot.paramMap.get('id');
+    this.providerId = this.route.snapshot.paramMap.get('providerId');
     if(!this.providerId) return;
     this.providerService.getProviderProfileDetailsById(this.providerId).subscribe({
       next: (response) => {
