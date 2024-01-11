@@ -12,6 +12,15 @@ import { AuthService } from '../../../shared/services/auth.service';
 })
 export class HeaderNavMenuComponent {
   private auth = inject(AuthService);
+  userRoute: string = 'client';
+
+  ngOnInit(){
+    if(this.auth.user().user?.isProvider) {
+      this.loggedInMenuItems = this.providerMenuItems
+    } else {
+      this.loggedInMenuItems = this.clientMenuItems
+    }
+  }
 
   loggedIn = computed(() =>
     this.auth.isLoggedIn()
@@ -32,14 +41,26 @@ export class HeaderNavMenuComponent {
     },
 
   ]
-  loggedInMenuItems: HeaderNavMenu[] = [
+  loggedInMenuItems: HeaderNavMenu[] = []
+
+  clientMenuItems: HeaderNavMenu[] = [
     {
       name: 'Dashboard',
       url: 'client'
     },
     {
       name: 'Account',
-      url: 'client/account'
+      url: `client/account`
+    }
+  ]
+  providerMenuItems: HeaderNavMenu[] = [
+    {
+      name: 'Dashboard',
+      url: 'provider'
+    },
+    {
+      name: 'Account',
+      url: `provider/account`
     }
   ]
   authMenuItems: HeaderNavMenu[] = [
