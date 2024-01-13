@@ -19,4 +19,13 @@ export class ClientService {
     const params = new HttpParams().set('clientId', clientId)
     return this.http.get(this.url + '/clients/details-by-client-id', {params});
   }
+
+  saveClientToLocal(client: Client){
+    window.localStorage.setItem('client', JSON.stringify(client))
+  }
+
+  getClientFromLocal(){
+    const client = window.localStorage.getItem('client')
+    return client ? JSON.parse(client) : null
+  }
 }

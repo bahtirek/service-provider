@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from '../../shared/interfaces/subject.interface';
 
@@ -12,9 +12,17 @@ import { Subject } from '../../shared/interfaces/subject.interface';
 export class SubjectComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  @Output() onSubjectClick$ = new EventEmitter<Subject>();
   @Input() subject: Subject = {};
 
   goToMessages() {
-    this.router.navigate([`./messages/${this.subject.subjectId}`], { relativeTo: this.route });
+
+    //this.router.navigate([`./messages/${this.subject.subjectId}`], { relativeTo: this.route });
   }
+
+  onSubjectClick(){
+    this.onSubjectClick$.emit(this.subject)
+  }
+
 }

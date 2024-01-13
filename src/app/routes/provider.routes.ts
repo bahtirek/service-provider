@@ -14,11 +14,11 @@ export const PROVIDER_ROUTES: Route[] = [
         loadComponent: () => import('../pages/provider/dashboard/dashboard.component').then((c) =>c.DashboardComponent),
       },
       {
-        path: 'my-client/:clientId/:userId',
+        path: 'my-client',
         loadComponent: () => import('../pages/provider/my-client/my-client.component').then((c) =>c.MyClientComponent),
       },
       {
-        path: 'my-client/:clientId/:userId/messages/:subjectId',
+        path: 'my-client/messages',
         loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
       },
       {

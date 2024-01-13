@@ -37,8 +37,7 @@ export class DashboardComponent {
   }
 
   cardClicked(client: Client){
-    console.log('client', client);
-
-    this.router.navigate([`/provider/my-client/${client.clientId}/${client.clientUserId}`]);
+    this.clientService.saveClientToLocal(client)
+    this.router.navigate([`/provider/my-client`]);
   }
 }

@@ -10,6 +10,7 @@ import { SubjectService } from '../../../shared/services/subject.service';
 import { Subject } from '../../../shared/interfaces/subject.interface';
 import { SubjectListComponent } from '../../../components/subject-list/subject-list.component';
 import { BackButtonComponent } from '../../../components/back-button/back-button.component';
+import { NavigationService } from '../../../shared/services/navigation.service';
 
 @Component({
   selector: 'app-my-provider',
@@ -23,11 +24,12 @@ export class MyProviderComponent {
   private router = inject(Router);
   private providerService = inject(ProviderService);
   private subjectService = inject(SubjectService);
+  private navigation = inject(NavigationService);
 
   showFullDetails = true;
   providerProfileDetails: Provider = {};
   providerDetails: Provider = {};
-  providerId: string | null = null;
+  providerId: string = '';
   toggleModal: boolean = false;
   subjectDetails: any = {};
   subjectList: Subject[] = [];
@@ -48,8 +50,9 @@ export class MyProviderComponent {
   }
 
   getProviderDetails(){
-    this.providerId = this.route.snapshot.paramMap.get('providerId');
-    if(!this.providerId) return;
+    const provider = this.providerService.getProviderFromLocal();
+    if(!provider) this.navigation.back();
+    this.providerId = provider.providerId;
     this.providerService.getProviderProfileDetailsById(this.providerId).subscribe({
       next: (response) => {
         this.providerProfileDetails = response;
@@ -89,6 +92,15 @@ export class MyProviderComponent {
         console.log(error);
       }
     })
+  }
+
+  onSubjectClick(subject: Subject){
+    this.subjectService.saveSubjectToLocal(subject);
+    this.router.navigate(['./messages'], { relativeTo: this.route });
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['client/dashboard']);
   }
 
   cancel() {

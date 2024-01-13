@@ -6,6 +6,8 @@ import { BackButtonComponent } from '../../components/back-button/back-button.co
 import { ActivatedRoute } from '@angular/router';
 import { Message } from '../../shared/interfaces/message.interface';
 import { DatePipe } from '@angular/common';
+import { NavigationService } from '../../shared/services/navigation.service';
+import { SubjectService } from '../../shared/services/subject.service';
 
 
 @Component({
@@ -17,20 +19,23 @@ import { DatePipe } from '@angular/common';
 })
 export class MessagesComponent {
   private messageService = inject(MessageService);
+  private subjectService = inject(SubjectService);
   private route = inject(ActivatedRoute);
+  private navigation = inject(NavigationService);
+
 
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
 
   ngOnInit(){
-    this.getMessages()
+    this.getMessages();
   }
 
   getMessages():void {
     this.messageService.resetMessages();
-    const subjectId = this.route.snapshot.paramMap.get('subjectId');
-    if(!subjectId) return
-    this.messageService.getMessages(subjectId, this.chunkNum).subscribe({
+    const subject = this.subjectService.getSubjectFromLocal()
+    if(!subject) this.navigation.back();
+    this.messageService.getMessages(subject.subjectId, this.chunkNum).subscribe({
       next: (response) => {
         this.messageService.addMessages(response);
         this.chunkNum++

@@ -1,4 +1,4 @@
-import { Component, Input, Provider } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Provider } from '@angular/core';
 import { SubjectCardComponent } from '../../components/subject-card/subject-card.component';
 import { Subject } from '../../shared/interfaces/subject.interface';
 import { SubjectComponent } from '../subject/subject.component';
@@ -13,4 +13,10 @@ import { SubjectComponent } from '../subject/subject.component';
 export class SubjectListComponent {
   @Input() subjectList: Subject[] = [];
   @Input() displayAsCard: boolean = true;
+
+  @Output() onSubjectClick$ = new EventEmitter<Subject>();
+
+  onSubjectClick(subject: Subject){
+    this.onSubjectClick$.emit(subject)
+  }
 }

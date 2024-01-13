@@ -23,4 +23,13 @@ export class ProviderService {
     const params = new HttpParams().set('providerId', providerId)
     return this.http.get(this.url + '/providers/details-by-provider-id', {params});
   }
+
+  saveProviderToLocal(provider: Provider){
+    window.localStorage.setItem('provider', JSON.stringify(provider))
+  }
+
+  getProviderFromLocal(){
+    const provider = window.localStorage.getItem('provider')
+    return provider ? JSON.parse(provider) : null
+  }
 }

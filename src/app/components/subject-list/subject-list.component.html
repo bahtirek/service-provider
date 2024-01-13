@@ -8,7 +8,7 @@
       <ul class="reset">
         @for (subject of subjectList; track $index) {
           <li class="hoverable">
-            <app-subject [subject]="subject"></app-subject>
+            <app-subject [subject]="subject" (onSubjectClick$)="onSubjectClick($event)"></app-subject>
           </li>
         }
       </ul>

@@ -26,9 +26,9 @@ export class DashboardComponent {
   }
 
   cardClicked(provider: Provider){
-    console.log('provider', provider);
+    this.providerService.saveProviderToLocal(provider)
 
-    this.router.navigate([`/client/my-provider/${provider.providerId}/${provider.providerUserId}`]);
+    this.router.navigate([`/client/my-provider`]);
   }
 
 }
