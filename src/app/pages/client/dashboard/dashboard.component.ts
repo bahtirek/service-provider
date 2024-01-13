@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ProviderCardComponent } from '../../../components/provider-card/provider-card.component';
+import { ProviderCardComponent } from '../../../components/provider/provider-card/provider-card.component';
 import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ProviderService } from '../../../shared/services/provider.service';
-import { ProviderSearchComponent } from '../../../components/provider-search/provider-search.component';
-import { ProviderListComponent } from '../../../components/provider-list/provider-list.component';
+import { ProviderSearchComponent } from '../../../components/provider/provider-search/provider-search.component';
+import { ProviderListComponent } from '../../../components/provider/provider-list/provider-list.component';
 import { Router } from '@angular/router';
 
 @Component({

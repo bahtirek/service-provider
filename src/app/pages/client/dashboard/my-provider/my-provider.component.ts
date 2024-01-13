@@ -1,6 +1,6 @@
 import { Component, SimpleChange, inject } from '@angular/core';
-import { ProviderDetailsComponent } from '../../../../components/provider-details/provider-details.component';
-import { ProviderCardComponent } from '../../../../components/provider-card/provider-card.component';
+import { ProviderDetailsComponent } from '../../../../components/provider/provider-details/provider-details.component';
+import { ProviderCardComponent } from '../../../../components/provider/provider-card/provider-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProviderService } from '../../../../shared/services/provider.service';
 import { Provider } from '../../../../shared/interfaces/provider.interface';

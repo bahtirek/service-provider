@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject} from '@angular/core';
-import { Provider } from '../../shared/interfaces/provider.interface';
-import { ProviderService } from '../../shared/services/provider.service';
+import { Provider } from '../../../shared/interfaces/provider.interface';
+import { ProviderService } from '../../../shared/services/provider.service';
 
 @Component({
   selector: 'app-provider-card',

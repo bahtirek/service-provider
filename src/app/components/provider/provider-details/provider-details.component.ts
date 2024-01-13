@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChange, inject } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
-import { Provider } from '../../shared/interfaces/provider.interface';
+import { AuthService } from '../../../shared/services/auth.service';
+import { Provider } from '../../../shared/interfaces/provider.interface';
 
 @Component({
   selector: 'app-provider-details',

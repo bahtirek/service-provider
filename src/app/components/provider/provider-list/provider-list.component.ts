@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Provider } from './../../shared/interfaces/provider.interface';
-import { ProviderCardComponent } from './../../components/provider-card/provider-card.component';
+import { Provider } from '../../../shared/interfaces/provider.interface';
+import { ProviderCardComponent } from '../provider-card/provider-card.component';
 
 @Component({
   selector: 'app-provider-list',
