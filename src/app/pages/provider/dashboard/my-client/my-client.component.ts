@@ -1,13 +1,13 @@
 import { Component, Input, inject } from '@angular/core';
-import { BackButtonComponent } from '../../../components/back-button/back-button.component';
-import { SubjectListComponent } from '../../../components/subject-list/subject-list.component';
-import { Subject } from '../../../shared/interfaces/subject.interface';
+import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
+import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
+import { Subject } from '../../../../shared/interfaces/subject.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubjectService } from '../../../shared/services/subject.service';
-import { ProviderService } from '../../../shared/services/provider.service';
-import { ClientService } from '../../../shared/services/client.service';
-import { Client } from '../../../shared/interfaces/client.interface';
-import { NavigationService } from '../../../shared/services/navigation.service';
+import { SubjectService } from '../../../../shared/services/subject.service';
+import { ProviderService } from '../../../../shared/services/provider.service';
+import { ClientService } from '../../../../shared/services/client.service';
+import { Client } from '../../../../shared/interfaces/client.interface';
+import { NavigationService } from '../../../../shared/services/navigation.service';
 
 @Component({
   selector: 'app-my-client',

@@ -15,7 +15,7 @@ export const PROVIDER_ROUTES: Route[] = [
       },
       {
         path: 'my-client',
-        loadComponent: () => import('../pages/provider/my-client/my-client.component').then((c) =>c.MyClientComponent),
+        loadComponent: () => import('../pages/provider/dashboard/my-client/my-client.component').then((c) =>c.MyClientComponent),
       },
       {
         path: 'my-client/messages',
