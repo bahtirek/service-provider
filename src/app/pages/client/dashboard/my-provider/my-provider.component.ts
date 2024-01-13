@@ -8,7 +8,7 @@ import { ModalComponent } from '../../../../components/modal/modal.component';
 import { NewSubjectComponent } from './new-subject/new-subject.component';
 import { SubjectService } from '../../../../shared/services/subject.service';
 import { Subject } from '../../../../shared/interfaces/subject.interface';
-import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
+import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { NavigationService } from '../../../../shared/services/navigation.service';
 

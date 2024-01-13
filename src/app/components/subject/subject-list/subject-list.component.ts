@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, Provider } from '@angular/core';
-import { SubjectCardComponent } from '../../components/subject-card/subject-card.component';
-import { Subject } from '../../shared/interfaces/subject.interface';
+import { SubjectCardComponent } from '../subject-card/subject-card.component';
+import { Subject } from '../../../shared/interfaces/subject.interface';
 import { SubjectComponent } from '../subject/subject.component';
 
 @Component({

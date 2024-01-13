@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
-import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
+import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
 import { Subject } from '../../../../shared/interfaces/subject.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from '../../../../shared/services/subject.service';

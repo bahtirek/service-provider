@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { Subject } from '../../shared/interfaces/subject.interface';
+import { Subject } from '../../../shared/interfaces/subject.interface';
 import { Router } from '@angular/router';
 
 @Component({
