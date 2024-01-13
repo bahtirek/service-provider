@@ -3,8 +3,8 @@ import { ProviderService } from '../../../shared/services/provider.service';
 import { FormErrorComponent } from '../../../shared/form-helpers/form-error/form-error.component';
 import { FormsModule } from '@angular/forms';
 import { Provider } from '../../../shared/interfaces/provider.interface';
-import { CategorySelectComponent } from '../../category-select/category-select.component';
-import { CategoryCheckComponent } from '../../category-check/category-check.component';
+import { CategorySelectComponent } from '../../category/category-select/category-select.component';
+import { CategoryCheckComponent } from '../../category/category-check/category-check.component';
 
 @Component({
   selector: 'app-provider-search',

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { ProviderProfileService } from '../../pages/provider/provider-profile.service';
-import { ServiceCategory } from '../../shared/interfaces/service-category.interface';
+import { ProviderProfileService } from '../../../pages/provider/provider-profile.service';
+import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 
