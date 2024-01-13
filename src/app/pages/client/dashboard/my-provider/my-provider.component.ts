@@ -1,16 +1,16 @@
 import { Component, SimpleChange, inject } from '@angular/core';
-import { ProviderDetailsComponent } from '../../../components/provider-details/provider-details.component';
-import { ProviderCardComponent } from '../../../components/provider-card/provider-card.component';
+import { ProviderDetailsComponent } from '../../../../components/provider-details/provider-details.component';
+import { ProviderCardComponent } from '../../../../components/provider-card/provider-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProviderService } from '../../../shared/services/provider.service';
-import { Provider } from '../../../shared/interfaces/provider.interface';
-import { ModalComponent } from '../../../components/modal/modal.component';
+import { ProviderService } from '../../../../shared/services/provider.service';
+import { Provider } from '../../../../shared/interfaces/provider.interface';
+import { ModalComponent } from '../../../../components/modal/modal.component';
 import { NewSubjectComponent } from './new-subject/new-subject.component';
-import { SubjectService } from '../../../shared/services/subject.service';
-import { Subject } from '../../../shared/interfaces/subject.interface';
-import { SubjectListComponent } from '../../../components/subject-list/subject-list.component';
-import { BackButtonComponent } from '../../../components/back-button/back-button.component';
-import { NavigationService } from '../../../shared/services/navigation.service';
+import { SubjectService } from '../../../../shared/services/subject.service';
+import { Subject } from '../../../../shared/interfaces/subject.interface';
+import { SubjectListComponent } from '../../../../components/subject-list/subject-list.component';
+import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
+import { NavigationService } from '../../../../shared/services/navigation.service';
 
 @Component({
   selector: 'app-my-provider',

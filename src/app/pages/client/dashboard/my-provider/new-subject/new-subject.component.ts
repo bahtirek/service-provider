@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormErrorComponent } from '../../../../shared/form-helpers/form-error/form-error.component';
+import { FormErrorComponent } from '../../../../../shared/form-helpers/form-error/form-error.component';
 import { FormsModule } from '@angular/forms';
-import { SubjectService } from '../../../../shared/services/subject.service';
+import { SubjectService } from '../../../../../shared/services/subject.service';
 
 @Component({
   selector: 'app-new-subject',
