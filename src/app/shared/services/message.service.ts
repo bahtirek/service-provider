@@ -13,15 +13,14 @@ export class MessageService {
   messages = signal<Message[]>([])
 
   addMessage(message: Message){
-    this.messages.update((state) => ([
-      message,
-      ...state,
-    ]))
-    console.log(this.messages());
+    this.messages.update(state => {
+      state.unshift(message)
+      return state
+    });
   }
+
   addMessages(messages: Message[]){
-    this.messages.update((state) => (state.concat(messages)))
-    console.log(this.messages());
+    this.messages.update(state => state.concat(messages));
   }
 
   createSubject(subjectDetails: any){
@@ -41,98 +40,6 @@ export class MessageService {
   }
 
   resetMessages() {
-    this.messages.update((state) => ([]))
+    this.messages.update(() => ([]))
   }
 }
-/* messages = signal<any[]>([
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-  {
-    viewed: true,
-    type: 'out',
-    text: "message"
-  },
-  {
-    viewed: true,
-    type: 'in',
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt consequatur ipsa aut? Illo doloribus, omnis architecto officia ipsum vitae soluta illum fuga ad aliquid quis ut! Repellat quod officia est."
-  },
-]) */

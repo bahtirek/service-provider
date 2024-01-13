@@ -13,9 +13,6 @@ export class ChatService {
   private socket = io(this.socketUrl);
   private messageService = inject(MessageService)
 
-  //lastIncominMessage = signal<Message>({})
-
-
   sendMessage(messageDetails: any){
     this.socket.emit('outgoingMessage', messageDetails);
     console.log("outgoingMessage", messageDetails)

@@ -3,8 +3,6 @@
   <div class="message-content">
     <div class="message-heading">
       <span class="message-author">John Doe</span>
-      <!-- <span class="message-date">{{message.createdAt | date:'short'}}</span>
-      <span class="message-date">{{message.createdAt | date:'shortTime'}}</span> -->
       <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>
       @if (message.viewed) {
         <span class="material-symbols-outlined text-primary done-all">done_all</span>

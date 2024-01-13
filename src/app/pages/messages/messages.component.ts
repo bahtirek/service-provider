@@ -25,7 +25,8 @@ export class MessagesComponent {
   ngOnInit(){
     this.getMessages()
   }
-  getMessages() {
+
+  getMessages():void {
     this.messageService.resetMessages();
     const subjectId = this.route.snapshot.paramMap.get('subjectId');
     if(!subjectId) return
@@ -40,14 +41,13 @@ export class MessagesComponent {
     })
   }
 
-  displayDate(index: number, UTC?: string){
+  displayDate(index: number, UTC?: string):boolean {
     if(index == this.messages.length - 1) return false;
     return this.getLocalDate(UTC) != this.getLocalDate(this.messages()[index+1]?.createdAt);
   }
 
-  getLocalDate(UTC?: string) {
-    if(!UTC) return;
-    return new Date(UTC).toLocaleDateString()
+  getLocalDate(UTC?: string):string {
+    return UTC ? new Date(UTC).toLocaleDateString() : '';
   }
 
 }
