@@ -28,4 +28,9 @@ export class ClientService {
     const client = window.localStorage.getItem('client')
     return client ? JSON.parse(client) : null
   }
+
+  getClient(){
+    if(this.client?.clientId) return this.client;
+    return this.client = this.getClientFromLocal()
+  }
 }

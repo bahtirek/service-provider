@@ -53,10 +53,10 @@ export class MessageToolbarComponent {
 
   getReceiverDeatils() {
     if(this.auth.user().user?.isClient) {
-      const provider: Provider = this.providerService.getProviderFromLocal();
+      const provider: Provider = this.providerService.getProvider();
       if(provider.providerUserId) this.receiverId = provider.providerUserId.toString();
     } else {
-      const client: Client = this.clientService.getClientFromLocal();
+      const client: Client = this.clientService.getClient();
       if(client?.clientUserId) this.receiverId = client?.clientUserId.toString()
     }
   }

@@ -32,4 +32,9 @@ export class ProviderService {
     const provider = window.localStorage.getItem('provider')
     return provider ? JSON.parse(provider) : null
   }
+
+  getProvider(){
+    if(this.provider?.providerId) return this.provider;
+    return this.provider = this.getProviderFromLocal();
+  }
 }

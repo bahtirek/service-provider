@@ -32,7 +32,7 @@ export class MyClientComponent {
   }
 
   getSubjects(){
-    this.clientDetails = this.clientService.getClientFromLocal();
+    this.clientDetails = this.clientService.getClient();
     if(!this.clientDetails.clientId) this.navigation.back();
     this.subjectService.getClientSubjects(this.clientDetails.clientId!).subscribe({
       next: (response) => {
