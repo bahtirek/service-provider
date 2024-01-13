@@ -36,7 +36,9 @@ export class DashboardComponent {
     })
   }
 
-  cardClicked(clientId: number){
-    this.router.navigate(['/provider/my-client', clientId]);
+  cardClicked(client: Client){
+    console.log('client', client);
+
+    this.router.navigate([`/provider/my-client/${client.clientId}/${client.clientUserId}`]);
   }
 }

@@ -28,7 +28,6 @@ export class MyProviderComponent {
   providerProfileDetails: Provider = {};
   providerDetails: Provider = {};
   providerId: string | null = null;
-  clientProviderId: number | null = null;
   toggleModal: boolean = false;
   subjectDetails: any = {};
   subjectList: Subject[] = [];
@@ -67,8 +66,7 @@ export class MyProviderComponent {
       next: (response) => {
         const provider = response.find(item => item.providerId == parseInt(this.providerId!))
         if(provider?.clientProviderId) {
-          this.clientProviderId = provider?.clientProviderId;
-          this.getSubjects();
+          this.getSubjects(provider?.clientProviderId);
         }
       },
       error: (error) => {
@@ -82,8 +80,8 @@ export class MyProviderComponent {
     this.router.navigate([`client/messages/${subjectId}`])
   }
 
-  getSubjects(){
-    this.subjectService.getProviderSubjects(this.clientProviderId!).subscribe({
+  getSubjects(clientProviderId: number){
+    this.subjectService.getProviderSubjects(clientProviderId).subscribe({
       next: (response) => {
         this.subjectList = response
       },

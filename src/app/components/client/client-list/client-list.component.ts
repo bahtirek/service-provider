@@ -18,9 +18,9 @@ export class ClientListComponent {
 
   }
 
-  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+  @Output() cardClickled: EventEmitter<Client> = new EventEmitter();
 
-  cardClicked(clientId: number) {
-    this.cardClickled.emit(clientId)
+  cardClicked(client: Client) {
+    this.cardClickled.emit(client)
   }
 }

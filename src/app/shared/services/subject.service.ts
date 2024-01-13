@@ -18,7 +18,7 @@ export class SubjectService {
 
   getProviderSubjects(providerId: number){
     const params = new HttpParams().set('providerId', providerId);
-    return this.http.get<Subject[]>(this.url + '/messages/clinet-provider-subjects', {params})
+    return this.http.get<Subject[]>(this.url + '/messages/client-provider-subjects', {params})
   }
   getClientSubjects(providerId: number){
     const params = new HttpParams().set('clientId', providerId);

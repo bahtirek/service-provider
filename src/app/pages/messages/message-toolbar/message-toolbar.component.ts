@@ -6,6 +6,7 @@ import { MessageService } from '../../../shared/services/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ChatService } from '../../../shared/services/chat.service';
+import { Message } from '../../../shared/interfaces/message.interface';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -25,6 +26,7 @@ export class MessageToolbarComponent {
   showCursor: boolean = true;
   subjectId: string | null = null;
 
+
   @ViewChild('textAreaContainer') textAreaContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
 
@@ -34,33 +36,19 @@ export class MessageToolbarComponent {
 
   onSubmit(){
     this.subjectId = this.route.snapshot.paramMap.get('subjectId');
-    const providerId = this.route.snapshot.paramMap.get('providerId');
-    if(!this.subjectId) return;
+    const userId = this.route.snapshot.paramMap.get('userId');
+    if(!this.subjectId || !userId) return;
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
-    const messageDetails = {
+    const messageDetails: Message = {
       subjectId: parseInt(this.subjectId),
       message: newMessage,
       accessToken: this.auth.user().accessToken,
-      toUserId: providerId
+      toUserId: userId,
     };
 
     this.chatService.sendMessage(messageDetails);
-    /* this.messageService.postMessage(messageDetails).subscribe({
-      next: (response) => {
-        if(!response?.messageId) return;
-        this.messageService.addMessage({
-          messageId: response.messageId,
-          message: newMessage,
-          createdBy: this.auth.user()?.user?.userId,
-          viewed: false
-        })
-        this.resetMessageInputField()
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    }) */
+    this.resetMessageInputField();
   }
 
   resetMessageInputField() {

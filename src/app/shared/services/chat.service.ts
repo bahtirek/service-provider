@@ -1,7 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import {io} from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Message } from '../interfaces/message.interface';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,27 +11,14 @@ import { environment } from '../../../environments/environment';
 export class ChatService {
   private socketUrl = environment.socketUrl;
   private socket = io(this.socketUrl);
+  private messageService = inject(MessageService)
+
+  //lastIncominMessage = signal<Message>({})
 
 
   sendMessage(messageDetails: any){
     this.socket.emit('outgoingMessage', messageDetails);
-  }
-
-  getMessage() {
-    this.socket.on('incomingMessage', (value) => {
-      console.log(value);
-
-    })
-  }
-
-  getMessages() {
-    let observable = new Observable<{ user: String, message: String }>(observer => {
-      this.socket.on('new-message', (data: any) => {
-        observer.next(data);
-      });
-      return () => { this.socket.disconnect(); };
-    });
-    return observable;
+    console.log("outgoingMessage", messageDetails)
   }
 
   connect(accessToken?: string){
@@ -38,6 +27,16 @@ export class ChatService {
       this.socket.emit('initiateSession', {
         "accessToken": accessToken
       })
+    });
+
+    this.socket.on("incomingMessage", (message: Message) => {
+      console.log("incomingMessage", message)
+      this.messageService.addMessage(message)
+    });
+
+    this.socket.on("returnMessage", (message: Message) => {
+      console.log("returnMessage", message)
+      this.messageService.addMessage(message)
     });
   }
 

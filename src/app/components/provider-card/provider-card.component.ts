@@ -10,18 +10,16 @@ import { ProviderService } from '../../shared/services/provider.service';
   styleUrl: './provider-card.component.scss'
 })
 export class ProviderCardComponent {
-  private providerService = inject(ProviderService)
   providerDetails: Provider = {};
 
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
   }
 
-  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+  @Output() cardClickled: EventEmitter<Provider> = new EventEmitter();
 
   cardClicked() {
-    this.cardClickled.emit(this.providerDetails.providerId);
-    this.providerService.provider = this.providerDetails
+    this.cardClickled.emit(this.providerDetails);
   }
 
 }

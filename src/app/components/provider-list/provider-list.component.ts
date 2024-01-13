@@ -16,9 +16,9 @@ export class ProviderListComponent {
     this.providerList = providers
   }
 
-  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+  @Output() cardClickled: EventEmitter<Provider> = new EventEmitter();
 
-  cardClicked(providedId: number) {
-    this.cardClickled.emit(providedId)
+  cardClicked(provider: Provider) {
+    this.cardClickled.emit(provider)
   }
 }

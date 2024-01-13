@@ -25,8 +25,10 @@ export class DashboardComponent {
     this.providers = providers;
   }
 
-  cardClicked(providerId: number){
-    this.router.navigate(['/client/my-provider', providerId]);
+  cardClicked(provider: Provider){
+    console.log('provider', provider);
+
+    this.router.navigate([`/client/my-provider/${provider.providerId}/${provider.providerUserId}`]);
   }
 
 }

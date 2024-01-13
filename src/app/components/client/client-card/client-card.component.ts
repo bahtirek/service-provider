@@ -17,10 +17,9 @@ export class ClientCardComponent {
     this.clientDetails = value;
   }
 
-  @Output() cardClickled: EventEmitter<number> = new EventEmitter();
+  @Output() cardClickled: EventEmitter<Client> = new EventEmitter();
 
   cardClicked() {
-    this.cardClickled.emit(this.clientDetails.clientId);
-    this.clientService.client = this.clientDetails
+    this.cardClickled.emit(this.clientDetails);
   }
 }

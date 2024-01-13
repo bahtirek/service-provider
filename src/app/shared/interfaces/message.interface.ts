@@ -4,4 +4,7 @@ export interface Message {
   createdAt?: string;
   createdBy?: number;
   viewed?: boolean;
+  subjectId?: number;
+  accessToken?: string;
+  toUserId?: string;
 }
