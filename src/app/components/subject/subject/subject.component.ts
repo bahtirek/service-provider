@@ -16,11 +16,6 @@ export class SubjectComponent {
   @Output() onSubjectClick$ = new EventEmitter<Subject>();
   @Input() subject: Subject = {};
 
-  goToMessages() {
-
-    //this.router.navigate([`./messages/${this.subject.subjectId}`], { relativeTo: this.route });
-  }
-
   onSubjectClick(){
     this.onSubjectClick$.emit(this.subject)
   }

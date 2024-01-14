@@ -1,2 +1,5 @@
-<span (click)="onSubjectClick()" class="py-md px-xl block">{{subject.title}}</span>
+<div class="flex no-wrap">
+  <span (click)="onSubjectClick()" class="py-md px-xl block full-width">{{subject.title}}</span>
+  <span class="badge success mr-xl">{{subject.newMessageCount}}</span>
+</div>
 

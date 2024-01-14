@@ -1,0 +1,23 @@
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  min-width: 0;
+  align-self: center;
+  &.alert {
+    background-color: red;
+    color: white;
+  }
+  &.primary {
+    background-color: var(--primary);
+    color: white;
+  }
+  &.warning {
+    background-color: orange;
+    color: white;
+  }
+  &.success {
+    background-color: green;
+    color: white;
+  }
+}
