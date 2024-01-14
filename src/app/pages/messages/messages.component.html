@@ -1,9 +1,9 @@
-<div class="container container-md">
+<div class="container container-md" #messageContainer>
   <app-back-button></app-back-button>
   <div class="message-container">
     <div class="card pa-xl">
       @for (message of messages(); track $index) {
-        <app-message [message$]="message"></app-message>
+        <app-message [userId]="user.user?.userId" [message$]="message" [messageContainerRect]="messageContainerRect" (onMessageIntersect)="onMessageIntersect($event)"></app-message>
         @if(displayDate($index, message.createdAt)){
           <div class="date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
         }

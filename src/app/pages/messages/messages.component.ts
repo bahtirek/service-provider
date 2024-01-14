@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, WritableSignal, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, WritableSignal, inject } from '@angular/core';
 import { MessageToolbarComponent } from './message-toolbar/message-toolbar.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
@@ -10,6 +10,8 @@ import { NavigationService } from '../../shared/services/navigation.service';
 import { SubjectService } from '../../shared/services/subject.service';
 import { IdleService } from '../../shared/services/idle.service';
 import { Subscription } from 'rxjs';
+import { ChatService } from '../../shared/services/chat.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 
 @Component({
@@ -19,17 +21,27 @@ import { Subscription } from 'rxjs';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, AfterViewInit {
   private messageService = inject(MessageService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
+  private chatService = inject(ChatService);
+  private auth = inject(AuthService);
 
 
+  user = this.auth.user();
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
+  messageContainerRect?: DOMRect;
+
+  @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit(){
     this.getMessages();
+  }
+
+  ngAfterViewInit(): void {
+    this.messageContainerRect = this.messageContainer.nativeElement.getBoundingClientRect()
   }
 
   getMessages():void {
@@ -54,6 +66,16 @@ export class MessagesComponent implements OnInit {
 
   getLocalDate(UTC?: string):string {
     return UTC ? new Date(UTC).toLocaleDateString() : '';
+  }
+
+  onMessageIntersect(messageId: number):void {
+    console.log(messageId);
+
+    const messageDetails = {
+      accessToken: this.user?.accessToken,
+      messageId: messageId
+    }
+    this.chatService.sendViewedMessageConfirmation(messageDetails)
   }
 
 }

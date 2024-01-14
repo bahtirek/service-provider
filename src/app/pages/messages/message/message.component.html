@@ -1,6 +1,6 @@
 <div class="message-container" [ngClass]="messageType">
   <div class="message-avatar"></div>
-  <div class="message-content">
+  <div class="message-content" #messageContent>
     <div class="message-heading">
       <span class="message-author">John Doe</span>
       <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>

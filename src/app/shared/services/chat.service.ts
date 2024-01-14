@@ -13,9 +13,13 @@ export class ChatService {
   private socket = io(this.socketUrl);
   private messageService = inject(MessageService)
 
-  sendMessage(messageDetails: any){
+  sendMessage(messageDetails: Message){
     this.socket.emit('outgoingMessage', messageDetails);
     console.log("outgoingMessage", messageDetails)
+  }
+
+  sendViewedMessageConfirmation(messageDetails: Message){
+    this.socket.emit('viewedMessage', messageDetails)
   }
 
   connect(accessToken?: string){
@@ -35,6 +39,11 @@ export class ChatService {
       console.log("returnMessage", message)
       this.messageService.addMessage(message)
     });
+
+    this.socket.on('viewConfirmation', (data) => {
+      console.log(data);
+      this.messageService.updateViewedStatus(data.messageId)
+    })
   }
 
 }

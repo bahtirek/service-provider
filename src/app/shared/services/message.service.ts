@@ -42,4 +42,10 @@ export class MessageService {
   resetMessages() {
     this.messages.update(() => ([]))
   }
+
+  updateViewedStatus(messageId: number) {
+    this.messages.update(messages =>
+      messages.map(message => message.messageId ===messageId ? {...message, viewed: true} : message)
+    )
+  }
 }
