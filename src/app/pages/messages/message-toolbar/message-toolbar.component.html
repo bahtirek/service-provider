@@ -1,6 +1,6 @@
 <div class="message-toolbar">
-  <div class="text-container" #textAreaContainer [ngClass]="{'show-cursor': showCursor}">
-    <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()"></textarea>
+  <div class="text-container" #textAreaContainer>
+    <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()" placeholder="Send message"></textarea>
   </div>
   <div class="action-btn">
     <span class="material-symbols-outlined text-primary" (click)="onSubmit()" >send</span>

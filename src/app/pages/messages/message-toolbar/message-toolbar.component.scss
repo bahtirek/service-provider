@@ -42,6 +42,9 @@
       resize: none;
       overflow: hidden;
     }
+    ::placeholder {
+      color: #b9b9bf;
+    }
     &::after, &>textarea {
       border: none;
       border-bottom: 1px solid #d2d2d7;
