@@ -3,15 +3,16 @@ import { MessageToolbarComponent } from './message-toolbar/message-toolbar.compo
 import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
-import { ActivatedRoute } from '@angular/router';
 import { Message } from '../../shared/interfaces/message.interface';
 import { DatePipe, NgClass } from '@angular/common';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { SubjectService } from '../../shared/services/subject.service';
-import { IdleService } from '../../shared/services/idle.service';
-import { Subscription } from 'rxjs';
 import { ChatService } from '../../shared/services/chat.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { ClientService } from '../../shared/services/client.service';
+import { ProviderService } from '../../shared/services/provider.service';
+import { Provider } from '../../shared/interfaces/provider.interface';
+import { Client } from '../../shared/interfaces/client.interface';
 
 
 @Component({
@@ -27,16 +28,20 @@ export class MessagesComponent implements OnInit {
   private navigation = inject(NavigationService);
   private chatService = inject(ChatService);
   private auth = inject(AuthService);
+  private clientService = inject(ClientService);
+  private providerService = inject(ProviderService);
 
 
   user = this.auth.user();
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
   containerBorder: boolean = false;
+  receiver: any = {};
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit(){
+    this.getReceiverDeatils();
     this.getMessages();
   }
 
@@ -65,13 +70,33 @@ export class MessagesComponent implements OnInit {
   }
 
   onMessageIntersect(messageId: number):void {
-    console.log(messageId);
-
     const messageDetails = {
       accessToken: this.user?.accessToken,
       messageId: messageId
     }
     this.chatService.sendViewedMessageConfirmation(messageDetails)
+  }
+
+  getReceiverDeatils() {
+    if(this.auth.user().user?.isClient) {
+      const provider: Provider = this.providerService.getProvider();
+      if(provider.providerUserId) {
+        this.receiver = {
+          receiverId: provider.providerUserId,
+          firstName: provider.firstName,
+          lastName: provider.lastName,
+        }
+      };
+    } else {
+      const client: Client = this.clientService.getClient();
+      if(client?.clientUserId) {
+        this.receiver = {
+          receiverId: client.clientUserId,
+          firstName: client.firstName,
+          lastName: client.lastName,
+        }
+      };
+    }
   }
 
   containerHighlight(){

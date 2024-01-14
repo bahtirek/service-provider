@@ -1,5 +1,5 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, TrackByFunction, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Message } from '../../../shared/interfaces/message.interface';
 
 @Component({
@@ -15,6 +15,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   parent: HTMLDivElement | null = null;
 
   @Input() userId?: number;
+  @Input() receiver?: any;
 
   @Input() set message$ (value: any) {
     this.message = value;

@@ -2,7 +2,9 @@
   <div class="message-avatar"></div>
   <div class="message-content" #messageContent>
     <div class="message-heading">
-      <span class="message-author">John Doe</span>
+      <span class="message-author">
+        {{receiver.firstName}} {{receiver.lastName}}
+      </span>
       <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>
       @if (message.viewed) {
         <span class="material-symbols-outlined text-primary done-all">done_all</span>
