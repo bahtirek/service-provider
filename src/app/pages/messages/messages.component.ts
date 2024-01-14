@@ -1,4 +1,4 @@
-import { Component, WritableSignal, inject } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, WritableSignal, inject } from '@angular/core';
 import { MessageToolbarComponent } from './message-toolbar/message-toolbar.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
@@ -8,6 +8,8 @@ import { Message } from '../../shared/interfaces/message.interface';
 import { DatePipe } from '@angular/common';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { SubjectService } from '../../shared/services/subject.service';
+import { IdleService } from '../../shared/services/idle.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,18 +19,27 @@ import { SubjectService } from '../../shared/services/subject.service';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-export class MessagesComponent {
+export class MessagesComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
   private subjectService = inject(SubjectService);
-  private route = inject(ActivatedRoute);
+  private idleService = inject(IdleService);
   private navigation = inject(NavigationService);
 
 
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
+  idleSubscription?: Subscription;
 
   ngOnInit(){
     this.getMessages();
+    this.idleSubscription = this.idleService.idleState.subscribe((isIdle) => {
+      console.log(isIdle);
+
+    })
+  }
+
+  ngOnDestroy(): void {
+    if(this.idleSubscription) this.idleSubscription.unsubscribe()
   }
 
   getMessages():void {
@@ -53,6 +64,14 @@ export class MessagesComponent {
 
   getLocalDate(UTC?: string):string {
     return UTC ? new Date(UTC).toLocaleDateString() : '';
+  }
+
+  @HostListener('document:mousemove')
+  @HostListener('document:keypress')
+  @HostListener('document:click')
+  @HostListener('document:wheel')
+  onUserAction(){
+    this.idleService.resetTimer()
   }
 
 }
