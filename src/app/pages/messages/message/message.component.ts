@@ -15,7 +15,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
   parent: HTMLDivElement | null = null;
 
   @Input() userId?: number;
-  @Input() messageContainerRect?: DOMRect;
 
   @Input() set message$ (value: any) {
     this.message = value;
@@ -34,7 +33,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   isViewdChecker() {
     if(!this.message.viewed && this.messageType !== 'out' && this.messageContent !== undefined) {
-      //if(this.isElInViewport()) return;
       const threshold = 1;
       const observer = new IntersectionObserver(
         (entries) => {
@@ -50,16 +48,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
           }
         );
         observer.observe(this.messageContent.nativeElement);
-    }
-  }
-
-  isElInViewport() {
-    const elRect = this.messageContent.nativeElement.getBoundingClientRect();
-    if ((elRect.top >= this.messageContainerRect!.top) && (elRect.bottom <= this.messageContainerRect!.bottom)) {
-      this.onMessageIntersect.emit(this.message.messageId);
-      return true;
-    } else {
-      return false;
     }
   }
 }

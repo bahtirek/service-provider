@@ -21,7 +21,7 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-export class MessagesComponent implements OnInit, AfterViewInit {
+export class MessagesComponent implements OnInit {
   private messageService = inject(MessageService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
@@ -32,16 +32,11 @@ export class MessagesComponent implements OnInit, AfterViewInit {
   user = this.auth.user();
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
-  messageContainerRect?: DOMRect;
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit(){
     this.getMessages();
-  }
-
-  ngAfterViewInit(): void {
-    this.messageContainerRect = this.messageContainer.nativeElement.getBoundingClientRect()
   }
 
   getMessages():void {
