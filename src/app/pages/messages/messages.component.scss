@@ -4,6 +4,15 @@
   height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
+  border-radius: 13px;
+  border: 2px solid transparent;
+  box-shadow: 0;
+  transition: border 0.5s;
+  &.new-message {
+    /* box-shadow: rgba(2, 33, 171, 0) 0px 1px 3px, rgba(2, 33, 171, 0.24) 0px 1px 2px;
+    box-shadow: rgba(17, 40, 141, 0.24) 0px 3px 8px; */
+    border-color: #0171ad9b;
+  }
   .card {
     height: 100%;
     border-bottom-left-radius: 0;

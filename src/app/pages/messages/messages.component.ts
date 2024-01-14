@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, WritableSignal, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, Signal, ViewChild, WritableSignal, computed, inject } from '@angular/core';
 import { MessageToolbarComponent } from './message-toolbar/message-toolbar.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from '../../shared/interfaces/message.interface';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { SubjectService } from '../../shared/services/subject.service';
 import { IdleService } from '../../shared/services/idle.service';
@@ -17,7 +17,7 @@ import { AuthService } from '../../shared/services/auth.service';
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe],
+  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
@@ -32,6 +32,7 @@ export class MessagesComponent implements OnInit {
   user = this.auth.user();
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
+  containerBorder: boolean = false;
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
 
@@ -71,6 +72,16 @@ export class MessagesComponent implements OnInit {
       messageId: messageId
     }
     this.chatService.sendViewedMessageConfirmation(messageDetails)
+  }
+
+  containerHighlight(){
+    console.log('hhh');
+
+    //if(this.messages()[0].toUserId == this.auth.user().user?.userId) return;
+    this.containerBorder = true;
+    setTimeout(() => {
+      this.containerBorder = false;
+    }, 500)
   }
 
 }
