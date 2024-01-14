@@ -1,5 +1,5 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, TrackByFunction, ViewChild} from '@angular/core';
 import { Message } from '../../../shared/interfaces/message.interface';
 
 @Component({
@@ -29,23 +29,17 @@ export class MessageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    console.log('viewinit');
     this.isViewdChecker();
   }
 
   isViewdChecker() {
-    console.log('res',this.message.viewed)
-    console.log('res',this.messageType)
-    console.log('res',this.messageContent)
     if(!this.message.viewed && this.messageType !== 'out' && this.messageContent !== undefined) {
-      if(this.isElInViewport()) return;
-      const threshold = 1; // how much % of the element is in view
+      //if(this.isElInViewport()) return;
+      const threshold = 1;
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              console.log(this.message);
-
                 this.onMessageIntersect.emit(this.message.messageId)
                 observer.disconnect();
               }
@@ -60,11 +54,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   isElInViewport() {
-
     const elRect = this.messageContent.nativeElement.getBoundingClientRect();
-    console.log(elRect, this.messageContainerRect);
-    console.log(elRect.top , this.messageContainerRect!.top , elRect.bottom ,this.messageContainerRect!.bottom);
-    console.log(elRect.top >= this.messageContainerRect!.top && elRect.bottom <= this.messageContainerRect!.bottom);
     if ((elRect.top >= this.messageContainerRect!.top) && (elRect.bottom <= this.messageContainerRect!.bottom)) {
       this.onMessageIntersect.emit(this.message.messageId);
       return true;

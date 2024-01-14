@@ -2,9 +2,12 @@
   <app-back-button></app-back-button>
   <div class="message-container">
     <div class="card pa-xl">
-      @for (message of messages(); track $index) {
+      <!-- <ng-container *ngFor="let message of messages; trackBy: trackByMessageId; index as $index">
         <app-message [userId]="user.user?.userId" [message$]="message" [messageContainerRect]="messageContainerRect" (onMessageIntersect)="onMessageIntersect($event)"></app-message>
-        @if(displayDate($index, message.createdAt)){
+      </ng-container> -->
+      @for (message of messages(); track message.messageId; let index = $index) {
+        <app-message [userId]="user.user?.userId" [message$]="message" [messageContainerRect]="messageContainerRect" (onMessageIntersect)="onMessageIntersect($event)"></app-message>
+        @if(displayDate(index, message.createdAt)){
           <div class="date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
         }
       }
