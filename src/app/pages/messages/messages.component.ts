@@ -19,27 +19,17 @@ import { Subscription } from 'rxjs';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-export class MessagesComponent implements OnInit, OnDestroy {
+export class MessagesComponent implements OnInit {
   private messageService = inject(MessageService);
   private subjectService = inject(SubjectService);
-  private idleService = inject(IdleService);
   private navigation = inject(NavigationService);
 
 
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
-  idleSubscription?: Subscription;
 
   ngOnInit(){
     this.getMessages();
-    this.idleSubscription = this.idleService.idleState.subscribe((isIdle) => {
-      console.log(isIdle);
-
-    })
-  }
-
-  ngOnDestroy(): void {
-    if(this.idleSubscription) this.idleSubscription.unsubscribe()
   }
 
   getMessages():void {
@@ -64,14 +54,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   getLocalDate(UTC?: string):string {
     return UTC ? new Date(UTC).toLocaleDateString() : '';
-  }
-
-  @HostListener('document:mousemove')
-  @HostListener('document:keypress')
-  @HostListener('document:click')
-  @HostListener('document:wheel')
-  onUserAction(){
-    this.idleService.resetTimer()
   }
 
 }
