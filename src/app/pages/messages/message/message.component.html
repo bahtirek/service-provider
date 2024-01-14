@@ -12,7 +12,7 @@
         <span class="material-symbols-outlined text-primary done-all">done</span>
       }
     </div>
-    <div class="message-text">
+    <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
       {{message.message}}
     </div>
   </div>
