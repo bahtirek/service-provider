@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ProviderCardComponent } from '../../../components/provider/provider-card/provider-card.component';
+import { Component, OnInit, inject } from '@angular/core';
 import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ProviderService } from '../../../shared/services/provider.service';
 import { ProviderSearchComponent } from '../../../components/provider/provider-search/provider-search.component';
@@ -13,16 +12,33 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private router = inject(Router);
   private providerService = inject(ProviderService);
 
   providers: Provider[] = [];
 
-  ngOnInint(){}
+  ngOnInit(){
+    this.getMyProviders()
+  }
+
+  getMyProviders() {
+    console.log('myp');
+
+    this.providerService.getMyProviders().subscribe({
+      next: (response) => {
+        this.providers = response
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 
   foundProviders(providers: Provider[]){
-    this.providers = providers;
+    this.providerService.foundProviders = providers
+    this.router.navigate([`/search/providers/results`]);
+
   }
 
   cardClicked(provider: Provider){

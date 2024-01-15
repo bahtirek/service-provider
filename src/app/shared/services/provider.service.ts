@@ -10,6 +10,7 @@ export class ProviderService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
   provider: Provider = {};
+  foundProviders: Provider[] = [];
 
   getMyProviders() {
     return this.http.get<Provider[]>(this.url + '/providers/my-providers');

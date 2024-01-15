@@ -1,8 +1,5 @@
-<div class="container container-md pt-xxl column gap-xl">
-
+<div class="container container-md pt-xxl column">
   <app-provider-search (foundProviders)="foundProviders($event)"></app-provider-search>
-
-
-  <app-provider-list [providers]="providers" (cardClickled)="cardClicked($event)"></app-provider-list>
-
+    <h2 class="mb-md">My Providers</h2>
+    <app-provider-list [providers]="providers" (cardClickled)="cardClicked($event)"></app-provider-list>
 </div>

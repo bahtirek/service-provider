@@ -1,1 +1,9 @@
-<p>providers works!</p>
+<div class="container container-md pt-xxl column">
+  <app-provider-search (foundProviders)="foundProviders($event)"></app-provider-search>
+  @if((results && providers.length == 0) || (searched && providers.length == 0)){
+    <h4>No providers found</h4>
+  } @else {
+    <h2 class="mb-md">Providers</h2>
+    <app-provider-list [providers]="providers" (cardClickled)="cardClicked($event)"></app-provider-list>
+  }
+</div>

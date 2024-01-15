@@ -6,15 +6,14 @@ import { Provider } from '../../../shared/interfaces/provider.interface';
 import { CategorySelectComponent } from '../../category/category-select/category-select.component';
 import { CategoryCheckComponent } from '../../category/category-check/category-check.component';
 
-
 @Component({
-  selector: 'app-provider-search',
+  selector: 'app-provider-search-toolbar',
   standalone: true,
   imports: [FormErrorComponent, FormsModule, CategorySelectComponent, CategoryCheckComponent],
-  templateUrl: './provider-search.component.html',
-  styleUrl: './provider-search.component.scss'
+  templateUrl: './provider-search-toolbar.component.html',
+  styleUrl: './provider-search-toolbar.component.scss'
 })
-export class ProviderSearchComponent {
+export class ProviderSearchToolbarComponent {
   private providerService = inject(ProviderService);
   searchKeyword: string = "";
   errorMessage: string = "";
@@ -40,10 +39,7 @@ export class ProviderSearchComponent {
 
     this.providerService.providerSearch(searchQuery).subscribe({
       next: (providers: Provider[]) => {
-        this.providerService.foundProviders = providers
         this.foundProviders.emit(providers)
-        console.log(this.providerService.foundProviders);
-
       },
       error: (err) => {
         console.log(err);
@@ -55,4 +51,3 @@ export class ProviderSearchComponent {
     this.category = categoryId
   }
 }
-
