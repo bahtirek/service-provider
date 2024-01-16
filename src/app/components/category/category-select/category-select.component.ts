@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ProviderProfileService } from '../../../pages/provider/provider-profile.service';
 import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,10 @@ export class CategorySelectComponent {
 
   ngOnInit(){
     this.getCategory()
+  }
+
+  @Input() set category$ (value: number){
+    if(value && value > 0) this.category = value
   }
 
   @Output() onCategorySelect = new EventEmitter<number>();

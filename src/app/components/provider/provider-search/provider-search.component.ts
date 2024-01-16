@@ -20,11 +20,13 @@ export class ProviderSearchComponent {
   errorMessage: string = "";
   category: any | null = null;
 
-  @Input() searchPage: boolean = true;
+  //@Input() searchPage: boolean = true;
 
-  @Output() foundProviders: EventEmitter<Provider[]> = new EventEmitter();
+  @Output() foundProviders: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setSearchDetailsIsExists()
+  }
 
   searchProviders() {
     let category = null;
@@ -33,22 +35,30 @@ export class ProviderSearchComponent {
 
     if(this.category) category = parseInt(this.category);
 
-    const searchQuery = {
+    const searchDetails = {
       lkCategoryId: parseInt(this.category),
       searchKeyword: searchKeyword
     }
 
-    this.providerService.providerSearch(searchQuery).subscribe({
+    this.providerService.providerSearch(searchDetails).subscribe({
       next: (providers: Provider[]) => {
-        this.providerService.foundProviders = providers
-        this.foundProviders.emit(providers)
-        console.log(this.providerService.foundProviders);
-
+        this.foundProviders.emit({providers: providers, searchDetails: searchDetails})
       },
       error: (err) => {
         console.log(err);
       }
     })
+  }
+
+  setSearchDetailsIsExists(){
+    if(this.providerService.searchDetails) {
+      this.searchKeyword = this.providerService?.searchDetails?.searchKeyword
+      this.category = this.providerService?.searchDetails?.lkCategoryId
+      this.providerService.searchDetails.searchKeyword = '';
+      this.providerService.searchDetails.lkCategoryId = null;
+    } /* else {
+      this.foundProviders.emit({providers: this.providerService.foundProviders})
+    } */
   }
 
   onCategorySelect(categoryId: number) {

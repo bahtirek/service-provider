@@ -7,7 +7,7 @@
       </app-form-error>
     </div>
     <div class="mr-lg">
-      <app-category-select (onCategorySelect)="onCategorySelect($event)"></app-category-select>
+      <app-category-select [category$]="category" (onCategorySelect)="onCategorySelect($event)"></app-category-select>
     </div>
     <button (click)="searchProviders()">Search</button>
   </div>

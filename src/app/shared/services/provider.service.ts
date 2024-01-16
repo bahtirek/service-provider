@@ -11,6 +11,7 @@ export class ProviderService {
   private http = inject(HttpClient);
   provider: Provider = {};
   foundProviders: Provider[] = [];
+  searchDetails: any;
 
   getMyProviders() {
     return this.http.get<Provider[]>(this.url + '/providers/my-providers');

@@ -28,13 +28,18 @@ export class ProvidersComponent {
     if(this.results) {
       this.providers = this.providerService.foundProviders;
       this.location.replaceState("/search/providers");
+    } else {
+      console.log(this.providerService.foundProviders);
+
+      this.providers = this.providerService.foundProviders;
     }
   }
 
-  foundProviders(providers: Provider[]){
-    this.providers = providers;
+  foundProviders(searchResults: any){
+    this.providers = searchResults.providers;
     this.searched = true;
     this.results = false;
+    this.providerService.searchDetails = undefined;
   }
 
   cardClicked(provider: Provider){

@@ -35,15 +35,14 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  foundProviders(providers: Provider[]){
-    this.providerService.foundProviders = providers
+  foundProviders(searchResults: any){
+    this.providerService.foundProviders = searchResults.providers
+    this.providerService.searchDetails = searchResults.searchDetails
     this.router.navigate([`/search/providers/results`]);
-
   }
 
   cardClicked(provider: Provider){
     this.providerService.saveProviderToLocal(provider)
-
     this.router.navigate([`/client/my-provider`]);
   }
 
