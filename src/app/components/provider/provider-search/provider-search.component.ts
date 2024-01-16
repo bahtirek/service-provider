@@ -31,7 +31,8 @@ export class ProviderSearchComponent {
   searchProviders() {
     let category = null;
     const searchKeyword = this.searchKeyword.trim();
-    if (!searchKeyword && !this.category) return;
+
+    if (!searchKeyword && this.category == 'null') return;
 
     if(this.category) category = parseInt(this.category);
 
@@ -56,9 +57,7 @@ export class ProviderSearchComponent {
       this.category = this.providerService?.searchDetails?.lkCategoryId
       this.providerService.searchDetails.searchKeyword = '';
       this.providerService.searchDetails.lkCategoryId = null;
-    } /* else {
-      this.foundProviders.emit({providers: this.providerService.foundProviders})
-    } */
+    }
   }
 
   onCategorySelect(categoryId: number) {

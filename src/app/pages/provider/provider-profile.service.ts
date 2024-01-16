@@ -13,6 +13,7 @@ export class ProviderProfileService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
   private router = inject(Router);
+  allCategorys: any;
 
   getWeekDays() {
     return this.http.get(this.url + '/providers/lk-week-days');

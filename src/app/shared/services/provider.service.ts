@@ -12,6 +12,7 @@ export class ProviderService {
   provider: Provider = {};
   foundProviders: Provider[] = [];
   searchDetails: any;
+  myProviders: Provider[] = [];
 
   getMyProviders() {
     return this.http.get<Provider[]>(this.url + '/providers/my-providers');

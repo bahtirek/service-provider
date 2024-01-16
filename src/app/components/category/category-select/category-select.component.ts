@@ -28,9 +28,14 @@ export class CategorySelectComponent {
   @Output() onCategorySelect = new EventEmitter<number>();
 
   getCategory() {
+    this.allCategorys = this.providerService.allCategorys;
+    console.log(this.allCategorys);
+
+    if(this.allCategorys && this.allCategorys.length > 0) return;
     this.providerService.getCategory().subscribe({
       next:(response: any) => {
         this.allCategorys = response;
+        this.providerService.allCategorys = response
       },
       error: (error: any) => {
         console.log(error);

@@ -65,6 +65,12 @@ export class MyProviderComponent {
   }
 
   getClientProviderId() {
+    const providers = this.providerService.myProviders
+    const provider = providers.find(item => item.providerId == parseInt(this.providerId!))
+    if(provider?.clientProviderId) {
+      this.getSubjects(provider?.clientProviderId);
+      return;
+    }
     this.providerService.getMyProviders().subscribe({
       next: (response) => {
         const provider = response.find(item => item.providerId == parseInt(this.providerId!))
@@ -77,6 +83,8 @@ export class MyProviderComponent {
       }
     })
   }
+
+
 
   openSession(subjectId: number){
     this.cancel();

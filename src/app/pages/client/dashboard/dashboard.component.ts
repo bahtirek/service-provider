@@ -23,11 +23,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getMyProviders() {
-    console.log('myp');
-
+    this.providers = this.providerService.myProviders
+    if (this.providers.length > 0) return;
     this.providerService.getMyProviders().subscribe({
       next: (response) => {
-        this.providers = response
+        this.providers = response;
+        this.providerService.myProviders = response
       },
       error: (error) => {
         console.log(error);

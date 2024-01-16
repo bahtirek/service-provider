@@ -29,8 +29,6 @@ export class ProvidersComponent {
       this.providers = this.providerService.foundProviders;
       this.location.replaceState("/search/providers");
     } else {
-      console.log(this.providerService.foundProviders);
-
       this.providers = this.providerService.foundProviders;
     }
   }
