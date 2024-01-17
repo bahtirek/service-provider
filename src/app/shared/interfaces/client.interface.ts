@@ -6,4 +6,5 @@ export interface Client {
   phoneNumber?: string;
   clientUserId?: number;
   newMessage?: number;
+  newMessageCount?: number;
 }

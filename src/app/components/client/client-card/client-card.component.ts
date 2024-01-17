@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Client } from '../../../shared/interfaces/client.interface';
 import { ClientService } from '../../../shared/services/client.service';
+import { EnevelopeComponent } from '../../enevelope/enevelope.component';
 
 @Component({
   selector: 'app-client-card',
   standalone: true,
-  imports: [],
+  imports: [EnevelopeComponent],
   templateUrl: './client-card.component.html',
   styleUrl: './client-card.component.scss'
 })

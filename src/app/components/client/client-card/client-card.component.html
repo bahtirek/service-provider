@@ -1,5 +1,5 @@
 
-<div class="card hoverable provider-card" (click)="cardClicked()">
+<div class="card hoverable provider-card flex no-wrap" (click)="cardClicked()">
   <ul class="reset">
     <li class="flex">
       <div class="text-bold mr-md flex">
@@ -14,4 +14,9 @@
       <div>{{clientDetails.email}}</div>
     </li>
   </ul>
+  @if (clientDetails.newMessageCount) {
+    <div class="ml-auto">
+      <app-enevelope [newMessageCount]="clientDetails.newMessageCount"></app-enevelope>
+    </div>
+  }
 </div>
