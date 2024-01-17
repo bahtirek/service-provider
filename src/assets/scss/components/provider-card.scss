@@ -1,0 +1,22 @@
+.provider-card {
+  li {
+    padding: 3px 0;
+    div {
+      min-height: 30px;
+      align-items: center;
+      display: flex;
+    }
+  }
+
+  .work-hours-list {
+    width: 100%;
+    max-width: 300px;
+    li {
+      display: flex;
+      justify-content: space-between;
+      div {
+        min-height: 0;
+      }
+    }
+  }
+}

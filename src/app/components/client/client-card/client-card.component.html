@@ -1,10 +1,17 @@
 
-<div class="card hoverable" (click)="cardClicked()">
-  <ul>
-    <li>{{clientDetails.firstName}}</li>
-    <li>{{clientDetails.lastName}}</li>
-    <li>{{clientDetails.email}}</li>
+<div class="card hoverable provider-card" (click)="cardClicked()">
+  <ul class="reset">
+    <li class="flex">
+      <div class="text-bold mr-md flex">
+        <span class="material-symbols-outlined">badge</span>
+      </div>
+      <div>{{clientDetails.firstName}} {{clientDetails.lastName}}</div>
+    </li>
+    <li class="flex">
+      <div class="text-bold mr-md flex">
+        <span class="material-symbols-outlined">email</span>
+      </div>
+      <div>{{clientDetails.email}}</div>
+    </li>
   </ul>
 </div>
-
-

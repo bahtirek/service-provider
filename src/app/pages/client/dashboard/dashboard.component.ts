@@ -23,8 +23,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getMyProviders() {
-    this.providers = this.providerService.myProviders
-    if (this.providers.length > 0) return;
     this.providerService.getMyProviders().subscribe({
       next: (response) => {
         this.providers = response;
