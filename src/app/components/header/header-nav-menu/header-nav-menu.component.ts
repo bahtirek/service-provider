@@ -32,31 +32,30 @@ export class HeaderNavMenuComponent {
 
   menuItems: HeaderNavMenu[] = [
     {
-      name: 'Providers',
+      name: 'Find Provider',
       url: '/search/providers'
     },
-    {
-      name: 'Services',
-      url: '/search/services'
-    },
-
   ]
   loggedInMenuItems: HeaderNavMenu[] = []
 
   clientMenuItems: HeaderNavMenu[] = [
     {
       name: 'Dashboard',
-      url: 'client'
+      url: 'client/dashboard'
     },
     {
       name: 'Account',
       url: `client/account`
-    }
+    },
+    {
+      name: 'Find Provider',
+      url: '/search/providers'
+    },
   ]
   providerMenuItems: HeaderNavMenu[] = [
     {
       name: 'Dashboard',
-      url: 'provider'
+      url: 'provider/dashboard'
     },
     {
       name: 'Account',
