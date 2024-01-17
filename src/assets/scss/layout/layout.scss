@@ -1,3 +1,5 @@
+@import "../base/breakpoints.scss";
+
 .container {
   max-width: 1280px;
   width: 100%;
@@ -18,6 +20,9 @@
       cursor: pointer;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
+  }
+  @media (max-width: $screen-sm-max) {
+    padding: 20px 20px;
   }
 }
 

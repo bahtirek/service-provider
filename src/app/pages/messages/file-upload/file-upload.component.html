@@ -1,0 +1,15 @@
+<div>
+  <ul>
+    @for(file of files; track $index){
+      <li>{{file.name}}</li>
+    }
+  </ul>
+  <div class="form-element mt-lg">
+    <label for="sessionTitle">Comment</label>
+    <input type="text" id="sessionTitle" [(ngModel)]="comment" />
+  </div>
+  <div class="flex mt-xl">
+    <button  class="block ml-auto btn-danger" (click)="onCancel()">Cancel</button>
+    <button  class="block ml-lg" (click)="onSend()">Send</button>
+  </div>
+</div>

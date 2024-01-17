@@ -6,6 +6,12 @@
     <span class="material-symbols-outlined text-primary" (click)="onSubmit()" >send</span>
   </div>
   <div class="action-btn">
-    <span class="material-symbols-outlined text-primary" (click)="onAttach()" >attach_file</span>
+    <label for="attach">
+      <span class="material-symbols-outlined text-primary">attach_file</span>
+    </label>
+    <input type="file" id="attach" accept="image/*, .pdf, .doc, .docx" class="hidden" #fileUpload (input)="onAttach()" multiple />
   </div>
 </div>
+<app-modal [(modal)]="toggleModal">
+  <app-file-upload (cancel)="cancel()" [filesProp]="files!"></app-file-upload>
+</app-modal>
