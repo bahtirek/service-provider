@@ -18,6 +18,10 @@ export const CLIENT_ROUTES: Route[] = [
         loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
       },
       {
+        path: 'profile',
+        loadComponent: () => import('../pages/client/profile/profile.component').then((c)=>c.ProfileComponent)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
