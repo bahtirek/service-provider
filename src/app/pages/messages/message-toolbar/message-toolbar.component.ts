@@ -26,7 +26,7 @@ export class MessageToolbarComponent {
   message: string = "";
   showCursor: boolean = true;
   subjectId: string = '';
-  toggleModal: boolean = true;
+  toggleModal: boolean = false;
   files?: FileList;
 
   @Input() receiverId: string = '';

@@ -1,3 +1,5 @@
+@import "../base/breakpoints.scss";
+
 .header {
   position: fixed;
   z-index: 100;
@@ -24,7 +26,8 @@
 
       a {
         text-decoration: none;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         color: var(--primary);
         height: 38px;
         padding: 10px 16px;
@@ -37,6 +40,19 @@
           cursor: pointer;
           background-color: var(--grey-lightest);
         }
+        .material-symbols-outlined {
+          display: none;
+        }
+        @media (max-width: $screen-sm-max) {
+          padding: 10px 8px;
+          span:last-child {
+            display: none;
+          }
+          .material-symbols-outlined {
+            display: block;
+          }
+
+        }
       }
       span.user-link {
         cursor: pointer;
@@ -48,8 +64,8 @@
       }
       &:hover {
         .material-symbols-outlined {
-          transform: rotate(180deg);
-          top: 6px;
+          //transform: rotate(180deg);
+          //top: 6px;
         }
         .nav-menu-drop-container {
           display: block;

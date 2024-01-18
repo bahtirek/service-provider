@@ -33,7 +33,8 @@ export class HeaderNavMenuComponent {
   menuItems: HeaderNavMenu[] = [
     {
       name: 'Find Provider',
-      url: '/search/providers'
+      url: '/search/providers',
+      icon: 'search'
     },
   ]
   loggedInMenuItems: HeaderNavMenu[] = []
@@ -41,35 +42,42 @@ export class HeaderNavMenuComponent {
   clientMenuItems: HeaderNavMenu[] = [
     {
       name: 'Dashboard',
-      url: 'client/dashboard'
+      url: 'client/dashboard',
+      icon: 'dashboard'
     },
     {
       name: 'Find Provider',
-      url: '/search/providers'
+      url: '/search/providers',
+      icon: 'search'
     },
     {
       name: 'My Profile',
-      url: `client/profile`
+      url: `client/profile`,
+      icon: 'manage_accounts'
     },
   ]
   providerMenuItems: HeaderNavMenu[] = [
     {
       name: 'Dashboard',
-      url: 'provider/dashboard'
+      url: 'provider/dashboard',
+      icon: 'dashboard'
     },
     {
       name: 'My Profile',
-      url: `provider/profile`
+      url: `provider/profile`,
+      icon: 'manage_account'
     }
   ]
   authMenuItems: HeaderNavMenu[] = [
     {
       name: 'Login',
-      url: 'auth/login'
+      url: 'auth/login',
+      icon: 'login'
     },
     {
       name: 'Sign up',
-      url: 'auth/registration'
+      url: 'auth/registration',
+      icon: 'person_add'
     }
   ]
 }
