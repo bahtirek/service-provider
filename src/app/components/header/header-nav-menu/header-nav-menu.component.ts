@@ -44,12 +44,12 @@ export class HeaderNavMenuComponent {
       url: 'client/dashboard'
     },
     {
-      name: 'Account',
-      url: `client/account`
-    },
-    {
       name: 'Find Provider',
       url: '/search/providers'
+    },
+    {
+      name: 'My Profile',
+      url: `client/profile`
     },
   ]
   providerMenuItems: HeaderNavMenu[] = [
@@ -58,8 +58,8 @@ export class HeaderNavMenuComponent {
       url: 'provider/dashboard'
     },
     {
-      name: 'Account',
-      url: `provider/account`
+      name: 'My Profile',
+      url: `provider/profile`
     }
   ]
   authMenuItems: HeaderNavMenu[] = [

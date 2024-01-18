@@ -30,8 +30,8 @@
         padding: 10px 16px;
         border-radius: 8px;
         &.active-link {
-          font-weight: bold;
-          outline: 1px solid var(--primary-hover);
+          font-weight: 600;
+          //outline: 1px solid var(--primary-hover);
         }
         &:hover {
           cursor: pointer;
