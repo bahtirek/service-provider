@@ -22,6 +22,10 @@ export const PROVIDER_ROUTES: Route[] = [
         loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
       },
       {
+        path: 'profile',
+        loadComponent: () => import('../pages/provider/profile/profile.component').then((c)=>c.ProfileComponent)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
