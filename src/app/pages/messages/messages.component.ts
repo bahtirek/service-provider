@@ -39,6 +39,7 @@ export class MessagesComponent implements OnInit {
   receiver: any = {};
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
+  subject: any;
 
   ngOnInit(){
     this.getReceiverDeatils();
@@ -47,9 +48,9 @@ export class MessagesComponent implements OnInit {
 
   getMessages():void {
     this.messageService.resetMessages();
-    const subject = this.subjectService.getSubjectFromLocal()
-    if(!subject) this.navigation.back();
-    this.messageService.getMessages(subject.subjectId, this.chunkNum).subscribe({
+    this.subject = this.subjectService.getSubjectFromLocal()
+    if(!this.subject) this.navigation.back();
+    this.messageService.getMessages(this.subject.subjectId, this.chunkNum).subscribe({
       next: (response) => {
         this.messageService.addMessages(response);
         this.chunkNum++

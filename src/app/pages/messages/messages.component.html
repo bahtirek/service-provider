@@ -1,5 +1,8 @@
 <div class="container container-md" #messageContainer>
-  <app-back-button></app-back-button>
+  <div class="flex items-center">
+    <app-back-button></app-back-button>
+    <h3 class="ml-auto">{{subject.title}}</h3>
+  </div>
   <div class="message-container" [ngClass]="{'new-message': containerBorder}">
     <div class="card pa-xl">
       @for (message of messages(); track message.messageId; let index = $index) {
