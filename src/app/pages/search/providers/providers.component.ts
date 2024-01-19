@@ -34,13 +34,16 @@ export class ProvidersComponent {
   }
 
   foundProviders(searchResults: any){
+    this.providerService.foundProviders = searchResults.providers;
+    this.providerService.searchDetails = searchResults.searchDetails;
     this.providers = searchResults.providers;
     this.searched = true;
     this.results = false;
-    this.providerService.searchDetails = undefined;
+    //this.providerService.searchDetails = undefined;
   }
 
   cardClicked(provider: Provider){
+    this.providerService.saveProviderToLocal(provider)
     this.router.navigate([`/client/my-provider`]);
   }
 }
