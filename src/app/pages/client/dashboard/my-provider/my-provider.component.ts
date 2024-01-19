@@ -52,7 +52,7 @@ export class MyProviderComponent {
   getProviderDetails(){
     const provider = this.providerService.getProvider();
     if(!provider) this.navigation.back();
-    this.providerId = provider.providerId;
+    this.providerId = provider.providerId!.toString();
     this.providerService.getProviderProfileDetailsById(this.providerId).subscribe({
       next: (response) => {
         this.providerProfileDetails = response;

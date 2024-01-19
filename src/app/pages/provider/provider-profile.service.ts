@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Provider } from '../../shared/interfaces/provider.interface';
+import { Success } from '../../shared/interfaces/success.interface';
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class ProviderProfileService {
   }
 
   postProviderProfileDetails(providerProfileDetails: Provider) {
-    return this.http.post(this.url + '/providers/details', providerProfileDetails);
+    return this.http.post<Success>(this.url + '/providers/details', providerProfileDetails);
   }
 
   getProviderProfileDetails() {

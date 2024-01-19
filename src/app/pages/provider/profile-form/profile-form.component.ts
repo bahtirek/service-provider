@@ -6,6 +6,7 @@ import { ProviderProfileService } from '../provider-profile.service';
 import { WeekDay } from '../../../shared/interfaces/week-day.interface';
 import { NgFor } from '@angular/common';
 import { WorkHour } from '../../../shared/interfaces/work-hour.interface';
+import { Success } from '../../../shared/interfaces/success.interface';
 import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
 
 @Component({
@@ -138,9 +139,9 @@ export class ProfileFormComponent {
 console.log(form);
 
       this.providerService.postProviderProfileDetails(form).subscribe ({
-        next: (response) => {
+        next: (response: Success) => {
           console.log(response);
-
+          if(response && response.success) this.router.navigate(['provider'])
         },
         error: (error: any) => {
           console.log(error);

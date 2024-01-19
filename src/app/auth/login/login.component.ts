@@ -7,6 +7,7 @@ import { Credentials } from '../../shared/interfaces/credentials.interface';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/interfaces/user.interface';
 import { ProviderProfileService } from '../../pages/provider/provider-profile.service';
+import { Provider } from '../../shared/interfaces/provider.interface';
 
 @Component({
   selector: 'app-login',
@@ -62,8 +63,8 @@ export class LoginComponent {
 
   checkIfProfileComplete(user: User) {
     this.providerProfileService.getProviderProfileDetails().subscribe({
-      next: (response) => {
-        if(!response || this.isEmpty(response)) {
+      next: (response: Provider) => {
+        if(!response || this.isEmpty(response) || !response.availableDays || response.availableDays.length == 0) {
           this.router.navigate(['provider/profile-form']);
         } else {
           this.router.navigate(['provider']);

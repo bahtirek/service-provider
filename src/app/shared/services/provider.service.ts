@@ -28,6 +28,7 @@ export class ProviderService {
   }
 
   saveProviderToLocal(provider: Provider){
+    this.provider = provider;
     window.localStorage.setItem('provider', JSON.stringify(provider))
   }
 
@@ -37,7 +38,8 @@ export class ProviderService {
   }
 
   getProvider(){
-    if(this.provider?.providerId) return this.provider;
-    return this.provider = this.getProviderFromLocal();
+    if(this.provider.providerId) return this.provider;
+    this.provider = this.getProviderFromLocal();
+    return this.provider;
   }
 }
