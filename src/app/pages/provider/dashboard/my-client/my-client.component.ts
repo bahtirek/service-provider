@@ -23,7 +23,7 @@ export class MyClientComponent {
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
 
-  subjectList: Subject[] = [];
+  subjectList = this.subjectService.subjects;
   displayAsCard: boolean = false
   clientDetails: Client = {}
 
@@ -34,14 +34,7 @@ export class MyClientComponent {
   getSubjects(){
     this.clientDetails = this.clientService.getClient();
     if(!this.clientDetails.clientId) this.navigation.back();
-    this.subjectService.getClientSubjects(this.clientDetails.clientId!).subscribe({
-      next: (response) => {
-        this.subjectList = response
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    this.subjectService.getClientSubjects(this.clientDetails.clientId!);
   }
 
   onSubjectClick(subject: Subject){

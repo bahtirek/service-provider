@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from '../interfaces/subject.interface';
-import { Provider } from '../interfaces/provider.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +9,18 @@ import { Provider } from '../interfaces/provider.interface';
 export class SubjectService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
+  subjects = signal<Subject[]>([]);
 
   createSubject(subjectDetails: any){
-    console.log(subjectDetails);
-
     return this.http.post<any>(this.url + '/messages/subject', subjectDetails);
   }
 
-  getProviderSubjects(providerId: number){
+  getProviderSubjectsAPI(providerId: number){
     const params = new HttpParams().set('providerId', providerId);
     return this.http.get<Subject[]>(this.url + '/messages/client-provider-subjects', {params})
   }
-  getClientSubjects(providerId: number){
+
+  getClientSubjectsAPI(providerId: number){
     const params = new HttpParams().set('clientId', providerId);
     return this.http.get<Subject[]>(this.url + '/messages/provider-client-subjects', {params})
   }
@@ -33,5 +32,27 @@ export class SubjectService {
   getSubjectFromLocal(){
     const subject = window.localStorage.getItem('subject')
     return subject ? JSON.parse(subject) : null
+  }
+
+  getProviderSubjects(providerId: number){
+    this.getProviderSubjectsAPI(providerId).subscribe({
+      next: (response) => {
+        this.subjects.update(state => state.concat(response));
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  getClientSubjects(clientId: number){
+    this.getClientSubjectsAPI(clientId).subscribe({
+      next: (response) => {
+        this.subjects.update(state => state.concat(response));
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }

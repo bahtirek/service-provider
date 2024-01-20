@@ -32,7 +32,7 @@ export class MyProviderComponent {
   providerId: string = '';
   toggleModal: boolean = false;
   subjectDetails: any = {};
-  subjectList: Subject[] = [];
+  subjectList = this.subjectService.subjects;
   displayAsCard: boolean = false
 
   ngOnInit(){
@@ -69,15 +69,8 @@ export class MyProviderComponent {
     this.onSubjectClick(subject)
   }
 
-  getSubjects(clientProviderId: number){
-    this.subjectService.getProviderSubjects(clientProviderId).subscribe({
-      next: (response) => {
-        this.subjectList = response
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+  getSubjects(providerId: number){
+    this.subjectService.getProviderSubjects(providerId)
   }
 
   onSubjectClick(subject: Subject){
