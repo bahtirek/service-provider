@@ -11,7 +11,9 @@ import { MessageService } from './message.service';
 export class ChatService {
   private socketUrl = environment.socketUrl;
   private socket = io(this.socketUrl);
-  private messageService = inject(MessageService)
+  private messageService = inject(MessageService);
+  private isConnect: boolean = false;
+  private subjectId?: number;
 
   sendMessage(messageDetails: Message){
     this.socket.emit('outgoingMessage', messageDetails);
@@ -22,7 +24,10 @@ export class ChatService {
     this.socket.emit('viewedMessage', messageDetails)
   }
 
-  connect(accessToken?: string){
+  connect(subjectId: string, accessToken?: string, ){
+    this.subjectId = parseInt(subjectId);
+    if(this.isConnect) return;
+    this.isConnect = true;
     if(!accessToken) return;
     this.socket.on("connect", () => {
       this.socket.emit('initiateSession', {
@@ -32,12 +37,16 @@ export class ChatService {
 
     this.socket.on("incomingMessage", (message: Message) => {
       console.log("incomingMessage", message)
-      this.messageService.addMessage(message)
+      if(message.subjectId == this.subjectId) {
+        this.messageService.addMessage(message)
+      }
     });
 
     this.socket.on("returnMessage", (message: Message) => {
-      console.log("returnMessage", message)
-      this.messageService.addMessage(message)
+      console.log("returnMessage", message, this.subjectId)
+      if(message.subjectId == this.subjectId) {
+        this.messageService.addMessage(message)
+      }
     });
 
     this.socket.on('viewConfirmation', (data) => {

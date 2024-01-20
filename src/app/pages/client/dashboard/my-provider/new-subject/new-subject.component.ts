@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormErrorComponent } from '../../../../../shared/form-helpers/form-error/form-error.component';
 import { FormsModule } from '@angular/forms';
 import { SubjectService } from '../../../../../shared/services/subject.service';
+import { Subject } from '../../../../../shared/interfaces/subject.interface';
 
 @Component({
   selector: 'app-new-subject',
@@ -25,7 +26,7 @@ export class NewSubjectComponent {
 
   @Output() cancel = new EventEmitter<null>();
 
-  @Output() openSession = new EventEmitter<number>();
+  @Output() openSession = new EventEmitter<Subject>();
 
   createSession(){
     const title = this.sessionTitle.trim();
@@ -39,7 +40,7 @@ export class NewSubjectComponent {
 
     this.subjectService.createSubject(this.subjectDetails).subscribe({
       next: (response) => {
-        if(response.subjectId) this.openSession.emit(response.subjectId);
+        if(response.subjectId) this.openSession.emit(response);
         this.sessionTitle = "";
       },
       error: (error) => {

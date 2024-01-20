@@ -13,6 +13,7 @@ export class MessageService {
   messages = signal<Message[]>([])
 
   addMessage(message: Message){
+    if(this.messages().some(item => item.messageId == message.messageId)) return;
     this.messages.update(state => {
       state.unshift(message)
       return state

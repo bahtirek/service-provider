@@ -1,4 +1,4 @@
-import { Component, Input, Renderer2, inject } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgClass } from '@angular/common';
@@ -16,7 +16,7 @@ import { FileUploadComponent } from '../file-upload/file-upload.component';
   templateUrl: './message-toolbar.component.html',
   styleUrl: './message-toolbar.component.scss'
 })
-export class MessageToolbarComponent {
+export class MessageToolbarComponent implements OnInit {
   private renderer = inject(Renderer2);
   private auth = inject(AuthService);
   private chatService = inject(ChatService);
@@ -36,12 +36,14 @@ export class MessageToolbarComponent {
   @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
 
   ngOnInit(){
-    this.chatService.connect(this.auth.user().accessToken);
     this.getSubjectDetails();
   }
   getSubjectDetails() {
     const subject = this.subjectService.getSubjectFromLocal();
-    if(subject) this.subjectId = subject.subjectId;
+    if(subject) {
+      this.subjectId = subject.subjectId;
+      this.chatService.connect(this.subjectId, this.auth.user().accessToken);
+    }
   }
 
   onSubmit(){
