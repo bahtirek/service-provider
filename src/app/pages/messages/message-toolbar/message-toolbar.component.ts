@@ -25,7 +25,7 @@ export class MessageToolbarComponent implements OnInit {
 
   message: string = "";
   showCursor: boolean = true;
-  subjectId: string = '';
+  subjectId?: number;
   toggleModal: boolean = false;
   files?: FileList;
 
@@ -42,7 +42,7 @@ export class MessageToolbarComponent implements OnInit {
     const subject = this.subjectService.getSubjectFromLocal();
     if(subject) {
       this.subjectId = subject.subjectId;
-      this.chatService.connect(this.subjectId, this.auth.user().accessToken);
+      this.chatService.connect(this.subjectId);
     }
   }
 
@@ -51,7 +51,7 @@ export class MessageToolbarComponent implements OnInit {
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
     const messageDetails: Message = {
-      subjectId: parseInt(this.subjectId),
+      subjectId: this.subjectId,
       message: newMessage,
       accessToken: this.auth.user().accessToken,
       toUserId: this.receiverId,
