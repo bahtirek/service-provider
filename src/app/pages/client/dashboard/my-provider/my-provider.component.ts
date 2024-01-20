@@ -56,7 +56,7 @@ export class MyProviderComponent {
     this.providerService.getProviderProfileDetailsById(this.providerId).subscribe({
       next: (response) => {
         this.providerProfileDetails = response;
-        this.getClientProviderId();
+        this.getSubjects(provider?.providerId!);
       },
       error: (error) => {
         console.log(error);
@@ -64,31 +64,9 @@ export class MyProviderComponent {
     })
   }
 
-  getClientProviderId() {
-    const providers = this.providerService.myProviders
-    const provider = providers.find(item => item.providerId == parseInt(this.providerId!))
-    if(provider?.clientProviderId) {
-      this.getSubjects(provider?.clientProviderId);
-      return;
-    }
-    this.providerService.getMyProviders().subscribe({
-      next: (response) => {
-        const provider = response.find(item => item.providerId == parseInt(this.providerId!))
-        if(provider?.clientProviderId) {
-          this.getSubjects(provider?.clientProviderId);
-        }
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-  }
-
-
-
-  openSession(subjectId: number){
+  openSession(subject: Subject){
     this.cancel();
-    this.router.navigate([`client/messages/${subjectId}`])
+    this.onSubjectClick(subject)
   }
 
   getSubjects(clientProviderId: number){
