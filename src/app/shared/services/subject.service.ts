@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from '../interfaces/subject.interface';
+import { Message } from '../interfaces/message.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,10 @@ export class SubjectService {
   }
 
   getProviderSubjects(providerId: number){
+    this.subjects.set([]);
     this.getProviderSubjectsAPI(providerId).subscribe({
-      next: (response) => {
-        this.subjects.update(state => state.concat(response));
+      next: (response: Subject[]) => {
+        this.subjects.set(response);
       },
       error: (error) => {
         console.log(error);
@@ -47,12 +49,18 @@ export class SubjectService {
 
   getClientSubjects(clientId: number){
     this.getClientSubjectsAPI(clientId).subscribe({
-      next: (response) => {
-        this.subjects.update(state => state.concat(response));
+      next: (response: Subject[]) => {
+        this.subjects.set(response);
       },
       error: (error) => {
         console.log(error);
       }
     })
+  }
+
+  updateSubjects(message: Message){
+    this.subjects.update(subjects =>
+      subjects.map(subject => subject.subjectId === message.subjectId ? {...subject, newMessageCount: subject.newMessageCount!+1} : subject)
+    );
   }
 }

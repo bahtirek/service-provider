@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ChatService } from '../../shared/services/chat.service';
 
 @Component({
   selector: 'app-client-shell',
@@ -8,6 +9,11 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './client-shell.component.html',
   styleUrl: './client-shell.component.scss'
 })
-export class ClientShellComponent {
+export class ClientShellComponent implements OnInit {
 
+  private chatService = inject(ChatService);
+
+  ngOnInit(){
+    this.chatService.connect();
+  }
 }

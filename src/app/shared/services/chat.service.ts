@@ -5,6 +5,8 @@ import { environment } from '../../../environments/environment';
 import { Message } from '../interfaces/message.interface';
 import { MessageService } from './message.service';
 import { AuthService } from './auth.service';
+import { SubjectService } from './subject.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,9 @@ export class ChatService {
   private messageService = inject(MessageService);
   private subjectId?: number;
   private auth = inject(AuthService);
+  private subjectService = inject(SubjectService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   sendMessage(messageDetails: Message){
     if(this.socket.connected) {
@@ -32,12 +37,16 @@ export class ChatService {
 
   async connect(subjectId?: number){
     this.subjectId = subjectId;
+    console.log('connect');
+
     if(this.socket.connected) return;
+    console.log('connect');
     if(this.auth.isTokenExpired()) {
       const user$ = this.auth.refreshToken();
       const user = await lastValueFrom(user$);
       this.auth.setUser(user);
     }
+    console.log('connect');
     const accessToken = this.auth.user().accessToken;
     this.socket.on("connect", () => {
       this.socket.emit('initiateSession', {
@@ -48,10 +57,10 @@ export class ChatService {
     this.socket.on("incomingMessage", (message: Message) => {
       console.log("incomingMessage", message)
       if(message.subjectId == this.subjectId) {
-        this.messageService.addMessage(message)
-      } else {
-        //push to subjects
-        //push to provider or client
+        this.messageService.addMessage(message);
+      }
+      if(!this.router.url.includes('/messages')) {
+        this.subjectService.updateSubjects(message);
       }
     });
 
