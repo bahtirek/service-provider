@@ -66,7 +66,12 @@ export class HeaderNavMenuComponent {
       name: 'My Profile',
       url: `provider/profile`,
       icon: 'manage_account'
-    }
+    },
+    {
+      name: 'Find Provider',
+      url: '/search/providers',
+      icon: 'search'
+    },
   ]
   authMenuItems: HeaderNavMenu[] = [
     {

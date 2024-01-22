@@ -5,6 +5,7 @@ import { ProviderListComponent } from '../../../components/provider/provider-lis
 import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ProviderService } from '../../../shared/services/provider.service';
 import {Location} from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-providers',
@@ -18,7 +19,9 @@ export class ProvidersComponent {
   private route = inject(ActivatedRoute);
   private providerService = inject(ProviderService);
   private location = inject(Location);
+  private auth = inject(AuthService);
 
+  user = this.auth.user;
   providers: Provider[] = [];
   searched: boolean = false;
   results: boolean =  false;
@@ -43,7 +46,11 @@ export class ProvidersComponent {
   }
 
   cardClicked(provider: Provider){
-    this.providerService.saveProviderToLocal(provider)
-    this.router.navigate([`/client/my-provider`]);
+    this.providerService.saveProviderToLocal(provider);
+    if(this.auth.user().user?.isClient) {
+      this.router.navigate([`/client/my-provider`]);
+    } else {
+      this.router.navigate([`/search/providers/provider-details`]);
+    }
   }
 }
