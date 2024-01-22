@@ -8,6 +8,7 @@ import { Message } from '../../../shared/interfaces/message.interface';
 import { SubjectService } from '../../../shared/services/subject.service';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -19,8 +20,9 @@ import { FileUploadComponent } from '../file-upload/file-upload.component';
 export class MessageToolbarComponent implements OnInit {
   private renderer = inject(Renderer2);
   private auth = inject(AuthService);
-  private chatService = inject(ChatService);
+  private chatService = inject(ChatService)
   private subjectService = inject(SubjectService);
+  private messageService = inject(MessageService)
 
 
   message: string = "";
@@ -83,6 +85,36 @@ export class MessageToolbarComponent implements OnInit {
     } else {
       this.showCursor = true;
     }
+  }
+
+  onFileUpload(comment: string){
+    if(!this.files || this.files.length == 0) return;
+    let files: FormData = new FormData();
+    [...this.files].forEach(file => {
+      files.append('files', file)
+    });
+
+    const messageDetails: any = {
+      subjectId: this.subjectId,
+      message: comment,
+      accessToken: this.auth.user().accessToken,
+      toUserId: this.receiverId,
+      isAttachment: true,
+    };
+
+    files.append('message', JSON.stringify(messageDetails))
+
+    this.messageService.uploadFile(files).subscribe({
+      next: (response) => {
+        if(response.messageId){
+          this.messageService.addMessage(response)
+        }
+        this.cancel();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })
   }
 
   onFocus(){

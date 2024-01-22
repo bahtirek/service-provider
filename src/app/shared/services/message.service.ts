@@ -49,4 +49,8 @@ export class MessageService {
       messages.map(message => message.messageId ===messageId ? {...message, viewed: true} : message)
     )
   }
+
+  uploadFile(messageDetails: any){
+    return this.http.post<any>(this.url + '/attachments/upload', messageDetails);
+  }
 }

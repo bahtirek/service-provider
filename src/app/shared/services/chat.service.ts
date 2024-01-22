@@ -81,4 +81,22 @@ export class ChatService {
     })
   }
 
+uploadFile(file: File){
+  const messageDetails: Message = {
+    subjectId: this.subjectId,
+    message: 'newMessage',
+    accessToken: this.auth.user().accessToken,
+    toUserId: '1002',
+  };
+  const token: string = this.auth.user().accessToken!
+  console.log(messageDetails);
+    let testData:FormData = new FormData();
+    testData.append('files', file)
+    testData.append('files', file)
+    testData.append('message', JSON.stringify(messageDetails))
+    testData.append('accessToken', token)
+    this.socket.emit('outgoingMessageWithAttachment', testData);
+    console.log(testData)
+}
+
 }
