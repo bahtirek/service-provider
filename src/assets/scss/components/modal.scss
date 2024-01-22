@@ -1,3 +1,5 @@
+@import "../base/breakpoints.scss";
+
 .modal {
   background-color: rgba(0,0,0,.4);
   bottom: 0;
@@ -37,6 +39,9 @@
     overflow: auto;
     scrollbar-gutter: stable both-edges;
     margin-top: -60px;
+    @media (max-width: $screen-sm-max) {
+      padding: 20px 10px;
+    }
     .modal-close {
       position: absolute;
       right: -4px;
