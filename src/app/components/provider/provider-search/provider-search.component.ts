@@ -32,7 +32,7 @@ export class ProviderSearchComponent {
     let category = null;
     const searchKeyword = this.searchKeyword.trim();
 
-    if (!searchKeyword && this.category == 'null') return;
+    if (!searchKeyword && (!this.category || this.category == 'null')) return;
 
     if(this.category) category = parseInt(this.category);
 
