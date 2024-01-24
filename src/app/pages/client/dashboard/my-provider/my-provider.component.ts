@@ -34,14 +34,17 @@ export class MyProviderComponent {
   subjectDetails: any = {};
   subjectList = this.subjectService.subjects;
   displayAsCard: boolean = false
+  provider: Provider = {};
+  providers: Provider[] = [];
 
   ngOnInit(){
+    this.getMyProviders();
     this.getProviderDetails();
   }
 
   createSession(){
     this.toggleModal = true;
-    const providerId = parseInt(this.providerId!)
+    const providerId = this.provider.providerId!
 
     this.subjectDetails = {
       title: "",
@@ -50,13 +53,12 @@ export class MyProviderComponent {
   }
 
   getProviderDetails(){
-    const provider = this.providerService.getProvider();
-    if(!provider) this.navigation.back();
-    this.providerId = provider.providerId!.toString();
-    this.providerService.getProviderProfileDetailsById(this.providerId).subscribe({
+    this.provider = this.providerService.getProvider();
+    if(!this.provider.providerId) this.navigation.back();
+    this.providerService.getProviderProfileDetailsById(this.provider.providerId!).subscribe({
       next: (response) => {
         this.providerProfileDetails = response;
-        this.getSubjects(provider?.providerId!);
+        this.getSubjects(this.provider?.providerId!);
       },
       error: (error) => {
         console.log(error);
@@ -70,10 +72,13 @@ export class MyProviderComponent {
   }
 
   getSubjects(providerId: number){
+    const isProvider = this.providers.some(item => item.providerId == this.provider.providerId)
+    if(!isProvider) return;
     this.subjectService.getProviderSubjects(providerId)
   }
 
   onSubjectClick(subject: Subject){
+    this.providerService.addProvider(this.provider)
     this.subjectService.saveSubjectToLocal(subject);
     this.router.navigate(['./messages'], { relativeTo: this.route });
   }
@@ -84,5 +89,19 @@ export class MyProviderComponent {
 
   cancel() {
     this.toggleModal = false;
+  }
+
+  getMyProviders() {
+    this.providers = this.providerService.myProviders;
+    if(this.providers.length > 0) return;
+    this.providerService.getMyProviders().subscribe({
+      next: (response) => {
+        this.providers = response;
+        this.providerService.myProviders = response
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }

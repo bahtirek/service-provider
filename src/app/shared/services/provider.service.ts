@@ -22,7 +22,7 @@ export class ProviderService {
     return this.http.post<Provider[]>(this.url + '/providers/provider-search', searchQuery);
   }
 
-  getProviderProfileDetailsById(providerId: string) {
+  getProviderProfileDetailsById(providerId: number) {
     const params = new HttpParams().set('providerId', providerId)
     return this.http.get(this.url + '/providers/details-by-provider-id', {params});
   }
@@ -41,5 +41,9 @@ export class ProviderService {
     if(this.provider.providerId) return this.provider;
     this.provider = this.getProviderFromLocal();
     return this.provider;
+  }
+
+  addProvider(provider: Provider) {
+    this.myProviders.push(provider);
   }
 }
