@@ -59,6 +59,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 28px;
+    label{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     span {
       cursor: pointer;
     }
