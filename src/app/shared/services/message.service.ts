@@ -20,6 +20,17 @@ export class MessageService {
     });
   }
 
+  updateMessage(message: Message) {
+    this.messages.update(state => {
+      const index = state.findIndex(m => m.messageId == message.messageId)
+      if(index != -1) {
+        if(state[index].totalUploads) message.totalUploads = state[index].totalUploads! - 1;
+        state[index] = message;
+      }
+      return state
+    });
+  }
+
   addMessages(messages: Message[]){
     this.messages.update(state => state.concat(messages));
   }
@@ -30,6 +41,10 @@ export class MessageService {
 
   postMessage(messageDetails: Message){
     return this.http.post<any>(this.url + '/messages/message', messageDetails);
+  }
+
+  postAttachmentMessage(messageDetails: Message){
+    return this.http.post<any>(this.url + '/messages/attachment-message', messageDetails);
   }
 
   getMessages(subjectId: string, chunkNum: number){
@@ -53,4 +68,6 @@ export class MessageService {
   uploadFile(messageDetails: any){
     return this.http.post<any>(this.url + '/attachments/upload', messageDetails);
   }
+
+
 }

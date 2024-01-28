@@ -20,6 +20,11 @@ export class ChatService {
   private subjectService = inject(SubjectService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  attachmentMessageId: unknown;
+
+  setSubjectId(subjectId: number){
+    this.subjectId = subjectId;
+  }
 
   sendMessage(messageDetails: Message){
     if(this.socket.connected) {
@@ -37,10 +42,8 @@ export class ChatService {
 
   async connect(subjectId?: number){
     this.subjectId = subjectId;
-    console.log('connect');
 
     if(this.socket.connected) return;
-    console.log('connect');
     if(this.auth.isTokenExpired()) {
       const user$ = this.auth.refreshToken();
       const user = await lastValueFrom(user$);
@@ -48,6 +51,8 @@ export class ChatService {
     }
     console.log('connect');
     const accessToken = this.auth.user().accessToken;
+    console.log(this.auth.isTokenExpired());
+
     this.socket.on("connect", () => {
       this.socket.emit('initiateSession', {
         "accessToken": accessToken
@@ -95,8 +100,7 @@ uploadFile(file: File){
     testData.append('files', file)
     testData.append('message', JSON.stringify(messageDetails))
     testData.append('accessToken', token)
-    this.socket.emit('outgoingMessageWithAttachment', testData);
     console.log(testData)
-}
+  }
 
 }

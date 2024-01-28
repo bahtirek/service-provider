@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgClass } from '@angular/common';
@@ -30,6 +30,7 @@ export class MessageToolbarComponent implements OnInit {
   subjectId?: number;
   toggleModal: boolean = false;
   files?: FileList;
+  uploadInprogress = signal<number>(0)
 
   @Input() receiverId: string = '';
 
@@ -44,7 +45,7 @@ export class MessageToolbarComponent implements OnInit {
     const subject = this.subjectService.getSubjectFromLocal();
     if(subject) {
       this.subjectId = subject.subjectId;
-      this.chatService.connect(this.subjectId);
+      this.chatService.setSubjectId(this.subjectId!);
     }
   }
 
@@ -115,6 +116,75 @@ export class MessageToolbarComponent implements OnInit {
         console.log(err);
       },
     })
+  }
+
+  MB20: number = 1024 * 1024 * 20;
+  MB80: number = 1024 * 1024 * 80;
+  MB100: number = 1024 * 1024 * 100;
+
+  onFileUploads(comment: string) {
+    this.cancel();
+    let formDataArray: any = [];
+    let currentIndex: number = 0;
+    let currentSize = 0;
+    if(!this.files || this.files.length == 0) return;
+    let files: FormData = new FormData();
+    [...this.files].forEach(file => {
+      if(file.size < this.MB20 && currentSize < this.MB20) {
+        files.append('files', file);
+        formDataArray[currentIndex] = files;
+        currentSize = currentSize + file.size
+        if(currentSize > this.MB20) {
+          currentIndex = formDataArray.length;
+          currentSize = 0;
+        }
+      } else {
+        let bigFile: FormData = new FormData();
+        bigFile.append('files', file);
+        formDataArray[formDataArray.length] = bigFile;
+      }
+    });
+    this.submitAttachmentMessage(formDataArray, comment)
+
+  }
+
+  submitAttachmentMessage(formDataArray: any, comment: string) {
+    const messageDetails: any = {
+      subjectId: this.subjectId,
+      message: comment,
+      accessToken: this.auth.user().accessToken,
+      toUserId: this.receiverId,
+      isAttachment: true,
+    };
+
+    this.messageService.postAttachmentMessage(messageDetails).subscribe({
+      next: (response: Message) => {
+        console.log(response);
+        response.totalUploads = formDataArray.length;
+        this.messageService.addMessage(response)
+        if(response.messageId) this.submitFiles(formDataArray, response.messageId)
+      },
+      error: (error) => {
+        console.log();
+      }
+    })
+  }
+
+  submitFiles(formDataArray: any, messageId: number) {
+    formDataArray.forEach((formData: any) => {
+      console.log(formData);
+      formData.append('messageId', messageId)
+      console.log(formData);
+
+      this.messageService.uploadFile(formData).subscribe({
+        next: (response) => {
+          this.messageService.updateMessage(response)
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      })
+    });
   }
 
   onFocus(){
