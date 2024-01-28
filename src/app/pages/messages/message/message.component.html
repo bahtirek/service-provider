@@ -13,7 +13,18 @@
       }
     </div>
     <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
-      {{message.message}}
+      <span>{{message.message}}</span>
+      @if(message.attachments && message.attachments.length > 0) {
+        <div class="mb-sm"></div>
+      }
+      @for(attachment of message.attachments; track $index){
+        <app-attachment [fileProp]="attachment"></app-attachment>
+      }
+      @if(message.totalUploads && message.totalUploads > 0){
+        <div class="flex justify-center items-center py-sm px-xxl">
+          <div class="dot-flashing"></div>
+        </div>
+      }
     </div>
   </div>
 </div>

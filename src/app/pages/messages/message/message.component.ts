@@ -1,11 +1,13 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Message } from '../../../shared/interfaces/message.interface';
+import { FileDetailsComponent } from '../file-upload/file-details/file-details.component';
+import { AttachmentComponent } from './attachment/attachment.component';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [NgClass, DatePipe],
+  imports: [NgClass, DatePipe, AttachmentComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
