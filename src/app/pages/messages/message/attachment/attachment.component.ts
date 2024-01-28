@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Attachment } from '../../../../shared/interfaces/attachment.interface';
 import { NgStyle } from '@angular/common';
 
@@ -20,8 +20,14 @@ export class AttachmentComponent {
     this.file = file;
     //if(this.fileType != 'IMG') return;
     this.fileUrl = `url("${file.thumbnailUrl}")`
+    console.log(file.thumbnailUrl);
 
+  }
 
+  @Output() onAttachmentClickEmit = new EventEmitter<number>();
+
+  onAttachmentClick(){
+    this.onAttachmentClickEmit.emit(this.file!.messageAttachmentId);
   }
 
   setFileType(fileName: string) {

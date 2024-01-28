@@ -25,6 +25,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   @Output() onMessageIntersect = new EventEmitter<number>();
+  @Output() onAttachmentClickEmit = new EventEmitter<number>()
 
   @ViewChild('messageContent') messageContent!: ElementRef<HTMLDivElement>;
 
@@ -52,5 +53,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
         );
         observer.observe(this.messageContent.nativeElement);
     }
+  }
+
+  onAttachmentClick(messageAttachmentId: number){
+    this.onAttachmentClickEmit.emit(messageAttachmentId);
   }
 }

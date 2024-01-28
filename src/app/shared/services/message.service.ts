@@ -69,5 +69,10 @@ export class MessageService {
     return this.http.post<any>(this.url + '/attachments/upload', messageDetails);
   }
 
+  getAttachmentUrl(messageAttachmentId: number) {
+    const params = new HttpParams()
+    .set('messageAttachmentId', messageAttachmentId)
+    return this.http.get<any>(this.url + '/attachments/attachment-url', {params});
+  }
 
 }

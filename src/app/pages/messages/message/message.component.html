@@ -18,7 +18,7 @@
         <div class="mb-sm"></div>
       }
       @for(attachment of message.attachments; track $index){
-        <app-attachment [fileProp]="attachment"></app-attachment>
+        <app-attachment [fileProp]="attachment" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-attachment>
       }
       @if(message.totalUploads && message.totalUploads > 0){
         <div class="flex justify-center items-center py-sm px-xxl">

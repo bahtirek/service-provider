@@ -4,7 +4,7 @@ import { MessageComponent } from './message/message.component';
 import { MessageService } from '../../shared/services/message.service';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
 import { Message } from '../../shared/interfaces/message.interface';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { SubjectService } from '../../shared/services/subject.service';
 import { ChatService } from '../../shared/services/chat.service';
@@ -13,12 +13,13 @@ import { ClientService } from '../../shared/services/client.service';
 import { ProviderService } from '../../shared/services/provider.service';
 import { Provider } from '../../shared/interfaces/provider.interface';
 import { Client } from '../../shared/interfaces/client.interface';
+import { AttachmentModalComponent } from './attachment-modal/attachment-modal.component';
 
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass],
+  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass, AttachmentModalComponent, NgStyle],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
@@ -40,6 +41,8 @@ export class MessagesComponent implements OnInit {
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
   subject: any;
+  attachmentUrl: string = '';
+  toggleModal: boolean = false;
 
   ngOnInit(){
     this.getReceiverDeatils();
@@ -98,6 +101,19 @@ export class MessagesComponent implements OnInit {
         }
       };
     }
+  }
+
+  onAttachmentClick(messageAttachmentId: number){
+    this.messageService.getAttachmentUrl(messageAttachmentId).subscribe({
+      next: (response) =>{
+        this.attachmentUrl = response.attachmentUrl
+        this.toggleModal = true;
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    })
   }
 
   containerHighlight(){
