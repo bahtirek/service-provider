@@ -15,7 +15,7 @@ export class AttachmentComponent {
   fileType: string = 'UNK'
 
   @Input() set fileProp(file: Attachment){
-    //this.fileType = this.setFileType(file.attachmentOriginalName!);
+    if(file.thumbnailUrl == null) this.fileType = this.setFileType(file.attachmentOriginalName!);
     //console.log(this.fileType);
     this.file = file;
     //if(this.fileType != 'IMG') return;
@@ -24,10 +24,10 @@ export class AttachmentComponent {
 
   }
 
-  @Output() onAttachmentClickEmit = new EventEmitter<number>();
+  @Output() onAttachmentClickEmit = new EventEmitter<Attachment>();
 
   onAttachmentClick(){
-    this.onAttachmentClickEmit.emit(this.file!.messageAttachmentId);
+    this.onAttachmentClickEmit.emit(this.file);
   }
 
   setFileType(fileName: string) {
@@ -42,7 +42,7 @@ export class AttachmentComponent {
       return 'PDF'
     } else if (type.includes('zip')) {
       return 'ZIP'
-    } else if (type.includes('document')) {
+    } else if (type.includes('doc')) {
       return 'DOC'
     } else {
       return 'UNK'

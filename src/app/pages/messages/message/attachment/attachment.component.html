@@ -1,13 +1,13 @@
 <div class="flex no-wrap pa-xs attachment-container" (click)="onAttachmentClick()">
-  <!-- @if(fileType=='IMG'){ -->
+  @if(file!.thumbnailUrl){
     <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
-  <!-- } @else {
+  } @else {
     <div class="file-image">
       <div class="file-type">
         <span>{{fileType}}</span>
       </div>
     </div>
-  } -->
+  }
 
   <div class="file-name flex column ml-sm">
     <div>{{file?.attachmentOriginalName}}</div>
