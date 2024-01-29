@@ -19,6 +19,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   @Input() userId?: number;
   @Input() receiver?: any;
+  @Input() index?: number;
 
   @Input() set message$ (value: any) {
     this.message = value;
@@ -34,6 +35,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.isViewdChecker();
+    if(this.index == 0 && this.messageType == 'out') {
+      this.messageContent.nativeElement.scrollIntoView();
+    }
   }
 
   isViewdChecker() {

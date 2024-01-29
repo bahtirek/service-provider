@@ -6,7 +6,7 @@
   <div class="message-container" [ngClass]="{'new-message': containerBorder}">
     <div class="card pa-xl">
       @for (message of messages(); track message.messageId; let index = $index) {
-        <app-message [userId]="user.user?.userId" [message$]="message" [receiver]="receiver" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
+        <app-message [userId]="user.user?.userId" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
         @if(displayDate(index, message.createdAt)){
           <div class="date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
         }
