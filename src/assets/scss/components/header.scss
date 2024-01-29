@@ -44,7 +44,8 @@
           display: none;
         }
         @media (max-width: $screen-sm-max) {
-          padding: 10px 8px;
+          padding: 0px 4px;
+          font-size: 13px;
           span:last-child {
             display: none;
           }
