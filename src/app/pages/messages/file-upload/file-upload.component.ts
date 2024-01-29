@@ -25,6 +25,7 @@ export class FileUploadComponent {
   }
 
   onSend(){
-    this.onFileUpload.emit(this.comment.trim())
+    this.onFileUpload.emit(this.comment.trim());
+    this.comment = '';
   }
 }
