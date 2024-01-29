@@ -14,6 +14,7 @@ import { ProviderService } from '../../shared/services/provider.service';
 import { Provider } from '../../shared/interfaces/provider.interface';
 import { Client } from '../../shared/interfaces/client.interface';
 import { AttachmentModalComponent } from './attachment-modal/attachment-modal.component';
+import { Attachment } from '../../shared/interfaces/attachment.interface';
 
 
 @Component({
@@ -40,6 +41,8 @@ export class MessagesComponent implements OnInit {
   receiver: any = {};
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('downloadLink') downloadLink!: ElementRef<HTMLAnchorElement>;
+
   subject: any;
   attachmentUrl: string = '';
   toggleModal: boolean = false;
@@ -103,17 +106,28 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  onAttachmentClick(messageAttachmentId: number){
-    this.messageService.getAttachmentUrl(messageAttachmentId).subscribe({
+  onAttachmentClick(messageAttachment: Attachment){
+    this.messageService.getAttachmentUrl(messageAttachment.messageAttachmentId!).subscribe({
       next: (response) =>{
-        this.attachmentUrl = response.attachmentUrl
-        this.toggleModal = true;
+        console.log(response);
+        this.attachmentUrl = response.attachmentUrl;
+        if(messageAttachment.attachmentThumbnailId == null) {
+          this.downloadAttachment(messageAttachment.attachmentOriginalName!);
+        } else {
+          this.toggleModal = true;
+        }
       },
       error: (error) => {
         console.log(error);
 
       }
     })
+  }
+  downloadAttachment(name: string) {
+    this.downloadLink.nativeElement.setAttribute('download', name)
+    this.downloadLink.nativeElement.href = this.attachmentUrl;
+    this.downloadLink.nativeElement.click();
+    //window.open(this.attachmentUrl);
   }
 
   containerHighlight(){

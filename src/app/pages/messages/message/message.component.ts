@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 import { Message } from '../../../shared/interfaces/message.interface';
 import { FileDetailsComponent } from '../file-upload/file-details/file-details.component';
 import { AttachmentComponent } from './attachment/attachment.component';
+import { Attachment } from '../../../shared/interfaces/attachment.interface';
 
 @Component({
   selector: 'app-message',
@@ -25,7 +26,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   @Output() onMessageIntersect = new EventEmitter<number>();
-  @Output() onAttachmentClickEmit = new EventEmitter<number>()
+  @Output() onAttachmentClickEmit = new EventEmitter<Attachment>()
 
   @ViewChild('messageContent') messageContent!: ElementRef<HTMLDivElement>;
 
@@ -55,7 +56,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onAttachmentClick(messageAttachmentId: number){
-    this.onAttachmentClickEmit.emit(messageAttachmentId);
+  onAttachmentClick(messageAttachment: Attachment){
+    this.onAttachmentClickEmit.emit(messageAttachment);
   }
 }

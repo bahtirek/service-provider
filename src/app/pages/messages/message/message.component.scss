@@ -13,6 +13,7 @@
     background-size: 60px 60px;
     background-repeat: no-repeat;
     background-position: center;
+    flex-shrink: 0;
   }
   .message-text {
     white-space: pre-line;
