@@ -118,37 +118,7 @@ export class MessageToolbarComponent implements OnInit {
     })
   }
 
-  MB20: number = 1024 * 1024 * 20;
-  MB80: number = 1024 * 1024 * 80;
-  MB100: number = 1024 * 1024 * 100;
-
-  onFileUploads(comment: string) {
-    this.cancel();
-    let formDataArray: any = [];
-    let currentIndex: number = 0;
-    let currentSize = 0;
-    if(!this.files || this.files.length == 0) return;
-    let files: FormData = new FormData();
-    [...this.files].forEach(file => {
-      if(file.size < this.MB20 && currentSize < this.MB20) {
-        files.append('files', file);
-        formDataArray[currentIndex] = files;
-        currentSize = currentSize + file.size
-        if(currentSize > this.MB20) {
-          currentIndex = formDataArray.length;
-          currentSize = 0;
-        }
-      } else {
-        let bigFile: FormData = new FormData();
-        bigFile.append('files', file);
-        formDataArray[formDataArray.length] = bigFile;
-      }
-    });
-    this.submitAttachmentMessage(formDataArray, comment)
-
-  }
-
-  submitAttachmentMessage(formDataArray: any, comment: string) {
+  submitAttachmentMessage(comment: string) {
     const messageDetails: any = {
       subjectId: this.subjectId,
       message: comment,
@@ -159,10 +129,9 @@ export class MessageToolbarComponent implements OnInit {
 
     this.messageService.postAttachmentMessage(messageDetails).subscribe({
       next: (response: Message) => {
-        console.log(response);
-        response.totalUploads = formDataArray.length;
+        response.totalUploads = this.files!.length;
         this.messageService.addMessage(response)
-        if(response.messageId) this.submitFiles(formDataArray, response.messageId)
+        if(response.messageId) this.submitFiles(response.messageId)
       },
       error: (error) => {
         console.log();
@@ -170,12 +139,12 @@ export class MessageToolbarComponent implements OnInit {
     })
   }
 
-  submitFiles(formDataArray: any, messageId: number) {
-    formDataArray.forEach((formData: any) => {
-      console.log(formData);
-      formData.append('messageId', messageId)
-      console.log(formData);
-
+  submitFiles( messageId: number) {
+    if(!this.files || this.files.length == 0) return;
+    [...this.files].forEach((file: any) => {
+      let formData: FormData = new FormData();
+      formData.append('files', file);
+      formData.append('messageId', messageId.toString());
       this.messageService.uploadFile(formData).subscribe({
         next: (response) => {
           this.messageService.updateMessage(response)

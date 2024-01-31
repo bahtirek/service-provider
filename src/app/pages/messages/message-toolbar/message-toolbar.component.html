@@ -13,5 +13,5 @@
   </div>
 </div>
 <app-modal [(modal)]="toggleModal">
-  <app-file-upload (cancel)="cancel()" (onFileUpload)="onFileUploads($event)" [filesProp]="files!"></app-file-upload>
+  <app-file-upload (cancel)="cancel()" (onFileUpload)="submitAttachmentMessage($event)" [filesProp]="files!"></app-file-upload>
 </app-modal>
