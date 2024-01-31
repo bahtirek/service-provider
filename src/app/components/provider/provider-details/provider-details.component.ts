@@ -14,10 +14,11 @@ export class ProviderDetailsComponent {
   providerDetails: Provider = {};
   providerProfileDetails: Provider = {};
 
+  @Input() showCompleteDetails: boolean = false
+
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
     console.log(this.providerDetails);
-
   }
 
   @Input() set providerProfile (value: Provider) {

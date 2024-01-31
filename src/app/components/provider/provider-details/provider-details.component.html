@@ -8,46 +8,50 @@
     </li>
     <li class="flex">
       <div class="text-bold mr-md flex">
-        <span class="material-symbols-outlined">email</span>
-      </div>
-      <div>{{providerProfileDetails.email}}</div>
-    </li>
-    <li class="flex">
-      <div class="text-bold mr-md flex">
         <span class="material-symbols-outlined">phone</span>
       </div>
       <div>{{providerProfileDetails.phoneNumber}}</div>
     </li>
-    <li class="flex">
-      <div class="text-bold mr-md flex">
-        <span class="material-symbols-outlined">home_pin</span>
-      </div>
-      <div>{{providerProfileDetails.address}}</div>
-    </li>
-    <li class="flex no-wrap">
-      <div class="text-bold mr-md flex">
-        <span class="material-symbols-outlined mb-auto">info</span>
-      </div>
-      <div>{{providerProfileDetails.description}}</div>
-    </li>
-  </ul>
-  <ul class="ml-xxl mt-xs mb-md">
-    @for(category of providerProfileDetails.category; track $index){
-      <li class="pa-none">{{category?.name}}</li>
+    @if(showCompleteDetails) {
+      <li class="flex">
+        <div class="text-bold mr-md flex">
+          <span class="material-symbols-outlined">email</span>
+        </div>
+        <div>{{providerProfileDetails.email}}</div>
+      </li>
+      <li class="flex">
+        <div class="text-bold mr-md flex">
+          <span class="material-symbols-outlined">home_pin</span>
+        </div>
+        <div>{{providerProfileDetails.address}}</div>
+      </li>
+      <li class="flex no-wrap">
+        <div class="text-bold mr-md flex">
+          <span class="material-symbols-outlined mb-auto">info</span>
+        </div>
+        <div>{{providerProfileDetails.description}}</div>
+      </li>
     }
   </ul>
-  <div class="flex no-wrap">
-    <div class="text-bold mr-md flex">
-      <span class="material-symbols-outlined">calendar_month</span>
-    </div>
-    <ul class="work-hours-list">
-      @for(day of providerProfileDetails.availableDays; track $index){
-        <li>
-          <div>{{day.weekDay}}</div>
-          <div>{{providerProfileDetails.workHours}}</div>
-        </li>
+  @if(showCompleteDetails) {
+    <ul class="ml-xxl mt-xs mb-md">
+      @for(category of providerProfileDetails.category; track $index){
+        <li class="pa-none">{{category?.name}}</li>
       }
     </ul>
-
-  </div>
+    <div class="flex no-wrap">
+      <div class="text-bold mr-md flex">
+        <span class="material-symbols-outlined">calendar_month</span>
+      </div>
+      <ul class="work-hours-list">
+        @for(day of providerProfileDetails.availableDays; track $index){
+          <li>
+            <div>{{day.weekDay}}</div>
+            <div>{{providerProfileDetails.workHours}}</div>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+  <div class="user-avatar"></div>
 </div>
