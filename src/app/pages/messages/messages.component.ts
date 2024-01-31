@@ -15,12 +15,13 @@ import { Provider } from '../../shared/interfaces/provider.interface';
 import { Client } from '../../shared/interfaces/client.interface';
 import { AttachmentModalComponent } from './attachment-modal/attachment-modal.component';
 import { Attachment } from '../../shared/interfaces/attachment.interface';
+import { VideoComponent } from './attachment-modal/video/video.component';
 
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass, AttachmentModalComponent, NgStyle],
+  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass, AttachmentModalComponent, NgStyle, VideoComponent],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
@@ -45,7 +46,8 @@ export class MessagesComponent implements OnInit {
 
   subject: any;
   attachmentUrl: string = '';
-  toggleModal: boolean = false;
+  toggleImageModal: boolean = false;
+  toggleVideoModal: boolean = false;
 
   ngOnInit(){
     this.getReceiverDeatils();
@@ -111,17 +113,23 @@ export class MessagesComponent implements OnInit {
       next: (response) =>{
         console.log(response);
         this.attachmentUrl = response.attachmentUrl;
-        if(messageAttachment.attachmentThumbnailId == null) {
-          this.downloadAttachment(messageAttachment.attachmentOriginalName!);
-        } else {
-          this.toggleModal = true;
-        }
+        this.processAttachment(messageAttachment);
       },
       error: (error) => {
         console.log(error);
 
       }
     })
+  }
+  processAttachment(messageAttachment: Attachment) {
+    if(messageAttachment.attachmentMimeType?.includes('video')){
+
+      this.toggleVideoModal = true;
+    } else if(messageAttachment.attachmentThumbnailId == null) {
+      this.downloadAttachment(messageAttachment.attachmentOriginalName!);
+    } else {
+      this.toggleImageModal = true;
+    }
   }
   downloadAttachment(name: string) {
     this.downloadLink.nativeElement.setAttribute('download', name)

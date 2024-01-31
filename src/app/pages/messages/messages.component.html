@@ -15,7 +15,10 @@
     <app-message-toolbar [receiverId]="receiver.receiverId"></app-message-toolbar>
   </div>
 </div>
-<app-attachment-modal [(modal)]="toggleModal">
+<app-attachment-modal [(modal)]="toggleImageModal">
   <img [src]="attachmentUrl" alt="">
+</app-attachment-modal>
+<app-attachment-modal [(modal)]="toggleVideoModal">
+  <app-video [src]="attachmentUrl" ></app-video>
 </app-attachment-modal>
 <a class="hidden" #downloadLink></a>

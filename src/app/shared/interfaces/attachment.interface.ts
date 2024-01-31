@@ -3,4 +3,5 @@ export interface Attachment {
   attachmentThumbnailId?: number;
   messageAttachmentId?: number;
   thumbnailUrl?: string;
+  attachmentMimeType?: string
 }
