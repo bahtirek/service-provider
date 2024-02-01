@@ -13,8 +13,11 @@ export class ProviderDetailsComponent {
   private auth = inject(AuthService);
   providerDetails: Provider = {};
   providerProfileDetails: Provider = {};
+  showDetails: boolean = true;
 
-  @Input() showCompleteDetails: boolean = false
+  @Input() set showCompleteDetails (value: boolean) {
+    this.showDetails = value
+  }
 
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
@@ -34,6 +37,9 @@ export class ProviderDetailsComponent {
     console.log(this.providerProfileDetails);
 
 
+  }
+  more(){
+    this.showDetails = !this.showDetails
   }
 
   checkIfClient() {

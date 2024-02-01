@@ -1,25 +1,30 @@
 <div class="card provider-card" (click)="cardClicked()">
   <ul class="reset">
-    <li class="flex">
+    <li class="flex no-wrap">
       <div class="text-bold mr-md flex">
-        <span class="material-symbols-outlined">badge</span>
+        <div class="user-avatar"></div>
       </div>
-      <div>{{providerProfileDetails.firstName}} {{providerProfileDetails.lastName}}</div>
-    </li>
-    <li class="flex">
-      <div class="text-bold mr-md flex">
-        <span class="material-symbols-outlined">phone</span>
+      <div>
+        <ul class="reset">
+          <li>{{providerProfileDetails.companyName}}</li>
+          <li>{{providerProfileDetails.lastName}} {{providerProfileDetails.firstName}}</li>
+        </ul>
       </div>
-      <div>{{providerProfileDetails.phoneNumber}}</div>
     </li>
     @if(showCompleteDetails) {
-      <li class="flex">
+      <li class="flex mt-sm">
+        <div class="text-bold mr-md flex">
+          <span class="material-symbols-outlined">phone</span>
+        </div>
+        <div>{{providerProfileDetails.phoneNumber}}</div>
+      </li>
+      <li class="flex no-wrap">
         <div class="text-bold mr-md flex">
           <span class="material-symbols-outlined">email</span>
         </div>
         <div>{{providerProfileDetails.email}}</div>
       </li>
-      <li class="flex">
+      <li class="flex no-wrap">
         <div class="text-bold mr-md flex">
           <span class="material-symbols-outlined">home_pin</span>
         </div>
@@ -53,5 +58,7 @@
       </ul>
     </div>
   }
-  <div class="user-avatar"></div>
+  <button (click)="more()" class="cta-btn btn-icon more-btn" tabindex="0">
+    <span class="material-symbols-outlined">more_horiz</span>
+  </button>
 </div>

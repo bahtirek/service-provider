@@ -34,5 +34,11 @@ button, .btn {
     .material-symbols-outlined {
       font-size: 15px;
     }
+    &.more-btn {
+      padding: 8px;
+      .material-symbols-outlined {
+        font-size: 30px;
+      }
+    }
   }
 }

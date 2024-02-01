@@ -1,4 +1,4 @@
-import { Component, SimpleChange, inject } from '@angular/core';
+import { Component, SimpleChange, WritableSignal, effect, inject, signal } from '@angular/core';
 import { ProviderDetailsComponent } from '../../../../components/provider/provider-details/provider-details.component';
 import { ProviderCardComponent } from '../../../../components/provider/provider-card/provider-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,10 +32,11 @@ export class MyProviderComponent {
   providerId: string = '';
   toggleModal: boolean = false;
   subjectDetails: any = {};
-  subjectList = this.subjectService.subjects;
+  subjectList: WritableSignal<Subject[]> = signal([])
   displayAsCard: boolean = false
   provider: Provider = {};
   providers: Provider[] = [];
+  showCompleteDetails: boolean = true;
 
   ngOnInit(){
     this.getMyProviders();
@@ -74,7 +75,8 @@ export class MyProviderComponent {
   getSubjects(providerId: number){
     const isProvider = this.providers.some(item => item.providerId == this.provider.providerId)
     if(!isProvider) return;
-    this.subjectService.getProviderSubjects(providerId)
+    this.subjectService.getProviderSubjects(providerId);
+    this.subjectList = this.subjectService.subjects;
   }
 
   onSubjectClick(subject: Subject){
@@ -97,7 +99,7 @@ export class MyProviderComponent {
     this.providerService.getMyProviders().subscribe({
       next: (response) => {
         this.providers = response;
-        this.providerService.myProviders = response
+        this.providerService.myProviders = response;
       },
       error: (error) => {
         console.log(error);

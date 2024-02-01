@@ -1,7 +1,7 @@
 <div class="container container-md">
   <app-back-button></app-back-button>
   <div class="flex column gap-xl">
-    <app-provider-details [providerProfile]="providerProfileDetails"></app-provider-details>
+    <app-provider-details [providerProfile]="providerProfileDetails" [showCompleteDetails]="showCompleteDetails"></app-provider-details>
 
     <button (click)="createSession()" class="ml-auto">Start session</button>
 
