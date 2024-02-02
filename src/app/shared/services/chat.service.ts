@@ -28,15 +28,17 @@ export class ChatService {
 
   sendMessage(messageDetails: Message){
     const accessToken = this.auth.user().accessToken;
-    this.socket.emit('initiateSession', {
+    /* this.socket.emit('initiateSession', {
       "accessToken": accessToken
-    })
+    }) */
     if(this.socket.connected) {
       this.socket.emit('outgoingMessage', messageDetails);
       console.log("outgoingMessage", messageDetails)
     } else {
       console.log('reconnecting');
-      this.connect(this.subjectId)
+      this.connect(this.subjectId);
+      this.socket.emit('outgoingMessage', messageDetails);
+      console.log("outgoingMessage", messageDetails);
     }
   }
 
@@ -90,21 +92,24 @@ export class ChatService {
     })
   }
 
-uploadFile(file: File){
-  const messageDetails: Message = {
-    subjectId: this.subjectId,
-    message: 'newMessage',
-    accessToken: this.auth.user().accessToken,
-    toUserId: '1002',
-  };
-  const token: string = this.auth.user().accessToken!
-  console.log(messageDetails);
-    let testData:FormData = new FormData();
-    testData.append('files', file)
-    testData.append('files', file)
-    testData.append('message', JSON.stringify(messageDetails))
-    testData.append('accessToken', token)
-    console.log(testData)
+  sendAttchmentMessage(attachmentDetails: Message, toUserId: string) {
+    const accessToken = this.auth.user().accessToken;
+    const messageDetails = {
+      accessToken: accessToken,
+      toUserId: toUserId,
+      message: attachmentDetails
+    }
+    console.log(messageDetails);
+
+    this.socket.emit('initiateSession', {
+      "accessToken": accessToken
+    })
+    if(this.socket.connected) {
+      this.socket.emit('outgoingAttachment', messageDetails);
+      console.log("outgoingAttachment", messageDetails)
+    } else {
+      this.connect(this.subjectId)
+    }
   }
 
 }

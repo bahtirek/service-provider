@@ -148,7 +148,8 @@ export class MessageToolbarComponent implements OnInit {
       formData.append('messageId', messageId.toString());
       this.messageService.uploadFile(formData).subscribe({
         next: (response) => {
-          this.messageService.updateMessage(response)
+          this.messageService.updateMessage(response);
+          this.chatService.sendAttchmentMessage(response, this.receiverId);
         },
         error: (err) => {
           console.log(err);
