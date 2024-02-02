@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://octopus-app-omsi2.ondigitalocean.app/api',
-  socketUrl: 'https://octopus-app-omsi2.ondigitalocean.app',
+  apiUrl: 'http://73.57.80.184:3000/api',
+  socketUrl: 'http://73.57.80.184:3000',
 };
