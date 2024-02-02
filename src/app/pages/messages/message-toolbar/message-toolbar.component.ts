@@ -119,6 +119,7 @@ export class MessageToolbarComponent implements OnInit {
   }
 
   submitAttachmentMessage(comment: string) {
+    this.toggleModal = false;
     const messageDetails: any = {
       subjectId: this.subjectId,
       message: comment,
