@@ -40,5 +40,11 @@ button, .btn {
         font-size: 30px;
       }
     }
+    &.more-btn-cta {
+      .material-symbols-outlined {
+        display: inline-block;
+        margin-bottom: -6px;
+      }
+    }
   }
 }
