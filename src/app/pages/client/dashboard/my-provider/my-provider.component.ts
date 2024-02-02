@@ -36,7 +36,7 @@ export class MyProviderComponent {
   displayAsCard: boolean = false
   provider: Provider = {};
   providers: Provider[] = [];
-  showCompleteDetails: boolean = true;
+  showCompleteDetails: boolean = false;
 
   ngOnInit(){
     this.getMyProviders();
@@ -74,7 +74,10 @@ export class MyProviderComponent {
 
   getSubjects(providerId: number){
     const isProvider = this.providers.some(item => item.providerId == this.provider.providerId)
-    if(!isProvider) return;
+    if(!isProvider) {
+      this.showCompleteDetails = true
+      return;
+    }
     this.subjectService.getProviderSubjects(providerId);
     this.subjectList = this.subjectService.subjects;
   }

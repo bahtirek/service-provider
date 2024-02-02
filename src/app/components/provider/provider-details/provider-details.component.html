@@ -11,7 +11,7 @@
         </ul>
       </div>
     </li>
-    @if(showCompleteDetails) {
+    @if(showDetails) {
       <li class="flex mt-sm">
         <div class="text-bold mr-md flex">
           <span class="material-symbols-outlined">phone</span>
@@ -38,7 +38,7 @@
       </li>
     }
   </ul>
-  @if(showCompleteDetails) {
+  @if(showDetails) {
     <ul class="ml-xxl mt-xs mb-md">
       @for(category of providerProfileDetails.category; track $index){
         <li class="pa-none">{{category?.name}}</li>
