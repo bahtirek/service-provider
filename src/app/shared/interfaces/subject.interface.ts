@@ -1,4 +1,4 @@
-export interface Subject {
+export interface SubjectType {
   title?: string;
   providerId?: number | null;
   clientProviderId?:number | null;

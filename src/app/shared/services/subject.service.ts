@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Subject } from '../interfaces/subject.interface';
+import { SubjectType } from '../interfaces/subject.interface';
 import { Message } from '../interfaces/message.interface';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Message } from '../interfaces/message.interface';
 export class SubjectService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
-  subjects = signal<Subject[]>([]);
+  subjects = signal<SubjectType[]>([]);
 
   createSubject(subjectDetails: any){
     return this.http.post<any>(this.url + '/messages/subject', subjectDetails);
@@ -18,15 +18,15 @@ export class SubjectService {
 
   getProviderSubjectsAPI(providerId: number){
     const params = new HttpParams().set('providerId', providerId);
-    return this.http.get<Subject[]>(this.url + '/messages/client-provider-subjects', {params})
+    return this.http.get<SubjectType[]>(this.url + '/messages/client-provider-subjects', {params})
   }
 
   getClientSubjectsAPI(providerId: number){
     const params = new HttpParams().set('clientId', providerId);
-    return this.http.get<Subject[]>(this.url + '/messages/provider-client-subjects', {params})
+    return this.http.get<SubjectType[]>(this.url + '/messages/provider-client-subjects', {params})
   }
 
-  saveSubjectToLocal(subject: Subject){
+  saveSubjectToLocal(subject: SubjectType){
     window.localStorage.setItem('subject', JSON.stringify(subject))
   }
 
@@ -38,7 +38,7 @@ export class SubjectService {
   getProviderSubjects(providerId: number){
     this.subjects.set([]);
     this.getProviderSubjectsAPI(providerId).subscribe({
-      next: (response: Subject[]) => {
+      next: (response: SubjectType[]) => {
         this.subjects.set(response);
       },
       error: (error) => {
@@ -49,7 +49,7 @@ export class SubjectService {
 
   getClientSubjects(clientId: number){
     this.getClientSubjectsAPI(clientId).subscribe({
-      next: (response: Subject[]) => {
+      next: (response: SubjectType[]) => {
         this.subjects.set(response);
       },
       error: (error) => {

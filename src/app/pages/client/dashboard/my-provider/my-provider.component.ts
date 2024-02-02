@@ -7,7 +7,7 @@ import { Provider } from '../../../../shared/interfaces/provider.interface';
 import { ModalComponent } from '../../../../components/modal/modal.component';
 import { NewSubjectComponent } from './new-subject/new-subject.component';
 import { SubjectService } from '../../../../shared/services/subject.service';
-import { Subject } from '../../../../shared/interfaces/subject.interface';
+import { SubjectType } from '../../../../shared/interfaces/subject.interface';
 import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { NavigationService } from '../../../../shared/services/navigation.service';
@@ -32,7 +32,7 @@ export class MyProviderComponent {
   providerId: string = '';
   toggleModal: boolean = false;
   subjectDetails: any = {};
-  subjectList: WritableSignal<Subject[]> = signal([])
+  subjectList: WritableSignal<SubjectType[]> = signal([])
   displayAsCard: boolean = false
   provider: Provider = {};
   providers: Provider[] = [];
@@ -67,7 +67,7 @@ export class MyProviderComponent {
     })
   }
 
-  openSession(subject: Subject){
+  openSession(subject: SubjectType){
     this.cancel();
     this.onSubjectClick(subject)
   }
@@ -82,7 +82,7 @@ export class MyProviderComponent {
     this.subjectList = this.subjectService.subjects;
   }
 
-  onSubjectClick(subject: Subject){
+  onSubjectClick(subject: SubjectType){
     this.providerService.addProvider(this.provider)
     this.subjectService.saveSubjectToLocal(subject);
     this.router.navigate(['./messages'], { relativeTo: this.route });

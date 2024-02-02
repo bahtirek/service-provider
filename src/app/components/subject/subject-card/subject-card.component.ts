@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { Subject } from '../../../shared/interfaces/subject.interface';
+import { SubjectType } from '../../../shared/interfaces/subject.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SubjectCardComponent {
   private router = inject(Router);
-  @Input() subject: Subject = {};
+  @Input() subject: SubjectType = {};
 
   goToMessages() {
     this.router.navigate([`client/messages/${this.subject.subjectId}`]);

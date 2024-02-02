@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, Provider } from '@angular/core';
 import { SubjectCardComponent } from '../subject-card/subject-card.component';
-import { Subject } from '../../../shared/interfaces/subject.interface';
+import { SubjectType } from '../../../shared/interfaces/subject.interface';
 import { SubjectComponent } from '../subject/subject.component';
 
 @Component({
@@ -11,12 +11,12 @@ import { SubjectComponent } from '../subject/subject.component';
   styleUrl: './subject-list.component.scss'
 })
 export class SubjectListComponent {
-  @Input() subjectList: Subject[] = [];
+  @Input() subjectList: SubjectType[] = [];
   @Input() displayAsCard: boolean = true;
 
-  @Output() onSubjectClick$ = new EventEmitter<Subject>();
+  @Output() onSubjectClick$ = new EventEmitter<SubjectType>();
 
-  onSubjectClick(subject: Subject){
+  onSubjectClick(subject: SubjectType){
     this.onSubjectClick$.emit(subject)
   }
 }
