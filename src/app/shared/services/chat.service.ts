@@ -27,6 +27,10 @@ export class ChatService {
   }
 
   sendMessage(messageDetails: Message){
+    const accessToken = this.auth.user().accessToken;
+    this.socket.emit('initiateSession', {
+      "accessToken": accessToken
+    })
     if(this.socket.connected) {
       this.socket.emit('outgoingMessage', messageDetails);
       console.log("outgoingMessage", messageDetails)
