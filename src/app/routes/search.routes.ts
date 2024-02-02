@@ -14,7 +14,7 @@ export const SEARCH_ROUTES: Route[] = [
     loadComponent: () => import('../pages/search/services/services.component').then(c => c.ServicesComponent),
   },
   {
-    path: 'providers/provider-details',
+    path: 'found-provider',
     loadComponent: () => import('../pages/search/providers/found-provider/found-provider.component').then(c => c.FoundProviderComponent),
   },
   {

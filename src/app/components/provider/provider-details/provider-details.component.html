@@ -58,7 +58,9 @@
       </ul>
     </div>
   }
-  <button (click)="more()" class="cta-btn btn-icon more-btn" tabindex="0">
-    <span class="material-symbols-outlined">more_horiz</span>
-  </button>
+  @if(!hideMoreButton){
+    <button (click)="more()" class="cta-btn btn-icon more-btn" tabindex="0">
+      <span class="material-symbols-outlined">more_horiz</span>
+    </button>
+  }
 </div>

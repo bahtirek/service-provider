@@ -21,12 +21,13 @@ export class ProviderDetailsComponent {
 
   @Input() set provider (value: Provider) {
     this.providerDetails = value;
-    console.log(this.providerDetails);
   }
 
   @Input() set providerProfile (value: Provider) {
     this.providerProfileDetails = value;
   }
+
+  @Input() hideMoreButton: boolean = false;
 
   ngOnInit(){
     this.checkIfClient()

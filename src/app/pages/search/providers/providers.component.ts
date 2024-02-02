@@ -50,7 +50,7 @@ export class ProvidersComponent {
     if(this.auth.user().user?.isClient) {
       this.router.navigate([`/client/my-provider`]);
     } else {
-      this.router.navigate([`/search/providers/provider-details`]);
+      this.router.navigate([`/search/found-provider`]);
     }
   }
 }
