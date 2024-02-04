@@ -1,6 +1,8 @@
 <div class="flex no-wrap mb-sm">
   @if(fileType=='IMG'){
     <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
+  }@else if(fileType=='VID' && fileUrl){
+    <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
   } @else {
     <div class="file-image">
       <div class="file-type">
