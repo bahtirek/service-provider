@@ -122,17 +122,17 @@ export class MessagesComponent implements OnInit {
     })
   }
   processAttachment(messageAttachment: Attachment) {
-    if(messageAttachment.attachmentMimeType?.includes('video')){
+    if(messageAttachment.attachmentMimeType?.includes('video') && !messageAttachment.attachmentMimeType?.includes('avi')){
 
       this.toggleVideoModal = true;
-    } else if(messageAttachment.attachmentThumbnailId == null) {
+    } else if(messageAttachment.attachmentThumbnailId == null || messageAttachment.attachmentMimeType?.includes('avi')) {
       this.downloadAttachment(messageAttachment.attachmentOriginalName!);
     } else {
       this.toggleImageModal = true;
     }
   }
   downloadAttachment(name: string) {
-    this.downloadLink.nativeElement.setAttribute('download', name)
+    //this.downloadLink.nativeElement.setAttribute('download', name)
     this.downloadLink.nativeElement.href = this.attachmentUrl;
     this.downloadLink.nativeElement.click();
     //window.open(this.attachmentUrl);
