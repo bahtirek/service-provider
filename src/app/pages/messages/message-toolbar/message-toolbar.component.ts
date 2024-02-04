@@ -164,5 +164,6 @@ export class MessageToolbarComponent implements OnInit {
 
   cancel() {
     this.toggleModal = false;
+    this.fileUpload.nativeElement.value = '';
   }
 }
