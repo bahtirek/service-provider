@@ -13,11 +13,14 @@ export class MessageService {
   messages = signal<Message[]>([])
 
   addMessage(message: Message){
-    if(this.messages().some(item => item.messageId == message.messageId)) return;
-    this.messages.update(state => {
-      state.unshift(message)
-      return state
-    });
+    if(this.messages().some(item => item.messageId == message.messageId)){
+      this.updateMessage(message)
+    } else {
+      this.messages.update(state => {
+        state.unshift(message)
+        return state
+      });
+    }
   }
 
   updateMessage(message: Message) {
