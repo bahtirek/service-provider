@@ -121,6 +121,10 @@ $base-unit:0px;
   @extend .justify-center;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 .gap- {
   &xs {gap: 4px;}
   &sm {gap: 8px;}
