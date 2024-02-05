@@ -1,10 +1,27 @@
 
 <div class="header">
   <div class="container container-md items-center flex">
-    <div class="">
+    <div class="mr-auto">
       <a [routerLink]="'home'" routerLinkActive="active-link">Brand</a>
     </div>
-    <app-header-nav-menu></app-header-nav-menu>
+    <div class="sm-hide">
+      <app-header-nav-menu></app-header-nav-menu>
+    </div>
+    <div class="md-hide lg-hide flex items-center">
+      <div class="flex items-center mr-xs">
+        @if (toggleMenuModal) {
+          <span class="material-symbols-outlined" (click)="closeMenu()">close</span>
+        } @else {
+          <span class="material-symbols-outlined" (click)="openMenu()">menu</span>
+        }
+        <app-header-user-drop-menu [(modal)]="toggleMenuModal">
+          <app-header-nav-menu></app-header-nav-menu>
+        </app-header-user-drop-menu>
+      </div>
+      @if (!loggedIn()) {
+        <a class="nav-link" [routerLink]="'auth/login'" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Login</a>
+      }
+    </div>
     <!-- <app-header-user-menu></app-header-user-menu> -->
   </div>
 </div>

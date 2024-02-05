@@ -1,12 +1,8 @@
-<div class="nav-menu-drop-container">
-  <ul class="nav-drop-links">
-    @for (item of userSubMenuItems; track $index) {
-      <li>
-        <a [routerLink]="item.url" routerLinkActive="active-link">{{item.name}}</a>
-      </li>
-    }
-    <li>
-      <a class="nav-link" (click)="logout()">Logout</a>
-    </li>
-  </ul>
+<div [ngClass]="{'hidden': hideContainer}">
+  <div role="dialog" class="nav-menu-drop-container" [ngClass]="{'fade-anim': fadeAnim, 'in': fadeIn, 'show-drop-menu': fadeIn}" (click)="closeModal()">
+    <div class="nav-drop-links">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>
+

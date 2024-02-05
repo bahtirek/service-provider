@@ -44,8 +44,6 @@
           display: none;
         }
         @media (max-width: $screen-sm-max) {
-          padding: 0px 4px;
-          font-size: 13px;
           span:last-child {
             display: none;
           }
@@ -75,22 +73,57 @@
     }
   }
 
+  .nav-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    height: 38px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    &.active-link {
+      font-weight: 600;
+      //outline: 1px solid var(--primary-hover);
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: var(--grey-lightest);
+    }
+  }
   .nav-menu-drop-container {
-    display: none;
-    position: absolute;
-    right: -4px;
-    border: 1px solid #c4c8c7;
-    background-color: #fff;
-    padding: 10px 0;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    ul.nav-drop-links {
+    display: block;
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    top: 60px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.4);
+    padding: 2px;
+    transition: opacity 400ms ease-in-out;
+    &.fade-anim {
+      transition: opacity 400ms ease-in-out;
+      will-change: opacity;
+      opacity: 0;
+      &.in {
+        opacity: 1;
+      }
+    }
+
+    ul.nav-links {
+      width: 100%;
       list-style: none;
       padding: 0;
       margin: 0;
-      width: max-content;
+      border: 1px solid #c4c8c7;
+      background-color: #fff;
+      padding: 10px 0;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
       li {
+        margin: 0;
         a {
           width: 100%;
           display: inline-block;
@@ -103,6 +136,20 @@
             background-color: var(--grey-lightest);
           }
         }
+      }
+    }
+
+    .nav-drop-links {
+      transform: translateY(-110%);
+      transition-timing-function: ease-in;
+      transition: 0.2s;
+    }
+    &.show-drop-menu {
+      .nav-drop-links {
+        transition: 0.25s;
+        transition-timing-function: ease-out;
+        transform: translateY(0);
+        opacity: 1;
       }
     }
   }
