@@ -1,5 +1,5 @@
-<div class="flex no-wrap items-center pr-lg">
-  <span (click)="onSubjectClick()" class="py-md px-xl block full-width">{{subject.title}}</span>
+<div class="flex no-wrap items-center pr-lg pr-md-mob">
+  <span (click)="onSubjectClick()">{{subject.title}}</span>
   <app-enevelope [newMessageCount]="subject.newMessageCount!"></app-enevelope>
 </div>
 
