@@ -19,6 +19,14 @@ export class FileUploadComponent {
 
   @Output() cancel = new EventEmitter<boolean>();
   @Output() onFileUpload = new EventEmitter<string>();
+  @Output() thumbnailEvent = new EventEmitter<any>();
+
+  handleThumbnailEvent(thumbnail: string, index: number) {
+    this.thumbnailEvent.emit({
+      thumbnail: thumbnail,
+      index: index
+    })
+  }
 
   onCancel(){
     this.cancel.emit(true)

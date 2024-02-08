@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FileSizePipe } from '../../../../shared/pipes/file-size.pipe';
 import { NgStyle } from '@angular/common';
 
@@ -13,12 +13,12 @@ export class FileDetailsComponent {
   file?: File;
   fileUrl: string | ArrayBuffer | null = '';
   fileType: string = 'UNK'
-  thumbnail?: string;
+
+  @Output() thumbnailEvent: EventEmitter<string> = new EventEmitter();
 
   @Input() set fileProp(file: File){
     this.file = file;
     this.setFileType(file.type);
-    console.log(this.file);
     if(this.fileType != 'IMG') return;
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -29,11 +29,6 @@ export class FileDetailsComponent {
   }
 
   async setFileType(type: string) {
-    console.log(this.file);
-    console.log(type.includes('video') || type.includes('avi'));
-    console.log(type);
-
-
     if(type.includes('image')) {
       this.fileType =  'IMG'
     } else if (type.includes('pdf')) {
@@ -46,6 +41,7 @@ export class FileDetailsComponent {
       if(type.includes('mp4') || type.includes('ogg') || type.includes('mov') || type.includes('webm')) {
         const thumbnail =  await this.generateVideoThumbnail(this.file!);
         this.fileUrl = `url("${thumbnail}")`;
+        this.thumbnailEvent.emit(thumbnail)
       }
       this.fileType =  'VID'
     } else {
@@ -53,24 +49,31 @@ export class FileDetailsComponent {
     }
   }
 
-
   generateVideoThumbnail(file: File):Promise<string> {
     return new Promise((resolve) => {
       const canvas = document.createElement("canvas");
       const video = document.createElement("video");
 
-      // this is important
       video.autoplay = true;
       video.muted = true;
       video.src = URL.createObjectURL(file);
 
       video.onloadeddata = () => {
         let ctx = canvas.getContext("2d");
-
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        let width = video.videoWidth;
+        let height = video.videoHeight;
+        const aspectRatio = width/height;
+        if(width > height) {
+          width = 100
+          height = width/aspectRatio
+        } else {
+          height = 100
+          width = height*aspectRatio
+        }
+        canvas.width = width;
+        canvas.height = height;
         if(ctx == null) return null;
-        ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        ctx.drawImage(video, 0, 0, width, height);
         video.pause();
         return resolve(canvas.toDataURL("image/png"));
       };

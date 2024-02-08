@@ -3,7 +3,7 @@
     <h3 class="mb-lg">{{files.length}} files selected</h3>
   }
   @for(file of files; track $index){
-    <app-file-details [fileProp]="file"></app-file-details>
+    <app-file-details [fileProp]="file" (thumbnailEvent)="handleThumbnailEvent($event, $index)"></app-file-details>
   }
   <div class="form-element mt-xxl">
     <label for="sessionTitle">Comment</label>

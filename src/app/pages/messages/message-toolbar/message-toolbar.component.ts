@@ -30,7 +30,8 @@ export class MessageToolbarComponent implements OnInit {
   subjectId?: number;
   toggleModal: boolean = false;
   files?: FileList;
-  uploadInprogress = signal<number>(0)
+  uploadInprogress = signal<number>(0);
+  videoThumbnails: any[] = [];
 
   @Input() receiverId: string = '';
 
@@ -142,10 +143,15 @@ export class MessageToolbarComponent implements OnInit {
 
   submitFiles( messageId: number) {
     if(!this.files || this.files.length == 0) return;
+    let count = 0;
     [...this.files].forEach((file: any) => {
+      let blob = '';
+      const thumbnail = this.videoThumbnails.find(item => item.index == count);
+      if(thumbnail) blob = thumbnail.thumbnail;
       let formData: FormData = new FormData();
-      formData.append('files', file);
+      formData.append('file', file);
       formData.append('messageId', messageId.toString());
+      formData.append('thumbnailBlob', blob)
       this.messageService.uploadFile(formData).subscribe({
         next: (response) => {
           this.messageService.updateMessage(response);
@@ -155,7 +161,12 @@ export class MessageToolbarComponent implements OnInit {
           console.log(err);
         },
       })
+      count++;
     });
+  }
+
+  handleThumbnailEvent(thumbnail: any) {
+    this.videoThumbnails.push(thumbnail)
   }
 
   onFocus(){
