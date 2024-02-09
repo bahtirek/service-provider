@@ -1,15 +1,20 @@
-<div class="flex no-wrap pa-xs attachment-container" (click)="onAttachmentClick()">
-  @if(file!.thumbnailUrl){
-    <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
-  } @else {
-    <div class="file-image">
-      <div class="file-type">
-        <span>{{fileType}}</span>
-      </div>
-    </div>
-  }
-
-  <div class="file-name flex column ml-sm">
-    <div>{{file?.attachmentOriginalName}}</div>
+@if(isGif){
+  <div class="flex no-wrap pa-xs">
+    <img [src]="file!.thumbnailUrl" alt="" class="gif-message">
   </div>
-</div>
+} @else {
+  <div class="flex no-wrap pa-xs attachment-container" (click)="onAttachmentClick()">
+    @if(file!.thumbnailUrl){
+      <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
+    } @else {
+      <div class="file-image">
+        <div class="file-type">
+          <span>{{fileType}}</span>
+        </div>
+      </div>
+    }
+    <div class="file-name flex column ml-sm">
+      <div>{{file?.attachmentOriginalName}}</div>
+    </div>
+  </div>
+}

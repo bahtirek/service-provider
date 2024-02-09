@@ -13,14 +13,15 @@ export class AttachmentComponent {
   file?: Attachment;
   fileUrl: string = '';
   fileType: string = 'UNK'
+  isGif: boolean = false;
 
   @Input() set fileProp(file: Attachment){
     if(file.thumbnailUrl == null) this.fileType = this.setFileType(file.attachmentMimeType!);
-    //console.log(this.fileType);
+    if(file.attachmentMimeType?.includes('gif')) this.isGif = true;
     this.file = file;
     //if(this.fileType != 'IMG') return;
     this.fileUrl = `url("${file.thumbnailUrl}")`
-    //console.log(file);
+    console.log(file);
 
   }
 
