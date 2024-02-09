@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment.development';
 import { shareReplay, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthUser } from '../interfaces/auth.interface';
-import { lastValueFrom } from 'rxjs';
+import { Subject, lastValueFrom } from 'rxjs';
 
 interface AuthState {
   user?: User;
@@ -20,6 +20,7 @@ export class AuthService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
   private router = inject(Router);
+  accessToken: string = '';
 
   // state
   private state = signal<AuthState | null>({
@@ -35,6 +36,7 @@ export class AuthService {
     return this.state()?.user
   }); */
   user = signal<AuthUser>({})
+  public userSubject: Subject<AuthUser> = new Subject;
 
   constructor( ) {
     this.getUser()
@@ -66,6 +68,7 @@ export class AuthService {
     window.sessionStorage.setItem('user', JSON.stringify(user));
     this.user.update(() => (user))
     this.isLoggedIn.set(true);
+    this.userSubject.next(user);
   }
 
   getUser() {
@@ -79,6 +82,7 @@ export class AuthService {
     } else {
       this.user.update(() => (user))
       this.isLoggedIn.set(true);
+      this.userSubject.next(user);
     }
   }
 
@@ -87,6 +91,7 @@ export class AuthService {
       this.refreshToken().subscribe({
         next: (user) => {
           this.setUser(user);
+          this.userSubject.next(user);
         },
         error: (err) => {
           this.isLoggedIn.set(false);

@@ -16,6 +16,8 @@ import { Client } from '../../shared/interfaces/client.interface';
 import { AttachmentModalComponent } from './attachment-modal/attachment-modal.component';
 import { Attachment } from '../../shared/interfaces/attachment.interface';
 import { VideoComponent } from './attachment-modal/video/video.component';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthUser } from '../../shared/interfaces/auth.interface';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class MessagesComponent implements OnInit {
   private auth = inject(AuthService);
   private clientService = inject(ClientService);
   private providerService = inject(ProviderService);
+  private readonly _subscription: Subscription = new Subscription();
 
 
   user = this.auth.user();
@@ -50,6 +53,11 @@ export class MessagesComponent implements OnInit {
   toggleVideoModal: boolean = false;
 
   ngOnInit(){
+    this._subscription.add(
+      this.auth.userSubject.subscribe((user: AuthUser)=>{
+
+      })
+    )
     this.getReceiverDeatils();
     this.getMessages();
   }
