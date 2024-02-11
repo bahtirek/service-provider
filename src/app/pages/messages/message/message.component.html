@@ -3,7 +3,7 @@
   <div class="message-content" #messageContent>
     <div class="message-heading">
       <span class="message-author">
-        {{receiver.firstName}} {{receiver.lastName}}
+        {{receiver?.firstName}} {{receiver?.lastName}}
       </span>
       <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>
       @if (message.viewed) {

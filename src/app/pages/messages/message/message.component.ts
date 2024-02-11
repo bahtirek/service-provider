@@ -8,6 +8,7 @@ import { FloatMenuComponent } from '../../../components/float-menu/float-menu.co
 import { FloatMenu } from '../../../shared/interfaces/float-menu.interface';
 import { FloatMenuHorizontalComponent } from '../../../components/float-menu-horizontal/float-menu-horizontal.component';
 import { ReplyService } from '../../../shared/services/reply.service';
+import { Receiver } from '../../../shared/interfaces/receiver.interface';
 
 @Component({
   selector: 'app-message',
@@ -40,7 +41,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   ]
 
   @Input() userId?: number;
-  @Input() receiver?: any;
+  @Input() receiver?: Receiver;
   @Input() index?: number;
 
   @Input() set message$ (value: any) {
@@ -95,7 +96,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   menuActionHandle(action: string) {
     if(action == "reply") {
-      this.replyService.replyToMessage(this.message)
+      this.message.receiver = this.receiver;
+      this.replyService.replyToMessage(this.message);
     }
   }
 }

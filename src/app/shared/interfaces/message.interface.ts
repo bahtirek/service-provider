@@ -1,4 +1,5 @@
 import { Attachment } from "./attachment.interface";
+import { Receiver } from "./receiver.interface";
 
 export interface Message {
   messageId?: number;
@@ -8,10 +9,11 @@ export interface Message {
   viewed?: boolean;
   subjectId?: number;
   accessToken?: string;
-  toUserId?: string;
+  toUserId?: number;
   isAttachment?: boolean;
   error?: string;
   attachments? : Attachment[];
   totalUploads?: number;
-  replyToMessageId?: number | null
+  replyToMessageId?: number | null;
+  receiver?: Receiver;
 }

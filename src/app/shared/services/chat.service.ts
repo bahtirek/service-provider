@@ -92,7 +92,7 @@ export class ChatService {
     })
   }
 
-  sendAttchmentMessage(attachmentDetails: Message, toUserId: string) {
+  sendAttchmentMessage(attachmentDetails: Message, toUserId: number) {
     const accessToken = this.auth.user().accessToken;
     const messageDetails = {
       accessToken: accessToken,

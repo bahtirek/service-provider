@@ -18,6 +18,7 @@ import { Attachment } from '../../shared/interfaces/attachment.interface';
 import { VideoComponent } from './attachment-modal/video/video.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthUser } from '../../shared/interfaces/auth.interface';
+import { Receiver } from '../../shared/interfaces/receiver.interface';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class MessagesComponent implements OnInit {
   messages: WritableSignal<Message[]> = this.messageService.messages;
   chunkNum: number = 1;
   containerBorder: boolean = false;
-  receiver: any = {};
+  receiver: Receiver = {};
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('downloadLink') downloadLink!: ElementRef<HTMLAnchorElement>;
