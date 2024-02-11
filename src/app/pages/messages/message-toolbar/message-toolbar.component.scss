@@ -6,6 +6,9 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: #ffffff;
+  @media (max-width: $screen-sm-max){
+    border: none;
+  }
   .message-toolbar {
     min-height: 46px;
     display: flex;
@@ -13,9 +16,6 @@
     align-items: flex-end;
     justify-content: space-around;
     padding: 10px 10px 12px 10px;
-    @media (max-width: $screen-sm-max){
-      border: none;
-    }
 
     .text-container {
       width: 100%;

@@ -107,36 +107,6 @@ export class MessageToolbarComponent implements OnInit {
     }
   }
 
-  onFileUpload(comment: string){
-    if(!this.files || this.files.length == 0) return;
-    let files: FormData = new FormData();
-    [...this.files].forEach(file => {
-      files.append('files', file)
-    });
-
-    const messageDetails: any = {
-      subjectId: this.subjectId,
-      message: comment,
-      accessToken: this.auth.user().accessToken,
-      toUserId: this.receiverId,
-      isAttachment: true,
-    };
-
-    files.append('message', JSON.stringify(messageDetails))
-
-    this.messageService.uploadFile(files).subscribe({
-      next: (response) => {
-        if(response.messageId){
-          this.messageService.addMessage(response)
-        }
-        this.cancel();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    })
-  }
-
   submitAttachmentMessage(comment: string) {
     this.toggleModal = false;
     const messageDetails: any = {
@@ -145,13 +115,15 @@ export class MessageToolbarComponent implements OnInit {
       accessToken: this.auth.user().accessToken,
       toUserId: this.receiverId,
       isAttachment: true,
+      replyToMessageId: this.replyToMessageId
     };
 
     this.messageService.postAttachmentMessage(messageDetails).subscribe({
       next: (response: Message) => {
         response.totalUploads = this.files!.length;
-        this.messageService.addMessage(response)
-        if(response.messageId) this.submitFiles(response.messageId)
+        this.messageService.addMessage(response);
+        if(response.messageId) this.submitFiles(response.messageId);
+        this.resetMessageInputField();
       },
       error: (error) => {
         console.log();

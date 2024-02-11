@@ -22,23 +22,26 @@ export class MessageComponent implements OnInit, AfterViewInit {
   message: Message = {};
   messageType: string = "";
   parent: HTMLDivElement | null = null;
-  menuItems: FloatMenu[] = [
+  menuItems: FloatMenu[] = [];
+  menuItemsIn: FloatMenu[] = [
+    {
+      label: "Reply",
+      action: "reply",
+      icon: "reply"
+    },
+  ];
+  menuItemsOut: FloatMenu[] = [
     {
       label: "Edit",
       action: "edit",
       icon: "edit"
     },
     {
-      label: "Reply",
-      action: "reply",
-      icon: "reply"
-    },
-    {
       label: "Delete",
       action: "delete",
       icon: "delete",
     },
-  ]
+  ];
 
   @Input() userId?: number;
   @Input() receiver?: Receiver;
@@ -46,7 +49,13 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   @Input() set message$ (value: any) {
     this.message = value;
-    this.messageType = this.userId == this.message.createdBy ? 'out' : "in";
+    if(this.userId == this.message.createdBy){
+      this.messageType = 'out';
+      this.menuItems = this.menuItemsOut;
+    } else {
+      this.messageType = 'in';
+      this.menuItems = this.menuItemsIn;
+    }
   }
 
   @Output() onMessageIntersect = new EventEmitter<number>();
