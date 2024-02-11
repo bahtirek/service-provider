@@ -29,7 +29,7 @@
     font-size: 14px;
     position: relative;
     .float-menu {
-      top: -22px !important;
+      //top: -22px !important;
     }
   }
   .message-author, .message-date {
@@ -80,8 +80,8 @@
   &.in {
     .message-text {
       .float-menu {
-        left: 0;
-        right: initial;
+        //left: 0;
+        //right: initial;
       }
     }
   }
