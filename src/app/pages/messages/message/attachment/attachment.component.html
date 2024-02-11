@@ -3,16 +3,18 @@
     <img [src]="file!.thumbnailUrl" alt="" class="gif-message">
   </div>
 } @else {
-  <div class="flex no-wrap pa-xs attachment-container" (click)="onAttachmentClick()">
-    @if(file!.thumbnailUrl){
-      <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
-    } @else {
-      <div class="file-image">
-        <div class="file-type">
-          <span>{{fileType}}</span>
+  <div class="flex no-wrap">
+    <div (click)="onAttachmentClick($event)" class="attachment-container">
+      @if(file!.thumbnailUrl){
+        <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
+      } @else {
+        <div class="file-image">
+          <div class="file-type">
+            <span>{{fileType}}</span>
+          </div>
         </div>
-      </div>
-    }
+      }
+    </div>
     <div class="file-name flex column ml-sm">
       <div>{{file?.attachmentOriginalName}}</div>
     </div>

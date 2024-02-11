@@ -12,7 +12,7 @@
         <span class="material-symbols-outlined text-primary done-all">done</span>
       }
     </div>
-    <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
+    <div class="message-text show-on-hover-parent" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
       <span>{{message.message}}</span>
       @if(message.attachments && message.attachments.length > 0) {
         <div class="mb-sm"></div>
@@ -25,6 +25,7 @@
           <div class="dot-flashing"></div>
         </div>
       }
+      <app-float-menu-horizontal [menuItems]="menuItems" (menuActionEmit)="menuActionHandle($event)"></app-float-menu-horizontal>
     </div>
   </div>
 </div>

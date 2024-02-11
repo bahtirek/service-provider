@@ -27,7 +27,8 @@ export class AttachmentComponent {
 
   @Output() onAttachmentClickEmit = new EventEmitter<Attachment>();
 
-  onAttachmentClick(){
+  onAttachmentClick(event: PointerEvent | MouseEvent){
+    event.stopPropagation();
     this.onAttachmentClickEmit.emit(this.file);
   }
 

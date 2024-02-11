@@ -13,4 +13,5 @@ export interface Message {
   error?: string;
   attachments? : Attachment[];
   totalUploads?: number;
+  replyToMessageId?: number | null
 }

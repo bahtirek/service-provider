@@ -9,6 +9,8 @@ import { SubjectService } from '../../../shared/services/subject.service';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { MessageService } from '../../../shared/services/message.service';
+import { ReplyService } from '../../../shared/services/reply.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -22,7 +24,9 @@ export class MessageToolbarComponent implements OnInit {
   private auth = inject(AuthService);
   private chatService = inject(ChatService)
   private subjectService = inject(SubjectService);
-  private messageService = inject(MessageService)
+  private messageService = inject(MessageService);
+  private replyService = inject(ReplyService);
+  private readonly _subscription: Subscription = new Subscription();
 
 
   message: string = "";
@@ -32,6 +36,8 @@ export class MessageToolbarComponent implements OnInit {
   files?: FileList;
   uploadInprogress = signal<number>(0);
   videoThumbnails: any[] = [];
+  replyToMessageId?: number | null = null;
+  replyToMessage: Message = {};
 
   @Input() receiverId: string = '';
 
@@ -40,6 +46,12 @@ export class MessageToolbarComponent implements OnInit {
   @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
 
   ngOnInit(){
+    this._subscription.add(
+      this.replyService.onMessageReplay.subscribe((message: Message)=>{
+        this.replyToMessage = message;
+        this.replyToMessageId = message.messageId;
+      })
+    )
     this.getSubjectDetails();
   }
   getSubjectDetails() {
@@ -59,6 +71,7 @@ export class MessageToolbarComponent implements OnInit {
       message: newMessage,
       accessToken: this.auth.user().accessToken,
       toUserId: this.receiverId,
+      replyToMessageId: this.replyToMessageId
     };
 
     this.chatService.sendMessage(messageDetails);
@@ -69,6 +82,8 @@ export class MessageToolbarComponent implements OnInit {
     this.renderer.setAttribute(this.textAreaContainer.nativeElement, 'data-replicated-value',  "")
     this.textArea.nativeElement.value = "";
     this.showCursor = true;
+    this.replyToMessage = {};
+    this.replyToMessageId = null;
   }
 
   onAttach(){
