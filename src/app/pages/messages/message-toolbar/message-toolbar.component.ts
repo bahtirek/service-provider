@@ -11,11 +11,12 @@ import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { MessageService } from '../../../shared/services/message.service';
 import { ReplyService } from '../../../shared/services/reply.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ReplyToMessageDetailsComponent } from './reply-to-message-details/reply-to-message-details.component';
 
 @Component({
   selector: 'app-message-toolbar',
   standalone: true,
-  imports: [FormsModule, NgClass, ModalComponent, FileUploadComponent],
+  imports: [FormsModule, NgClass, ModalComponent, FileUploadComponent, ReplyToMessageDetailsComponent],
   templateUrl: './message-toolbar.component.html',
   styleUrl: './message-toolbar.component.scss'
 })
@@ -39,7 +40,7 @@ export class MessageToolbarComponent implements OnInit {
   replyToMessageId?: number | null = null;
   replyToMessage: Message = {};
 
-  @Input() receiverId: string = '';
+  @Input() receiverId?: number;
 
   @ViewChild('textAreaContainer') textAreaContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
@@ -47,7 +48,9 @@ export class MessageToolbarComponent implements OnInit {
 
   ngOnInit(){
     this._subscription.add(
-      this.replyService.onMessageReplay.subscribe((message: Message)=>{
+      this.replyService.onMessageReplay.subscribe((message: Message) => {
+        console.log(message);
+
         this.replyToMessage = message;
         this.replyToMessageId = message.messageId;
       })
@@ -170,7 +173,7 @@ export class MessageToolbarComponent implements OnInit {
       this.messageService.uploadFile(formData).subscribe({
         next: (response) => {
           this.messageService.updateMessage(response);
-          this.chatService.sendAttchmentMessage(response, this.receiverId);
+          this.chatService.sendAttchmentMessage(response, this.receiverId!);
         },
         error: (err) => {
           console.log(err);
@@ -191,5 +194,7 @@ export class MessageToolbarComponent implements OnInit {
   cancel() {
     this.toggleModal = false;
     this.fileUpload.nativeElement.value = '';
+    this.replyToMessage = {};
+    this.replyToMessageId = null;
   }
 }

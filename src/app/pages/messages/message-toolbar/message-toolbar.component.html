@@ -1,15 +1,20 @@
-<div class="message-toolbar">
-  <div class="text-container" #textAreaContainer>
-    <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()" placeholder="Send message"></textarea>
-  </div>
-  <div class="action-btn">
-    <span class="material-symbols-outlined text-primary" (click)="onSubmit()" >send</span>
-  </div>
-  <div class="action-btn">
-    <label for="attach">
-      <span class="material-symbols-outlined text-primary">attach_file</span>
-    </label>
-    <input type="file" id="attach" accept="image/*, .pdf, .doc, .docx" class="hidden" #fileUpload (input)="onAttach()" multiple />
+<div class="message-toolbar-container">
+  @if(replyToMessageId){
+    <app-reply-to-message-details [messageProp]="replyToMessage" (cancelEmit)="cancel()"></app-reply-to-message-details>
+  }
+  <div class="message-toolbar">
+    <div class="action-btn">
+      <label for="attach">
+        <span class="material-symbols-outlined text-primary">attach_file</span>
+      </label>
+      <input type="file" id="attach" accept="image/*, .pdf, .doc, .docx" class="hidden" #fileUpload (input)="onAttach()" multiple />
+    </div>
+    <div class="text-container" #textAreaContainer>
+      <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" rows="1" #textArea (focus)="onFocus()" (blur)="onBlur()" placeholder="Send message"></textarea>
+    </div>
+    <div class="action-btn">
+      <span class="material-symbols-outlined text-primary" (click)="onSubmit()" >send</span>
+    </div>
   </div>
 </div>
 <app-modal [(modal)]="toggleModal">

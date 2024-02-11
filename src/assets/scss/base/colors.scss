@@ -10,6 +10,7 @@
   --white: #fff;
   --grey: #666;
   --grey-dark: #404040;
+  --grey-darkest: #272727;
   --grey-light: #c4c8c7;
   --grey-lightest: #eef1f2;
   --danger: #cd1717;
@@ -17,6 +18,12 @@
 
 .text-primary {
   color: var(--primary);
+}
+.text-dark {
+  color: var(--grey-dark);
+}
+.text-darkest {
+  color: var(--grey-darkest);
 }
 .bg-primary {
   background-color: var(--primary);

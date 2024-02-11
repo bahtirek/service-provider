@@ -95,3 +95,13 @@
       display: none;
     }
 }
+
+.hoverable {
+  cursor: pointer;
+}
+
+.truncated {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
