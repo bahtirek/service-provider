@@ -16,13 +16,9 @@ export class AttachmentComponent {
   isGif: boolean = false;
 
   @Input() set fileProp(file: Attachment){
-    if(file.thumbnailUrl == null) this.fileType = this.setFileType(file.attachmentMimeType!);
     if(file.attachmentMimeType?.includes('gif')) this.isGif = true;
     this.file = file;
-    //if(this.fileType != 'IMG') return;
     this.fileUrl = `url("${file.thumbnailUrl}")`
-    console.log(file);
-
   }
 
   @Output() onAttachmentClickEmit = new EventEmitter<Attachment>();
@@ -30,21 +26,5 @@ export class AttachmentComponent {
   onAttachmentClick(event: PointerEvent | MouseEvent){
     event.stopPropagation();
     this.onAttachmentClickEmit.emit(this.file);
-  }
-
-  setFileType(type: string) {
-    if(type.includes('image')) {
-      return 'IMG'
-    } else if (type.includes('video')) {
-      return 'VID'
-    } else if (type.includes('pdf')) {
-      return 'PDF'
-    } else if (type.includes('zip')) {
-      return 'ZIP'
-    } else if (type.includes('document')) {
-      return 'DOC'
-    } else {
-      return 'UNK'
-    }
   }
 }

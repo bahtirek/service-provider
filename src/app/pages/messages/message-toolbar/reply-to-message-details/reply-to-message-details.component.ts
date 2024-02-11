@@ -27,26 +27,8 @@ export class ReplyToMessageDetailsComponent {
   setAttachment(){
     if(this.message.attachments!.length == 0) return;
     this.attachment = this.message.attachments![0];
-    if(this.attachment.thumbnailUrl == null) {
-      this.attachmentType = this.setAttachmentType(this.attachment.attachmentMimeType!)
-    } else {
+    if(this.attachment.thumbnailUrl != null) {
       this.attachmentUrl = `url("${this.attachment.thumbnailUrl}")`
-    }
-  }
-
-  setAttachmentType(type: string) {
-    if(type.includes('image')) {
-      return 'IMG'
-    } else if (type.includes('video')) {
-      return 'VID'
-    } else if (type.includes('pdf')) {
-      return 'PDF'
-    } else if (type.includes('zip')) {
-      return 'ZIP'
-    } else if (type.includes('document')) {
-      return 'DOC'
-    } else {
-      return 'UNK'
     }
   }
 

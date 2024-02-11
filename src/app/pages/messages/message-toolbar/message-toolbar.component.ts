@@ -49,8 +49,6 @@ export class MessageToolbarComponent implements OnInit {
   ngOnInit(){
     this._subscription.add(
       this.replyService.onMessageReplay.subscribe((message: Message) => {
-        console.log(message);
-
         this.replyToMessage = message;
         this.replyToMessageId = message.messageId;
       })
@@ -92,7 +90,6 @@ export class MessageToolbarComponent implements OnInit {
   onAttach(){
     const ext = /(\.jpg|\.jpeg|\.bmp|\.gif|\.svg|\.png|\.webm|\.avi|\.mpeg|\.mkv|\.doc|\.docx|\.xls|\.xlsx|\.pdf)$/i;
     const files = this.fileUpload.nativeElement.files;
-    console.log(files);
     if(files && files.length > 0) {
       this.files = files;
       this.toggleModal = true;

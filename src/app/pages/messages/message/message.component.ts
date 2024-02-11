@@ -73,26 +73,22 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   isViewdChecker() {
-    console.log(!this.message.viewed && this.messageType !== 'out' && this.messageContent !== undefined);
-
     if(!this.message.viewed && this.messageType !== 'out' && this.messageContent !== undefined) {
       const threshold = 1;
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              console.log(this.message.messageId);
-
-                this.onMessageIntersect.emit(this.message.messageId)
-                observer.disconnect();
-              }
-            });
-          },
-          {
-            threshold: 1
-          }
-        );
-        observer.observe(this.messageContent.nativeElement);
+              this.onMessageIntersect.emit(this.message.messageId)
+              observer.disconnect();
+            }
+          });
+        },
+        {
+          threshold: 1
+        }
+      );
+      observer.observe(this.messageContent.nativeElement);
     }
     if(!this.message.viewed) {
       //check if in viewport
