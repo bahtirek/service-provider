@@ -2,7 +2,6 @@
   /* width: min(400px, 100%);
   margin-left: auto; */
   &:hover {
-    background-color: #fffefe;
     border-radius: 10px;
     cursor: pointer;
   }
@@ -11,4 +10,14 @@
 .gif-message {
   width: 100%;
   height: auto;
+}
+
+
+.download-btn {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  //height: 28px;
+  cursor: pointer;
 }

@@ -8,10 +8,8 @@
       @if(file!.thumbnailUrl){
         <div class="file-image" [ngStyle]="{'background-image': fileUrl}"></div>
       } @else {
-        <div class="file-image">
-          <div class="file-type">
-            <span>{{fileType}}</span>
-          </div>
+        <div class="download">
+          <span class="material-symbols-outlined text-primary">download</span>
         </div>
       }
     </div>

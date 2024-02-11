@@ -35,11 +35,5 @@
 }
 
 .file-name {
-  overflow: hidden;
-  display: inline-block;
-  div {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+  padding-top: 3px;
 }
