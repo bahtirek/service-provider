@@ -82,3 +82,16 @@
 .relative {
   position: relative;
 }
+
+.show-on-hover-parent {
+    @media (min-width: $screen-lg-min) {
+      &:hover {
+        .show-on-hover-child {
+          display: block;
+        }
+      }
+    }
+    .show-on-hover-child {
+      display: none;
+    }
+}
