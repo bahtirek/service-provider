@@ -15,6 +15,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: $screen-sm-max) {
+    padding: 60px 0 0;
+  }
   &.fade-anim {
     transition: opacity 400ms ease-in-out;
     will-change: opacity;
