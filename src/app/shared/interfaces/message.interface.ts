@@ -1,5 +1,6 @@
 import { Attachment } from "./attachment.interface";
 import { Receiver } from "./receiver.interface";
+import { ReplyToMessage } from "./reply-to-message.interface";
 
 export interface Message {
   messageId?: number;
@@ -16,4 +17,6 @@ export interface Message {
   totalUploads?: number;
   replyToMessageId?: number | null;
   receiver?: Receiver;
+  replyToMessage?: ReplyToMessage;
+  scrollIntoView?: boolean;
 }

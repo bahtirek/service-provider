@@ -1,14 +1,13 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject} from '@angular/core';
 import { Message } from '../../../shared/interfaces/message.interface';
-import { FileDetailsComponent } from '../file-upload/file-details/file-details.component';
 import { AttachmentComponent } from './attachment/attachment.component';
 import { Attachment } from '../../../shared/interfaces/attachment.interface';
-import { FloatMenuComponent } from '../../../components/float-menu/float-menu.component';
 import { FloatMenu } from '../../../shared/interfaces/float-menu.interface';
 import { FloatMenuHorizontalComponent } from '../../../components/float-menu-horizontal/float-menu-horizontal.component';
 import { ReplyService } from '../../../shared/services/reply.service';
 import { Receiver } from '../../../shared/interfaces/receiver.interface';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'app-message',
@@ -19,9 +18,12 @@ import { Receiver } from '../../../shared/interfaces/receiver.interface';
 })
 export class MessageComponent implements OnInit, AfterViewInit {
   private replyService = inject(ReplyService);
+  private messageService = inject(MessageService);
+
   message: Message = {};
   messageType: string = "";
   parent: HTMLDivElement | null = null;
+  highlight: string = '';
   menuItems: FloatMenu[] = [];
   menuItemsIn: FloatMenu[] = [
     {
@@ -37,6 +39,11 @@ export class MessageComponent implements OnInit, AfterViewInit {
       icon: "edit"
     },
     {
+      label: "Reply",
+      action: "reply",
+      icon: "reply"
+    },
+    {
       label: "Delete",
       action: "delete",
       icon: "delete",
@@ -46,6 +53,17 @@ export class MessageComponent implements OnInit, AfterViewInit {
   @Input() userId?: number;
   @Input() receiver?: Receiver;
   @Input() index?: number;
+  @Input() set scrollIntoViewProp (value: boolean | undefined) {
+    if(value) {
+      this.messageContent.nativeElement.scrollIntoView({
+        block: "center", // Start, center, end, or nearest. Defaults to start.
+        behavior: "smooth"
+      });
+      this.highlight = 'highlight-message';
+    } else {
+      this.highlight = ''
+    }
+  }
 
   @Input() set message$ (value: any) {
     this.message = value;
@@ -104,5 +122,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
       this.message.receiver = this.receiver;
       this.replyService.replyToMessage(this.message);
     }
+  }
+
+  goToMessage() {
+    this.messageService.updateMessageScrollIntoViewProperty(this.message.replyToMessage?.replyToMessageId!)
   }
 }

@@ -64,7 +64,7 @@ export class MessageService {
 
   updateViewedStatus(messageId: number) {
     this.messages.update(messages =>
-      messages.map(message => message.messageId ===messageId ? {...message, viewed: true} : message)
+      messages.map(message => message.messageId === messageId ? {...message, viewed: true} : message)
     )
   }
 
@@ -76,6 +76,18 @@ export class MessageService {
     const params = new HttpParams()
     .set('messageAttachmentId', messageAttachmentId)
     return this.http.get<any>(this.url + '/attachments/attachment-url', {params});
+  }
+
+  updateMessageScrollIntoViewProperty(id: number) {
+    const index = this.messages().findIndex(message => message.messageId == id)
+    if(index != -1) {
+      this.messages()[index].scrollIntoView = true;
+      this.messages.set(this.messages());
+      setTimeout(() => {
+        this.messages()[index].scrollIntoView = false;
+        this.messages.set(this.messages());
+      }, 2000);
+    }
   }
 
 }

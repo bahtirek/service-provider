@@ -28,8 +28,17 @@
     max-width: 80%;
     font-size: 14px;
     position: relative;
-    .float-menu {
-      //top: -22px !important;
+    .reply-to-details {
+      width: 250px;
+      font-size: 12px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background-color: #76797b2e;
+      margin-bottom: 5px;
+      cursor: pointer;
+      .material-symbols-outlined {
+        font-size: 20px;
+      }
     }
   }
   .message-author, .message-date {
@@ -84,5 +93,11 @@
         //right: initial;
       }
     }
+  }
+  transition: background-color 1000ms linear;
+  background-color: transparent;
+  border-radius: 10px;
+  &.highlight-message {
+    background-color: #83bbff8a;
   }
 }
