@@ -53,6 +53,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   @Input() userId?: number;
   @Input() receiver?: Receiver;
   @Input() index?: number;
+  @Input() last: boolean = false;
   @Input() set scrollIntoViewProp (value: boolean | undefined) {
     if(value) {
       this.messageContent.nativeElement.scrollIntoView({
@@ -88,6 +89,17 @@ export class MessageComponent implements OnInit, AfterViewInit {
     if(this.index == 0 && this.messageType == 'out') {
       this.messageContent.nativeElement.scrollIntoView();
     }
+    if(this.last) this.setLastMessageObserver()
+  }
+
+  setLastMessageObserver() {
+    const lastMessageObserver = new IntersectionObserver(entries => {
+      const lastMessage = entries[0]
+      if(!lastMessage.isIntersecting) return
+      this.messageService.loadNewChunkOfMessages();
+      lastMessageObserver.unobserve(lastMessage.target);
+    }, {rootMargin: '200px'})
+    lastMessageObserver.observe(this.messageContent.nativeElement);
   }
 
   isViewdChecker() {

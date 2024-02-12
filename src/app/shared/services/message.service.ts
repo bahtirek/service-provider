@@ -56,7 +56,7 @@ export class MessageService {
     this.subjectId = subjectId;
     const params = new HttpParams()
     .set('subjectId', subjectId)
-    .set('chunkCount', 5)
+    .set('chunkCount', 50)
     .set('chunkNum', this.chunkNum)
     this.chunkNum++
     return this.http.get<Message[]>(this.url + '/messages/subject-messages', {params});
@@ -104,6 +104,17 @@ export class MessageService {
         }
       })
     }
+  }
+
+  loadNewChunkOfMessages(){
+    this.getMessages(this.subjectId).subscribe({
+      next: (response) => {
+        this.addMessages(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
 }
