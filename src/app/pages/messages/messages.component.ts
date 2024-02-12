@@ -67,10 +67,9 @@ export class MessagesComponent implements OnInit {
     this.messageService.resetMessages();
     this.subject = this.subjectService.getSubjectFromLocal()
     if(!this.subject) this.navigation.back();
-    this.messageService.getMessages(this.subject.subjectId, this.chunkNum).subscribe({
+    this.messageService.getMessages(this.subject.subjectId).subscribe({
       next: (response) => {
         this.messageService.addMessages(response);
-        this.chunkNum++
       },
       error: (error) => {
         console.log(error);

@@ -11,6 +11,8 @@ export class MessageService {
   private http = inject(HttpClient);
 
   messages = signal<Message[]>([])
+  subjectId: string = '';
+  chunkNum: number = 1;
 
   addMessage(message: Message){
     if(this.messages().some(item => item.messageId == message.messageId)){
@@ -50,11 +52,13 @@ export class MessageService {
     return this.http.post<any>(this.url + '/messages/attachment-message', messageDetails);
   }
 
-  getMessages(subjectId: string, chunkNum: number){
+  getMessages(subjectId: string){
+    this.subjectId = subjectId;
     const params = new HttpParams()
     .set('subjectId', subjectId)
-    .set('chunkCount', 100)
-    .set('chunkNum', chunkNum)
+    .set('chunkCount', 5)
+    .set('chunkNum', this.chunkNum)
+    this.chunkNum++
     return this.http.get<Message[]>(this.url + '/messages/subject-messages', {params});
   }
 
@@ -87,6 +91,18 @@ export class MessageService {
         this.messages()[index].scrollIntoView = false;
         this.messages.set(this.messages());
       }, 2000);
+    } else {
+      this.getMessages(this.subjectId).subscribe({
+        next: (response) => {
+          this.addMessages(response);
+          setTimeout(() => {
+            this.updateMessageScrollIntoViewProperty(id)
+          });
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
     }
   }
 
