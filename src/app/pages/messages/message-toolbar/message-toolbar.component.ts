@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, inject, signal } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Renderer2, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgClass } from '@angular/common';
@@ -20,7 +20,7 @@ import { ReplyToMessageDetailsComponent } from './reply-to-message-details/reply
   templateUrl: './message-toolbar.component.html',
   styleUrl: './message-toolbar.component.scss'
 })
-export class MessageToolbarComponent implements OnInit {
+export class MessageToolbarComponent implements OnInit, OnDestroy {
   private renderer = inject(Renderer2);
   private auth = inject(AuthService);
   private chatService = inject(ChatService)
@@ -39,6 +39,7 @@ export class MessageToolbarComponent implements OnInit {
   videoThumbnails: any[] = [];
   replyToMessageId?: number | null = null;
   replyToMessage: Message = {};
+  messageToEditId: number | null= null;
 
   @Input() receiverId?: number;
 
@@ -46,15 +47,29 @@ export class MessageToolbarComponent implements OnInit {
   @ViewChild('textArea') textArea!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
 
+
   ngOnInit(){
     this._subscription.add(
       this.replyService.onMessageReplay.subscribe((message: Message) => {
+        this.resetMessageInputField();
         this.replyToMessage = message;
         this.replyToMessageId = message.messageId;
       })
     )
+    this._subscription.add(
+      this.replyService.onMessageEdit.subscribe((message: Message) => {
+        this.resetMessageInputField();
+        this.replyToMessage = message;
+        this.messageToEditId = message.messageId!;
+      })
+    )
     this.getSubjectDetails();
   }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe()
+  }
+
   getSubjectDetails() {
     const subject = this.subjectService.getSubjectFromLocal();
     if(subject) {
@@ -67,6 +82,14 @@ export class MessageToolbarComponent implements OnInit {
     if(!this.subjectId || !this.receiverId) return;
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
+    if(this.messageToEditId) {
+      this.postEditedMessage(newMessage)
+    } else {
+      this.postNewOrReplyMessage(newMessage)
+    }
+  }
+
+  postNewOrReplyMessage(newMessage: string){
     const messageDetails: Message = {
       subjectId: this.subjectId,
       message: newMessage,
@@ -74,9 +97,13 @@ export class MessageToolbarComponent implements OnInit {
       toUserId: this.receiverId,
       replyToMessageId: this.replyToMessageId
     };
-
     this.chatService.sendMessage(messageDetails);
     this.resetMessageInputField();
+  }
+
+  postEditedMessage(newMessage: string){
+    console.log(newMessage);
+
   }
 
   resetMessageInputField() {
@@ -85,6 +112,7 @@ export class MessageToolbarComponent implements OnInit {
     this.showCursor = true;
     this.replyToMessage = {};
     this.replyToMessageId = null;
+    this.messageToEditId = null;
   }
 
   onAttach(){
@@ -165,5 +193,6 @@ export class MessageToolbarComponent implements OnInit {
     this.fileUpload.nativeElement.value = '';
     this.replyToMessage = {};
     this.replyToMessageId = null;
+    this.messageToEditId = null;
   }
 }

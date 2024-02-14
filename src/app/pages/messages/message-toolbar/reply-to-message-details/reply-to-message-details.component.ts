@@ -15,11 +15,20 @@ export class ReplyToMessageDetailsComponent {
   attachment?: Attachment;
   attachmentUrl: string = '';
   attachmentType: string = 'UNK'
+  title: string = '';
 
   @Input() set messageProp (message: Message) {
     this.reset();
     this.message = message;
     this.setAttachment();
+  };
+
+  @Input() set isEditingProp (editing: number | null) {
+    if (editing) {
+      this.title = 'Editing message:'
+    } else {
+      this.title = `Reply to ${this.message.receiver?.firstName} ${this.message.receiver?.lastName}`
+    }
   };
 
   @Output() cancelEmit = new EventEmitter<void>();

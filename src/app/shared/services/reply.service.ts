@@ -8,8 +8,13 @@ import { Message } from '../interfaces/message.interface';
 export class ReplyService {
   constructor() { }
   public onMessageReplay: Subject<Message> = new Subject();
+  public onMessageEdit: Subject<Message> = new Subject();
 
-  replyToMessage(data: Message){
-    this.onMessageReplay.next(data)
+  replyToMessage(message: Message){
+    this.onMessageReplay.next(message)
+  }
+
+  editMessage(message: Message){
+    this.onMessageEdit.next(message)
   }
 }

@@ -134,10 +134,14 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   menuActionHandle(action: string) {
+    console.log(action);
     if(action == "reply") {
       this.message.receiver = this.receiver;
       this.replyService.replyToMessage(this.message);
+    } else if(action == "edit") {
+      this.replyService.editMessage(this.message)
     }
+    this.showFloatMenu = '';
   }
 
   goToMessage() {

@@ -1,6 +1,6 @@
 <div class="message-toolbar-container">
-  @if(replyToMessageId){
-    <app-reply-to-message-details [messageProp]="replyToMessage" (cancelEmit)="cancel()"></app-reply-to-message-details>
+  @if(replyToMessageId || messageToEditId){
+    <app-reply-to-message-details [messageProp]="replyToMessage" [isEditingProp]="messageToEditId" (cancelEmit)="resetMessageInputField()"></app-reply-to-message-details>
   }
   <div class="message-toolbar">
     <div class="action-btn">

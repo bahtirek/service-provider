@@ -9,7 +9,7 @@
       </div>
     }
     <div class="message-text">
-      <div class="text-primary text-13 mb-xs truncated">Reply to {{message.receiver?.firstName}} {{message.receiver?.lastName}}</div>
+      <div class="text-primary text-13 mb-xs truncated">{{title}}</div>
       @if(attachment && !attachment.thumbnailUrl){
         <div class="text-11 text-darkest truncated">{{attachment.attachmentOriginalName}}</div>
       }
