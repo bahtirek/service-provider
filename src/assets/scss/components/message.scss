@@ -55,8 +55,22 @@
     display: flex;
     flex-direction: column;
     .message-heading{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       .done-all {
         display: none;
+      }
+
+      .more-horiz {
+        height: 13px;
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
+        position: relative;
+        .material-symbols-outlined {
+          cursor: pointer;
+        }
       }
     }
   }
@@ -71,7 +85,7 @@
           position: absolute;
           right: -20px;
           font-size: 17px;
-          top: 2px;
+          top: -4px;
         }
       }
       .message-text {
@@ -87,10 +101,10 @@
     }
   }
   &.in {
-    .message-text {
-      .float-menu {
-        //left: 0;
-        //right: initial;
+    .message-heading{
+      justify-content: flex-start;
+      .more-horiz {
+        order: 3;
       }
     }
   }

@@ -1,9 +1,13 @@
-<div class="message-container " [ngClass]="[messageType, highlight]">
+<div class="message-container" [ngClass]="[messageType, highlight]">
   <div class="message-avatar"></div>
   <div class="message-content" #messageContent>
     <div class="message-heading">
       <span class="message-author">
         {{receiver?.firstName}} {{receiver?.lastName}}
+      </span>
+      <span class="more-horiz show-on-hover-parent" [ngClass]="[showFloatMenu, ]">
+        <app-float-menu-horizontal [menuItems]="menuItems" [viewedProp]="message.viewed!" (menuActionEmit)="menuActionHandle($event)"></app-float-menu-horizontal>
+        <span class="material-symbols-outlined text-primary" (click)="onMenuClick()">more_horiz</span>
       </span>
       <span class="message-date">{{message.createdAt | date:'HH:mm'}}</span>
       @if (message.viewed) {
@@ -12,7 +16,7 @@
         <span class="material-symbols-outlined text-primary done-all">done</span>
       }
     </div>
-    <div class="message-text show-on-hover-parent" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
+    <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
       @if(message.replyToMessage!.replyToMessageId){
         <div class="reply-to-details" (click)="goToMessage()">
           <div class="truncated text-primary">{{receiver?.firstName}} {{receiver?.lastName}}</div>
@@ -31,7 +35,6 @@
           <div class="dot-flashing"></div>
         </div>
       }
-      <app-float-menu-horizontal [menuItems]="menuItems" (menuActionEmit)="menuActionHandle($event)"></app-float-menu-horizontal>
     </div>
   </div>
 </div>

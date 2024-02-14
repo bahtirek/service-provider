@@ -24,6 +24,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
   messageType: string = "";
   parent: HTMLDivElement | null = null;
   highlight: string = '';
+  showFloatMenu: string = '';
+  isMobile: boolean = false;
   menuItems: FloatMenu[] = [];
   menuItemsIn: FloatMenu[] = [
     {
@@ -82,14 +84,16 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('messageContent') messageContent!: ElementRef<HTMLDivElement>;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   ngAfterViewInit(): void {
     this.isViewdChecker();
     if(this.index == 0 && this.messageType == 'out') {
       this.messageContent.nativeElement.scrollIntoView();
     }
-    if(this.last) this.setLastMessageObserver()
+    if(this.last) this.setLastMessageObserver();
   }
 
   setLastMessageObserver() {
@@ -138,5 +142,13 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   goToMessage() {
     this.messageService.updateMessageScrollIntoViewProperty(this.message.replyToMessage?.replyToMessageId!)
+  }
+
+  onMenuClick() {
+    if(window.matchMedia("(min-width: 1025px)").matches) return;
+    this.showFloatMenu = 'hold';
+    setTimeout(() => {
+      this.showFloatMenu = '';
+    }, 2000);
   }
 }

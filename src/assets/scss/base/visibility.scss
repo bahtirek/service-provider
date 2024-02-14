@@ -84,16 +84,35 @@
 }
 
 .show-on-hover-parent {
-    @media (min-width: $screen-lg-min) {
-      &:hover {
-        .show-on-hover-child {
-          display: block;
-        }
+  @media (min-width: $screen-lg-min) {
+    &:hover {
+      .show-on-hover-child {
+        display: block;
       }
     }
-    .show-on-hover-child {
-      display: none;
+  }
+  @media (max-width: $screen-sm-max) {
+    &.hold {
+      .show-on-hover-child {
+        display: block;
+      }
     }
+  }
+  .show-on-hover-child {
+    display: none;
+  }
+}
+
+.show-on-hold-parent {
+  &.hold {
+    .show-on-hover-child {
+      display: block;
+    }
+  }
+
+  .show-on-hover-child {
+    display: none;
+  }
 }
 
 .hoverable {
@@ -104,4 +123,13 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.disabled {
+  opacity: .5 !important;
+  pointer-events: none !important;
+  &:hover {
+    cursor: none !important;
+    color: initial !important;
+  }
 }

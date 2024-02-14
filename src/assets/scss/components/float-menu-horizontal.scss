@@ -4,8 +4,8 @@
   border-radius: 10px;
   padding: 3px 10px;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
-  right: 0;
-  top: 0px;
+  right: -4px;
+  top: 15px;
   z-index: 10;
   .menu-btn {
     height: 30px;
@@ -23,6 +23,11 @@
     .material-symbols-outlined {
       font-size: 20px;
       color: var(--grey);
+    }
+  }
+  @media (min-width: $screen-lg-min) {
+    &:hover {
+      display: block !important;
     }
   }
 }
