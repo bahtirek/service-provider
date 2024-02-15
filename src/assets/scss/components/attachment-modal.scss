@@ -52,7 +52,7 @@
       top: 90px;
       cursor: pointer;
       color: white;
-      background: grey;
+      background: var(--grey-dark);
       border-radius: 5px;
       @media (max-width: $screen-sm-max) {
         right: 12px;

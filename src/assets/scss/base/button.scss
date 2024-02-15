@@ -27,6 +27,9 @@ button, .btn {
     &:hover {
       background-color: transparent;
     }
+    &.white {
+      color: var(--white);
+    }
   }
   &.btn-icon {
     display: inline-flex;

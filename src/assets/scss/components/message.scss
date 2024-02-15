@@ -1,3 +1,4 @@
+
 .message-container {
   padding-bottom: 10px;
   display: flex;
@@ -10,7 +11,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #dadce0;
+    border: 1px solid var(--border-color);
     background-image: url('../../images/bola_avatar.png');
     background-size: 60px 60px;
     background-repeat: no-repeat;
@@ -38,6 +39,10 @@
       cursor: pointer;
       .material-symbols-outlined {
         font-size: 20px;
+      }
+
+      @media (max-width: $screen-sm-max) {
+        width: auto;
       }
     }
   }

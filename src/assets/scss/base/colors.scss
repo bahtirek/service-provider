@@ -14,6 +14,7 @@
   --grey-light: #c4c8c7;
   --grey-lightest: #eef1f2;
   --danger: #cd1717;
+  --border-color: #dadce0;
 }
 
 .text-primary {
@@ -30,4 +31,7 @@
 }
 .text-light {
   color: var(--grey-light);
+}
+.text-white {
+  color: var(--white);
 }

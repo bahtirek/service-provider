@@ -1,13 +1,25 @@
 @import "../../../assets/scss/base/breakpoints.scss";
 
 .messages-container {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
   border-radius: 13px;
   border: 2px solid transparent;
   box-shadow: 0;
   transition: border 0.5s;
+  margin-top: 24px;
+  .message-container-header {
+    border: 1px solid var(--primary);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 0;
+    background-color: var(--primary);
+    padding: 2px 24px;
+    h4 {
+      color: var(--white) !important;
+    }
+  }
   &.new-message {
     /* box-shadow: rgba(2, 33, 171, 0) 0px 1px 3px, rgba(2, 33, 171, 0.24) 0px 1px 2px;
     box-shadow: rgba(17, 40, 141, 0.24) 0px 3px 8px; */
@@ -15,8 +27,7 @@
   }
   .card {
     height: 100%;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 0;
     padding: 10px 32px 10px 12px;
     display: flex;
     flex-direction: column-reverse;
@@ -29,9 +40,16 @@
     bottom: 0;
     top: 60px;
     height: initial;
+    margin-top: 0;
     .card {
       border: none;
-      border-bottom: 1px solid #dadce0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .message-container-header {
+      display: none;
+      border: none;
+      border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
     }
   }
   ::-webkit-scrollbar {
@@ -45,7 +63,7 @@
   }
 
   .date-separator {
-    border-top: 1px solid #dadce0;
+    border-top: 1px solid var(--border-color);
     //background-color: #58ff7440;
     //background-color: var(--primary);
     color: var(--primary);

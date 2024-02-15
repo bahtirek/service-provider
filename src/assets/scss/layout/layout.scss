@@ -12,7 +12,7 @@
 
 .card {
   padding: 20px 30px;
-  border: 1px solid #dadce0;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   background-color: #fff;
   &.hoverable {
@@ -29,7 +29,7 @@
 li.hoverable {
   cursor: pointer;
   &:not(:last-child){
-    border-bottom: 1px solid #dadce0;
+    border-bottom: 1px solid var(--border-color);
   }
   &:first-child {
     border-top-right-radius: 10px;
