@@ -1,4 +1,5 @@
-<div class="container container-md pt-xxl column">
+<div class="container container-md pt-xl column">
+  <h2 class="mb-lg">Find Provider</h2>
   <app-provider-search (foundProviders)="foundProviders($event)"></app-provider-search>
   @if((results && providers.length == 0) || (searched && providers.length == 0)){
     <h4>No providers found</h4>
