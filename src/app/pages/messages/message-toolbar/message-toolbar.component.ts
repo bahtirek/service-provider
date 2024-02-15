@@ -61,6 +61,8 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
         this.resetMessageInputField();
         this.replyToMessage = message;
         this.messageToEditId = message.messageId!;
+        this.renderer.setAttribute(this.textAreaContainer.nativeElement, 'data-replicated-value',  message.message!)
+        this.textArea.nativeElement.value = message.message!;
       })
     )
     this.getSubjectDetails();
