@@ -39,4 +39,8 @@ export class AttachmentModalComponent {
   closeModal(){
     this.modal = false;
   }
+
+  preventClick(event: Event) {
+    event.stopPropagation();
+  }
 }
