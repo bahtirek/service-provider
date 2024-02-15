@@ -98,7 +98,9 @@
         margin-right: initial;
         background-color: #f3f3f3;
         text-align: left;
-
+        @media (max-width: $screen-sm-max) {
+          font-size: 16px;
+        }
       }
     }
     .message-author, .message-avatar {

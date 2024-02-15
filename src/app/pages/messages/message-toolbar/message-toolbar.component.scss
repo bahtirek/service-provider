@@ -54,6 +54,9 @@
         font-size: 15px;
         grid-area: 1 / 1 / 2 / 2;
         font-family: Roboto;
+        @media (max-width: $screen-sm-max) {
+          font-size: 16px;
+        }
       }
     }
     .action-btn {
