@@ -1,12 +1,16 @@
 
 .message-container {
-  padding-bottom: 10px;
+  padding: 5px 32px 5px 12px;
   display: flex;
   flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
   color: #272727;
   position: relative;
+  border-radius: 0px !important;
+  @media(max-width: $screen-sm-max) {
+    padding: 5px 24px 5px 6px;
+  }
   .message-avatar {
     width: 40px;
     height: 40px;
@@ -26,7 +30,7 @@
     margin-top: 5px;
     margin-right: auto;
     margin-left: initial;
-    max-width: 80%;
+    max-width: 90%;
     font-size: 14px;
     position: relative;
     .reply-to-details {

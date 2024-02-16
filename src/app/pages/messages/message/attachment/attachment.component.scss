@@ -1,9 +1,10 @@
 .attachment-container {
-  /* width: min(400px, 100%);
-  margin-left: auto; */
   &:hover {
     border-radius: 10px;
     cursor: pointer;
+  }
+  img {
+    border-radius: 6px;
   }
 }
 
@@ -12,12 +13,10 @@
   height: auto;
 }
 
-
 .download-btn {
   width: 30px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  //height: 28px;
   cursor: pointer;
 }
