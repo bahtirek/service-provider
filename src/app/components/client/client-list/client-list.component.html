@@ -1,5 +1,7 @@
-<div class="container column gap-xl">
+<div class="container column">
   @for (client of clientList; track $index) {
-    <app-client-card [client]="client" (cardClickled)="cardClicked($event)"></app-client-card>
+    <div class="mb-lg">
+      <app-client-card [client]="client" (cardClickled)="cardClicked($event)"></app-client-card>
+    </div>
   }
 </div>

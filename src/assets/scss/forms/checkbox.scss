@@ -8,6 +8,7 @@
       width: 20px;
       height: 20px;
       cursor: pointer;
+      flex-shrink: 0;
     }
     label {
       position: relative;
@@ -16,6 +17,7 @@
       left: initial;
       top: initial;
       cursor: pointer;
+      background: transparent;
     }
 
   }

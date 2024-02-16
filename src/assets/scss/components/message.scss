@@ -21,6 +21,11 @@
     background-repeat: no-repeat;
     background-position: center;
     flex-shrink: 0;
+    @media(max-width: $screen-sm-max) {
+      width: 35px;
+      height: 35px;
+      background-size: 50px 50px;
+    }
   }
   .message-text {
     white-space: pre-line;

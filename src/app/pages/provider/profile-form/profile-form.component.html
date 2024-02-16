@@ -1,11 +1,11 @@
 <div>
-  <div class="container grid mt-xxl">
+  <div class="container grid mt-xl">
     <div class="col flex flex-center gt-md">
       <img src="../../../assets/images/login.png" alt="" srcset="">
     </div>
     <div class="col flex flex-center">
       <div class="width-400">
-        <h1 class="mb-xl">Sign up</h1>
+        <h1 class="mb-lg">Sign up</h1>
         <form [formGroup]="detailsForm">
           <div class="form-element">
             <label for="companyName">Company Name</label>
@@ -54,8 +54,8 @@
           </div>
 
           <div>
-            <div class="form-element grid mt-lg gap-lg">
-              <div formGroupName="workHours" class="form-element col">
+            <div class="form-element grid mt-lg">
+              <div formGroupName="workHours" class="form-element col mr-lg">
                 <select formControlName="fromWorkHourId">
                   @for (hour of workHoursArray; track $index) {
                     <option value="{{hour.lkWorkHourId}}">{{hour.workHour}}</option>
@@ -76,7 +76,7 @@
             </div>
           </div>
         </form>
-        <div class="text-right mt-md">
+        <div class="text-right">
           <button (click)="onSubmit()">Submit</button>
         </div>
       </div>

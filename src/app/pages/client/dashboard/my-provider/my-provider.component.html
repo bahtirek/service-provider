@@ -1,9 +1,9 @@
 <div class="container container-md">
   <app-back-button></app-back-button>
-  <div class="flex column gap-xl">
+  <div class="flex column">
     <app-provider-details [providerProfile]="providerProfileDetails" [showCompleteDetails]="showCompleteDetails"></app-provider-details>
 
-    <button (click)="createSession()" class="ml-auto">Start session</button>
+    <button (click)="createSession()" class="ml-auto my-lg">Start session</button>
 
     <app-subject-list [subjectList]="subjectList()" [displayAsCard]="displayAsCard" (onSubjectClick$)="onSubjectClick($event)"></app-subject-list>
   </div>
