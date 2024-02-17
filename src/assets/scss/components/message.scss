@@ -38,6 +38,9 @@
     max-width: 90%;
     font-size: 14px;
     position: relative;
+    @media (max-width: $screen-sm-max) {
+      font-size: 16px;
+    }
     .reply-to-details {
       width: 250px;
       font-size: 12px;
@@ -107,9 +110,6 @@
         margin-right: initial;
         background-color: #f3f3f3;
         text-align: left;
-        @media (max-width: $screen-sm-max) {
-          font-size: 16px;
-        }
       }
     }
     .message-author, .message-avatar {
