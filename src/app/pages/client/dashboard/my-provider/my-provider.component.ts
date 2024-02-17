@@ -11,6 +11,7 @@ import { SubjectType } from '../../../../shared/interfaces/subject.interface';
 import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { NavigationService } from '../../../../shared/services/navigation.service';
+import { take } from 'rxjs/internal/operators/take';
 
 @Component({
   selector: 'app-my-provider',
@@ -39,8 +40,15 @@ export class MyProviderComponent {
   showCompleteDetails: boolean = false;
 
   ngOnInit(){
-    this.getMyProviders();
-    this.getProviderDetails();
+    this.providers = this.providerService.providers;
+    if (this.providers.length > 0) {
+      this.getProviderDetails();
+      return;
+    }
+    this.providerService.providersSource.pipe().subscribe(providers => {
+      this.providers = providers;
+      this.getProviderDetails();
+    })
   }
 
   createSession(){
@@ -94,19 +102,5 @@ export class MyProviderComponent {
 
   cancel() {
     this.toggleModal = false;
-  }
-
-  getMyProviders() {
-    this.providers = this.providerService.myProviders;
-    if(this.providers.length > 0) return;
-    this.providerService.getMyProviders().subscribe({
-      next: (response) => {
-        this.providers = response;
-        this.providerService.myProviders = response;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
   }
 }

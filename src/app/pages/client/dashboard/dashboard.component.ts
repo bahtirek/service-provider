@@ -4,6 +4,7 @@ import { ProviderService } from '../../../shared/services/provider.service';
 import { ProviderSearchComponent } from '../../../components/provider/provider-search/provider-search.component';
 import { ProviderListComponent } from '../../../components/provider/provider-list/provider-list.component';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,30 +20,15 @@ export class DashboardComponent implements OnInit {
   providers: Provider[] = [];
 
   ngOnInit(){
-    this.getMyProviders()
-  }
-
-  getMyProviders() {
-    this.providerService.getMyProviders().subscribe({
-      next: (response) => {
-        this.providers = response;
-        this.providerService.myProviders = response
-      },
-      error: (error) => {
-        console.log(error);
-      }
+    this.providers = this.providerService.providers;
+    if (this.providers.length > 0) return;
+    this.providerService.providersSource.pipe(take(1)).subscribe(providers => {
+      this.providers = providers;
     })
-  }
-
-  foundProviders(searchResults: any){
-    this.providerService.foundProviders = searchResults.providers
-    this.providerService.searchDetails = searchResults.searchDetails
-    this.router.navigate([`/search/providers/results`]);
   }
 
   cardClicked(provider: Provider){
     this.providerService.saveProviderToLocal(provider)
     this.router.navigate([`/client/my-provider`]);
   }
-
 }

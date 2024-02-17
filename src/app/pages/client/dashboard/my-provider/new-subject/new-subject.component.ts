@@ -3,6 +3,7 @@ import { FormErrorComponent } from '../../../../../shared/form-helpers/form-erro
 import { FormsModule } from '@angular/forms';
 import { SubjectService } from '../../../../../shared/services/subject.service';
 import { SubjectType } from '../../../../../shared/interfaces/subject.interface';
+import { ProviderService } from '../../../../../shared/services/provider.service';
 
 @Component({
   selector: 'app-new-subject',
@@ -13,6 +14,7 @@ import { SubjectType } from '../../../../../shared/interfaces/subject.interface'
 })
 export class NewSubjectComponent {
   private subjectService = inject(SubjectService);
+  private providerService = inject(ProviderService)
 
   sessionTitle: string = "";
   errorMessage: string = "";
@@ -42,6 +44,8 @@ export class NewSubjectComponent {
       next: (response) => {
         if(response.subjectId) this.openSession.emit(response);
         this.sessionTitle = "";
+        this.subjectService.getProviderSubjects(this.subjectDetails.providerId);
+        this.providerService.setMyProviders();
       },
       error: (error) => {
         console.log(error);
