@@ -1,4 +1,4 @@
-import { Component, SimpleChange, WritableSignal, effect, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChange, WritableSignal, effect, inject, signal } from '@angular/core';
 import { ProviderDetailsComponent } from '../../../../components/provider/provider-details/provider-details.component';
 import { ProviderCardComponent } from '../../../../components/provider/provider-card/provider-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { SubjectListComponent } from '../../../../components/subject/subject-lis
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { NavigationService } from '../../../../shared/services/navigation.service';
 import { take } from 'rxjs/internal/operators/take';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-my-provider',
@@ -20,12 +21,13 @@ import { take } from 'rxjs/internal/operators/take';
   templateUrl: './my-provider.component.html',
   styleUrl: './my-provider.component.scss'
 })
-export class MyProviderComponent {
+export class MyProviderComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private providerService = inject(ProviderService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
+  private readonly _subscription: Subscription = new Subscription();
 
   showFullDetails = true;
   providerProfileDetails: Provider = {};
@@ -33,7 +35,7 @@ export class MyProviderComponent {
   providerId: string = '';
   toggleModal: boolean = false;
   subjectDetails: any = {};
-  subjectList: WritableSignal<SubjectType[]> = signal([])
+  subjectList: SubjectType[] = [];
   displayAsCard: boolean = false
   provider: Provider = {};
   providers: Provider[] = [];
@@ -49,6 +51,10 @@ export class MyProviderComponent {
       this.providers = providers;
       this.getProviderDetails();
     })
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe()
   }
 
   createSession(){
@@ -86,8 +92,12 @@ export class MyProviderComponent {
       this.showCompleteDetails = true
       return;
     }
+    this._subscription.add(
+      this.subjectService.subjectsSource.subscribe(subjects => {
+        this.subjectList = subjects
+      })
+    )
     this.subjectService.getProviderSubjects(providerId);
-    this.subjectList = this.subjectService.subjects;
   }
 
   onSubjectClick(subject: SubjectType){

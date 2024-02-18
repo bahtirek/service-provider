@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SubjectType } from '../interfaces/subject.interface';
 import { Message } from '../interfaces/message.interface';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ import { Message } from '../interfaces/message.interface';
 export class SubjectService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
-  subjects = signal<SubjectType[]>([]);
+  subjects: SubjectType[] = [];
+  subjectsSource: Subject<SubjectType[]> = new Subject;
+  providerId?: number;
+  clientId?: number;
 
   createSubject(subjectDetails: any){
     return this.http.post<any>(this.url + '/messages/subject', subjectDetails);
@@ -36,10 +40,17 @@ export class SubjectService {
   }
 
   getProviderSubjects(providerId: number){
-    this.subjects.set([]);
+    // return previosly loaded subjects
+    if(this.providerId && this.providerId == providerId && this.subjects.length > 0) {
+      this.subjectsSource.next(this.subjects);
+      return
+    }
+    // get subject from back
+    this.providerId = providerId;
     this.getProviderSubjectsAPI(providerId).subscribe({
       next: (response: SubjectType[]) => {
-        this.subjects.set(response);
+        this.subjects = response;
+        this.subjectsSource.next(response);
       },
       error: (error) => {
         console.log(error);
@@ -48,9 +59,17 @@ export class SubjectService {
   }
 
   getClientSubjects(clientId: number){
+    // return previosly loaded subjects
+    if(this.clientId && this.clientId == clientId && this.subjects.length > 0) {
+      this.subjectsSource.next(this.subjects);
+      return
+    }
+    this.clientId == clientId;
+    // get subject from back
     this.getClientSubjectsAPI(clientId).subscribe({
       next: (response: SubjectType[]) => {
-        this.subjects.set(response);
+        this.subjectsSource.next(response);
+        this.subjects = response;
       },
       error: (error) => {
         console.log(error);
@@ -58,9 +77,17 @@ export class SubjectService {
     })
   }
 
-  updateSubjects(message: Message){
-    this.subjects.update(subjects =>
-      subjects.map(subject => subject.subjectId === message.subjectId ? {...subject, newMessageCount: subject.newMessageCount!+1} : subject)
-    );
+  updateSubjects(id: number, type: string){
+    const index = this.subjects.findIndex(subject => subject.subjectId === id);
+    if(type == 'incoming') {
+      if(index != -1) {
+        this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!+1
+      }
+    }
+    if(type == 'viewed') {
+      if(index != -1) {
+        this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!-1
+      }
+    }
   }
 }
