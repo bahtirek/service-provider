@@ -34,6 +34,7 @@ button, .btn {
   &.btn-icon {
     display: inline-flex;
     align-items: center;
+    box-shadow: none;
     .material-symbols-outlined {
       font-size: 15px;
     }
@@ -46,7 +47,8 @@ button, .btn {
     &.more-btn-cta {
       .material-symbols-outlined {
         display: inline-block;
-        margin-bottom: -6px;
+        margin-bottom: -10px;
+        font-size: 24px;
       }
     }
   }

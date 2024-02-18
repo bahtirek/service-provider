@@ -61,11 +61,10 @@
   @if(!hideMoreButton){
     <div class="flex justify-end mt-xs">
       <button (click)="more()" class="cta-btn btn-icon more-btn-cta" tabindex="0">
-        <span class="material-symbols-outlined">more_horiz</span>
         @if(!showDetails) {
-          <span>more</span>
+          <span class="material-symbols-outlined">expand_more</span>
         } @else {
-          <span>less</span>
+          <span class="material-symbols-outlined">expand_less</span>
         }
       </button>
     </div>
