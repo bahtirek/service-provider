@@ -145,7 +145,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   goToMessage() {
-    this.messageService.updateMessageScrollIntoViewProperty(this.message.replyToMessage?.replyToMessageId!)
+    this.messageService.updateMessageScrollIntoViewProperty(this.message.replyToMessage?.replyToMessageId!, this.messageService.messages())
   }
 
   onMenuClick() {

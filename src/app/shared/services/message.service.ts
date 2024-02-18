@@ -11,7 +11,7 @@ export class MessageService {
   private http = inject(HttpClient);
 
   messages = signal<Message[]>([])
-  subjectId: string = '';
+  subjectId?: number;
   chunkNum: number = 1;
 
   addMessage(message: Message){
@@ -52,13 +52,13 @@ export class MessageService {
     return this.http.post<any>(this.url + '/messages/attachment-message', messageDetails);
   }
 
-  getMessages(subjectId: string){
+  getMessages(subjectId: number, chunkNum: number){
+    if(chunkNum == 1) this.chunkNum = 1;
     this.subjectId = subjectId;
     const params = new HttpParams()
     .set('subjectId', subjectId)
     .set('chunkCount', 5)
-    .set('chunkNum', this.chunkNum)
-    this.chunkNum++
+    .set('chunkNum', chunkNum)
     return this.http.get<Message[]>(this.url + '/messages/subject-messages', {params});
   }
 
@@ -82,34 +82,29 @@ export class MessageService {
     return this.http.get<any>(this.url + '/attachments/attachment-url', {params});
   }
 
-  updateMessageScrollIntoViewProperty(id: number) {
-    const index = this.messages().findIndex(message => message.messageId == id)
+  updateMessageScrollIntoViewProperty(id: number, messages: Message[]) {
+    let index = messages.findIndex(message => message.messageId == id)
     if(index != -1) {
-      this.messages()[index].scrollIntoView = true;
-      this.messages.set(this.messages());
+      index = this.messages().findIndex(message => message.messageId == id);
       setTimeout(() => {
-        this.messages()[index].scrollIntoView = false;
-        this.messages.set(this.messages());
+        this.messages()[index].highlightMessageOnScrollIntoView = true;
+      });
+      setTimeout(() => {
+        this.messages()[index].highlightMessageOnScrollIntoView = false;
       }, 2000);
     } else {
-      this.getMessages(this.subjectId).subscribe({
-        next: (response) => {
-          this.addMessages(response);
-          setTimeout(() => {
-            this.updateMessageScrollIntoViewProperty(id)
-          });
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      })
+      this.loadNewChunkOfMessages(id)
     }
   }
 
-  loadNewChunkOfMessages(){
-    this.getMessages(this.subjectId).subscribe({
+  loadNewChunkOfMessages(messageId?: number){
+    this.chunkNum++
+    this.getMessages(this.subjectId!, this.chunkNum).subscribe({
       next: (response) => {
         this.addMessages(response);
+        if(messageId) {
+          this.updateMessageScrollIntoViewProperty(messageId, response)
+        }
       },
       error: (error) => {
         console.log(error);

@@ -18,5 +18,5 @@ export interface Message {
   replyToMessageId?: number | null;
   receiver?: Receiver;
   replyToMessage?: ReplyToMessage;
-  scrollIntoView?: boolean;
+  highlightMessageOnScrollIntoView?: boolean;
 }
