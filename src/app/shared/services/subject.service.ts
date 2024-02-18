@@ -77,17 +77,10 @@ export class SubjectService {
     })
   }
 
-  updateSubjects(id: number, type: string){
+  updateSubjects(id: number){
     const index = this.subjects.findIndex(subject => subject.subjectId === id);
-    if(type == 'incoming') {
-      if(index != -1) {
-        this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!+1
-      }
-    }
-    if(type == 'viewed') {
-      if(index != -1) {
-        this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!-1
-      }
+    if(index != -1) {
+      this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!+1
     }
   }
 }

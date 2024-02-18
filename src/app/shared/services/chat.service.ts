@@ -71,7 +71,7 @@ export class ChatService {
         this.messageService.addMessage(message);
       }
       if(!this.router.url.includes('/messages') || this.subjectId != message.subjectId) {
-        this.subjectService.updateSubjects(message.subjectId!, 'incoming');
+        this.subjectService.updateSubjects(message.subjectId!);
       }
     });
 
@@ -85,7 +85,6 @@ export class ChatService {
     this.socket.on('viewConfirmation', (data) => {
       console.log(data);
       this.messageService.updateViewedStatus(data.messageId);
-      this.subjectService.updateSubjects(data.messageId, 'viewed');
     })
 
     this.socket.on('disconnect', () => {

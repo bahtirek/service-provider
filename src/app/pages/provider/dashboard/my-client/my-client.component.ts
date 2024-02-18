@@ -17,13 +17,12 @@ import { Subscription } from 'rxjs/internal/Subscription';
   templateUrl: './my-client.component.html',
   styleUrl: './my-client.component.scss'
 })
-export class MyClientComponent implements OnInit, OnDestroy {
+export class MyClientComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private clientService = inject(ClientService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
-  private readonly _subscription: Subscription = new Subscription();
 
   subjectList = this.subjectService.subjects;
   displayAsCard: boolean = false
@@ -33,19 +32,18 @@ export class MyClientComponent implements OnInit, OnDestroy {
     this.getSubjects()
   }
 
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe()
-  }
-
   getSubjects(){
     this.clientDetails = this.clientService.getClient();
     if(!this.clientDetails.clientId) this.navigation.back();
-    this._subscription.add(
-      this.subjectService.subjectsSource.subscribe(subjects => {
-        this.subjectList = subjects
-      })
-    )
-    this.subjectService.getClientSubjects(this.clientDetails.clientId!);
+    this.subjectService.getClientSubjectsAPI(this.clientDetails.clientId!).subscribe({
+      next: (response: SubjectType[]) => {
+        this.subjectList = response;
+        this.subjectService.subjects = response;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
 
   }
 

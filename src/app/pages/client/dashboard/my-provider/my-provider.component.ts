@@ -21,13 +21,12 @@ import { Subscription } from 'rxjs/internal/Subscription';
   templateUrl: './my-provider.component.html',
   styleUrl: './my-provider.component.scss'
 })
-export class MyProviderComponent implements OnInit, OnDestroy {
+export class MyProviderComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private providerService = inject(ProviderService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
-  private readonly _subscription: Subscription = new Subscription();
 
   showFullDetails = true;
   providerProfileDetails: Provider = {};
@@ -51,10 +50,6 @@ export class MyProviderComponent implements OnInit, OnDestroy {
       this.providers = providers;
       this.getProviderDetails();
     })
-  }
-
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe()
   }
 
   createSession(){
@@ -92,12 +87,15 @@ export class MyProviderComponent implements OnInit, OnDestroy {
       this.showCompleteDetails = true
       return;
     }
-    this._subscription.add(
-      this.subjectService.subjectsSource.subscribe(subjects => {
-        this.subjectList = subjects
-      })
-    )
-    this.subjectService.getProviderSubjects(providerId);
+    this.subjectService.getProviderSubjectsAPI(providerId).subscribe({
+      next: (response: SubjectType[]) => {
+        this.subjectList = response;
+        this.subjectService.subjects = response;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onSubjectClick(subject: SubjectType){
