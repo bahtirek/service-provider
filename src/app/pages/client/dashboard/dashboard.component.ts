@@ -3,13 +3,13 @@ import { Provider } from '../../../shared/interfaces/provider.interface';
 import { ProviderService } from '../../../shared/services/provider.service';
 import { ProviderSearchComponent } from '../../../components/provider/provider-search/provider-search.component';
 import { ProviderListComponent } from '../../../components/provider/provider-list/provider-list.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ProviderListComponent, ProviderSearchComponent],
+  imports: [ProviderListComponent, ProviderSearchComponent, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
