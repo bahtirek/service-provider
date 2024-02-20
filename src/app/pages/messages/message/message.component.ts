@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject} from '@angular/core';
 import { Message } from '../../../shared/interfaces/message.interface';
 import { AttachmentComponent } from './attachment/attachment.component';
@@ -8,11 +8,13 @@ import { FloatMenuHorizontalComponent } from '../../../components/float-menu-hor
 import { ReplyService } from '../../../shared/services/reply.service';
 import { Receiver } from '../../../shared/interfaces/receiver.interface';
 import { MessageService } from '../../../shared/services/message.service';
+import { AuthUser } from '../../../shared/interfaces/auth.interface';
+import { User } from '../../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [NgClass, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent],
+  imports: [NgClass, NgStyle, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
@@ -52,7 +54,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  @Input() userId?: number;
+  @Input() user?: User;
   @Input() receiver?: Receiver;
   @Input() index?: number;
   @Input() last: boolean = false;
@@ -70,7 +72,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   @Input() set message$ (value: any) {
     this.message = value;
-    if(this.userId == this.message.createdBy){
+    if(this.user!.userId == this.message.createdBy){
       this.messageType = 'out';
       this.menuItems = this.menuItemsOut;
     } else {

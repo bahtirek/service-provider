@@ -4,9 +4,9 @@
       <app-back-button [class]="'my-sm'" [color]="'white'"></app-back-button>
       <h4 class="ml-auto">{{subject.title}}</h4>
     </div>
-    <div class="card pa-xl">
+    <div class="card pa-xl" #messagesCard>
       @for (message of messages(); track message.messageId; let index = $index; let last = $last;) {
-        <app-message [scrollIntoViewProp]="message.highlightMessageOnScrollIntoView" [last]="last" [userId]="user.user?.userId" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
+        <app-message [scrollIntoViewProp]="message.highlightMessageOnScrollIntoView" [last]="last" [user]="user.user" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
         @if(displayDate(index, message.createdAt)){
           <div class="date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
         }

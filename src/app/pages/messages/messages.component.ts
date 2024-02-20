@@ -46,6 +46,7 @@ export class MessagesComponent implements OnInit {
   receiver: Receiver = {};
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('messagesCard') messagesCard!: ElementRef<HTMLDivElement>;
   @ViewChild('downloadLink') downloadLink!: ElementRef<HTMLAnchorElement>;
 
   subject: any;
@@ -54,13 +55,16 @@ export class MessagesComponent implements OnInit {
   toggleVideoModal: boolean = false;
 
   ngOnInit(){
-    this._subscription.add(
-      this.auth.userSubject.subscribe((user: AuthUser)=>{
-
-      })
-    )
     this.getReceiverDeatils();
     this.getMessages();
+  }
+
+  ngAfterViewInit(): void {
+    this.messagesCard.nativeElement.addEventListener('scroll', () => {
+      /* console.log(this.messagesCard.nativeElement.scrollHeight);
+      console.log(this.messagesCard.nativeElement.offsetHeight); */
+
+    })
   }
 
   getMessages():void {

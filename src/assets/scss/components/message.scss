@@ -56,6 +56,11 @@
       @media (max-width: $screen-sm-max) {
         width: auto;
       }
+      .file-image {
+        height: 35px;
+        width: 35px;
+        margin-left: -2px;
+      }
     }
   }
   .message-author, .message-date {
