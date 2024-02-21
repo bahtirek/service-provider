@@ -19,7 +19,9 @@
     <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
       @if(message.replyToMessage!.replyToMessageId){
         <div class="reply-to-details flex" (click)="goToMessage()">
-          <div class="file-image mr-sm" [ngStyle]="{'background-image': 'url(' + message.replyToMessage!.thumbnailUrl + ')' }"></div>
+          @if(message.replyToMessage!.thumbnailUrl) {
+            <div class="file-image mr-sm" [ngStyle]="{'background-image': 'url(' + message.replyToMessage!.thumbnailUrl + ')' }"></div>
+          }
           <div>
             @if(message.replyToMessage?.originalMessageCreatedBy == user?.userId){
               <div class="truncated text-primary">{{user?.firstName}} {{user?.lastName}}</div>
