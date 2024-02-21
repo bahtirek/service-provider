@@ -31,7 +31,8 @@
           </div>
         </div>
       }
-      <span>{{message.message}}</span>
+      <app-message-history [messageHistory]="message.messageHistory!"></app-message-history>
+      <div>{{message.message}}</div>
       @if(message.attachments && message.attachments.length > 0) {
         <div class="mb-sm"></div>
       }

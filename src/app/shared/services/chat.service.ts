@@ -42,6 +42,20 @@ export class ChatService {
     }
   }
 
+  updateMessage(messageDetails: Message){
+    const accessToken = this.auth.user().accessToken;
+
+    if(this.socket.connected) {
+      this.socket.emit('updateMessage', messageDetails);
+      console.log("updateMessage", messageDetails)
+    } else {
+      console.log('reconnecting');
+      this.connect(this.subjectId);
+      this.socket.emit('updateMessage', messageDetails);
+      console.log("updateMessage", messageDetails)
+    }
+  }
+
   sendViewedMessageConfirmation(messageDetails: Message){
     this.socket.emit('viewedMessage', messageDetails)
   }

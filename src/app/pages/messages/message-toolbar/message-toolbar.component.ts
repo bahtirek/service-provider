@@ -39,7 +39,7 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
   videoThumbnails: any[] = [];
   replyToMessageId?: number | null = null;
   replyToMessage: Message = {};
-  messageToEditId: number | null= null;
+  messageToEditId?: number;
 
   @Input() receiverId?: number;
 
@@ -105,7 +105,13 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
 
   postEditedMessage(newMessage: string){
     console.log(newMessage);
-
+    const messageDetails: Message = {
+      message: newMessage,
+      accessToken: this.auth.user().accessToken,
+      messageId: this.messageToEditId
+    };
+    this.chatService.updateMessage(messageDetails);
+    this.resetMessageInputField();
   }
 
   resetMessageInputField() {
@@ -114,7 +120,7 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
     this.showCursor = true;
     this.replyToMessage = {};
     this.replyToMessageId = null;
-    this.messageToEditId = null;
+    this.messageToEditId = undefined;
   }
 
   onAttach(){
@@ -195,6 +201,6 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
     this.fileUpload.nativeElement.value = '';
     this.replyToMessage = {};
     this.replyToMessageId = null;
-    this.messageToEditId = null;
+    this.messageToEditId = undefined;
   }
 }

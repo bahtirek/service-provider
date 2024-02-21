@@ -1,4 +1,5 @@
 import { Attachment } from "./attachment.interface";
+import { MessageHistory } from "./message-history.inteface";
 import { Receiver } from "./receiver.interface";
 import { ReplyToMessage } from "./reply-to-message.interface";
 
@@ -19,4 +20,5 @@ export interface Message {
   receiver?: Receiver;
   replyToMessage?: ReplyToMessage;
   highlightMessageOnScrollIntoView?: boolean;
+  messageHistory?: MessageHistory[]
 }

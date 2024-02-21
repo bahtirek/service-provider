@@ -10,11 +10,12 @@ import { Receiver } from '../../../shared/interfaces/receiver.interface';
 import { MessageService } from '../../../shared/services/message.service';
 import { AuthUser } from '../../../shared/interfaces/auth.interface';
 import { User } from '../../../shared/interfaces/user.interface';
+import { MessageHistoryComponent } from './message-history/message-history.component';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [NgClass, NgStyle, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent],
+  imports: [NgClass, NgStyle, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent, MessageHistoryComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
