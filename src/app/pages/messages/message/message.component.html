@@ -17,22 +17,7 @@
       }
     </div>
     <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
-      @if(message.replyToMessage!.replyToMessageId){
-        <div class="reply-to-details flex" (click)="goToMessage()">
-          @if(message.replyToMessage!.thumbnailUrl) {
-            <div class="file-image mr-sm" [ngStyle]="{'background-image': 'url(' + message.replyToMessage!.thumbnailUrl + ')' }"></div>
-          }
-          <div>
-            @if(message.replyToMessage?.originalMessageCreatedBy == user?.userId){
-              <div class="truncated text-primary">{{user?.firstName}} {{user?.lastName}}</div>
-              <div class="truncated">{{message.replyToMessage!.replyToMessage}}</div>
-            } @else {
-              <div class="truncated text-primary">{{receiver?.firstName}} {{receiver?.lastName}}</div>
-              <div class="truncated">{{message.replyToMessage!.replyToMessage}}</div>
-            }
-          </div>
-        </div>
-      }
+      <app-reply-to-message [replyToMessage]="message.replyToMessage" [receiver]="receiver" [user]="user"></app-reply-to-message>
       <app-message-history [messageHistory]="message.messageHistory!"></app-message-history>
       <div>{{message.message}}</div>
       @if(message.attachments && message.attachments.length > 0) {

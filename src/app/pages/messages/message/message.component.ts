@@ -11,11 +11,12 @@ import { MessageService } from '../../../shared/services/message.service';
 import { AuthUser } from '../../../shared/interfaces/auth.interface';
 import { User } from '../../../shared/interfaces/user.interface';
 import { MessageHistoryComponent } from './message-history/message-history.component';
+import { ReplyToMessageComponent } from './reply-to-message/reply-to-message.component';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [NgClass, NgStyle, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent, MessageHistoryComponent],
+  imports: [NgClass, NgStyle, DatePipe, AttachmentComponent, FloatMenuHorizontalComponent, MessageHistoryComponent, ReplyToMessageComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
