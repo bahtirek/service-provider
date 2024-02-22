@@ -17,7 +17,7 @@
       }
     </div>
     <div class="message-text" [ngClass]="{'text-bold': !message.viewed && messageType=='in'}">
-      <app-reply-to-message [replyToMessage]="message.replyToMessage" [receiver]="receiver" [user]="user"></app-reply-to-message>
+      <app-reply-to-message (goToMesaageEmit)="goToMessage()" [replyToMessage]="message.replyToMessage" [receiver]="receiver" [user]="user"></app-reply-to-message>
       <app-message-history [messageHistory]="message.messageHistory!"></app-message-history>
       <div>{{message.message}}</div>
       @if(message.attachments && message.attachments.length > 0) {
