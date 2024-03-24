@@ -59,6 +59,9 @@ export class AuthService {
 
   logout(route?: string) {
     window.sessionStorage.removeItem('user');
+    window.localStorage.removeItem('provider');
+    window.localStorage.removeItem('client');
+    window.localStorage.removeItem('subject');
     this.state.update(state => null);
     this.isLoggedIn.set(false);
     if(route) this.router.navigate([route]);

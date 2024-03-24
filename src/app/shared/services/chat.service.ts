@@ -28,29 +28,15 @@ export class ChatService {
 
   sendMessage(messageDetails: Message){
     const accessToken = this.auth.user().accessToken;
-    /* this.socket.emit('initiateSession', {
-      "accessToken": accessToken
-    }) */
-    if(this.socket.connected) {
-      this.socket.emit('outgoingMessage', messageDetails);
-      console.log("outgoingMessage", messageDetails)
-    } else {
-      console.log('reconnecting');
-      this.connect(this.subjectId);
-      this.socket.emit('outgoingMessage', messageDetails);
-      console.log("outgoingMessage", messageDetails);
-    }
+
+    this.socket.emit('outgoingMessage', messageDetails);
+    console.log("outgoingMessage", messageDetails);
   }
 
   updateMessage(messageDetails: Message){
     const accessToken = this.auth.user().accessToken;
 
     if(this.socket.connected) {
-      this.socket.emit('updateMessage', messageDetails);
-      console.log("updateMessage", messageDetails)
-    } else {
-      console.log('reconnecting');
-      this.connect(this.subjectId);
       this.socket.emit('updateMessage', messageDetails);
       console.log("updateMessage", messageDetails)
     }
@@ -62,17 +48,12 @@ export class ChatService {
 
   async connect(subjectId?: number){
     this.subjectId = subjectId;
-
-    if(this.socket.connected) return;
+    const accessToken = this.auth.user().accessToken;
     if(this.auth.isTokenExpired()) {
       const user$ = this.auth.refreshToken();
       const user = await lastValueFrom(user$);
       this.auth.setUser(user);
     }
-    console.log('connect');
-    const accessToken = this.auth.user().accessToken;
-    console.log(this.auth.isTokenExpired());
-
     this.socket.on("connect", () => {
       this.socket.emit('initiateSession', {
         "accessToken": accessToken
@@ -115,15 +96,16 @@ export class ChatService {
     }
     console.log(messageDetails);
 
-    this.socket.emit('initiateSession', {
+    this.socket.emit('outgoingAttachment', messageDetails);
+    console.log("outgoingAttachment", messageDetails)
+  }
+
+  disconnect() {
+    this.socket.disconnect();
+    const accessToken = this.auth.user().accessToken;
+    /* this.socket.emit('disconnect', {
       "accessToken": accessToken
-    })
-    if(this.socket.connected) {
-      this.socket.emit('outgoingAttachment', messageDetails);
-      console.log("outgoingAttachment", messageDetails)
-    } else {
-      this.connect(this.subjectId)
-    }
+    }) */
   }
 
 }

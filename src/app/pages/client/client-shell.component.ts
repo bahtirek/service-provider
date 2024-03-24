@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatService } from '../../shared/services/chat.service';
 import { Provider } from '../../shared/interfaces/provider.interface';
@@ -12,7 +12,7 @@ import { take } from 'rxjs/internal/operators/take';
   templateUrl: './client-shell.component.html',
   styleUrl: './client-shell.component.scss'
 })
-export class ClientShellComponent implements OnInit {
+export class ClientShellComponent implements OnInit, OnDestroy {
   private chatService = inject(ChatService);
   private providerService = inject(ProviderService);
 
@@ -25,5 +25,9 @@ export class ClientShellComponent implements OnInit {
     })
     this.providerService.setMyProviders();
     this.chatService.connect();
+  }
+
+  ngOnDestroy(): void {
+    //this.chatService.disconnect();
   }
 }
