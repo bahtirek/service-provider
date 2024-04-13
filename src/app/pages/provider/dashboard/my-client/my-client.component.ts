@@ -17,19 +17,29 @@ import { Subscription } from 'rxjs/internal/Subscription';
   templateUrl: './my-client.component.html',
   styleUrl: './my-client.component.scss'
 })
-export class MyClientComponent implements OnInit {
+export class MyClientComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private clientService = inject(ClientService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
+  private readonly _subscription: Subscription = new Subscription();
 
-  subjectList = this.subjectService.subjects;
+  subjectList:SubjectType[] = [];
   displayAsCard: boolean = false
   clientDetails: Client = {}
 
   ngOnInit(){
-    this.getSubjects()
+    this.getSubjects();
+    this._subscription.add(
+      this.subjectService.newSubjectsSource.subscribe(() => {
+        this.getSubjects();
+      })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe()
   }
 
   getSubjects(){

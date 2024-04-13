@@ -7,6 +7,7 @@ import { MessageService } from './message.service';
 import { AuthService } from './auth.service';
 import { SubjectService } from './subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClientService } from './client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ChatService {
   private socketUrl = environment.socketUrl;
   private socket = io(this.socketUrl);
   private messageService = inject(MessageService);
+  private clientService = inject(ClientService);
   private subjectId?: number;
   private auth = inject(AuthService);
   private subjectService = inject(SubjectService);
@@ -65,8 +67,13 @@ export class ChatService {
       if(message.subjectId == this.subjectId) {
         this.messageService.addMessage(message);
       }
+
       if(!this.router.url.includes('/messages') || this.subjectId != message.subjectId) {
         this.subjectService.updateSubjects(message.subjectId!);
+      }
+
+      if(this.router.url.includes('/provider/dashboard')) {
+        this.clientService.updateClientsSource.next();
       }
     });
 

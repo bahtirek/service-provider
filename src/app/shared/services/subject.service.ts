@@ -13,6 +13,7 @@ export class SubjectService {
   private http = inject(HttpClient);
   subjects: SubjectType[] = [];
   subjectsSource: Subject<SubjectType[]> = new Subject;
+  newSubjectsSource: Subject<void> = new Subject;
   providerId?: number;
   clientId?: number;
 
@@ -41,12 +42,12 @@ export class SubjectService {
 
   getProviderSubjects(providerId: number){
     // return previosly loaded subjects
-    if(this.providerId && this.providerId == providerId && this.subjects.length > 0) {
+    /* if(this.providerId && this.providerId == providerId && this.subjects.length > 0) {
       this.subjectsSource.next(this.subjects);
       return
-    }
+    } */
     // get subject from back
-    this.providerId = providerId;
+    /* this.providerId = providerId;
     this.getProviderSubjectsAPI(providerId).subscribe({
       next: (response: SubjectType[]) => {
         this.subjects = response;
@@ -55,18 +56,20 @@ export class SubjectService {
       error: (error) => {
         console.log(error);
       }
-    })
+    }) */
   }
 
   getClientSubjects(clientId: number){
     // return previosly loaded subjects
-    if(this.clientId && this.clientId == clientId && this.subjects.length > 0) {
+    /* if(this.clientId && this.clientId == clientId && this.subjects.length > 0) {
       this.subjectsSource.next(this.subjects);
       return
     }
-    this.clientId == clientId;
+    this.clientId = clientId;
+    console.log(clientId); */
+
     // get subject from back
-    this.getClientSubjectsAPI(clientId).subscribe({
+    /* this.getClientSubjectsAPI(clientId).subscribe({
       next: (response: SubjectType[]) => {
         this.subjectsSource.next(response);
         this.subjects = response;
@@ -74,13 +77,15 @@ export class SubjectService {
       error: (error) => {
         console.log(error);
       }
-    })
+    }) */
   }
 
   updateSubjects(id: number){
     const index = this.subjects.findIndex(subject => subject.subjectId === id);
     if(index != -1) {
       this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!+1
+    } else {
+      this.newSubjectsSource.next()
     }
   }
 }

@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Client } from '../interfaces/client.interface';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class ClientService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
   client: Client = {};
+  updateClientsSource: Subject<void> = new Subject;
 
   getMyClients() {
     return this.http.get<Client[]>(this.url + '/providers/my-clients');
@@ -21,6 +23,7 @@ export class ClientService {
   }
 
   saveClientToLocal(client: Client){
+    this.client = client;
     window.localStorage.setItem('client', JSON.stringify(client))
   }
 
