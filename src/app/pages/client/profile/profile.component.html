@@ -1,1 +1,8 @@
-<p>profile works!</p>
+<div class="container container-md">
+  <app-back-button></app-back-button>
+  <div class="flex column">
+    <app-client-details [clientProfile]="clientProfileDetails"></app-client-details>
+
+    <button (click)="edit()" class="ml-auto my-lg">Edit</button>
+  </div>
+</div>
