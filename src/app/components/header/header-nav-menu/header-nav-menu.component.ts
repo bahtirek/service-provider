@@ -11,7 +11,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrl: './header-nav-menu.component.scss'
 })
 export class HeaderNavMenuComponent {
-  private auth = inject(AuthService);
+  auth = inject(AuthService);
   userRoute: string = 'client';
 
   ngOnInit(){
@@ -26,9 +26,15 @@ export class HeaderNavMenuComponent {
     this.auth.isLoggedIn()
   );
 
+  isProvider = computed(() => {
+    this.auth.user().user?.isProvider
+  })
+
   logout = () => {
     this.auth.logout('home');
   }
+
+
 
   menuItems: HeaderNavMenu[] = [
     {
@@ -66,11 +72,6 @@ export class HeaderNavMenuComponent {
       name: 'My Profile',
       url: `provider/profile`,
       icon: 'manage_account'
-    },
-    {
-      name: 'Find Provider',
-      url: '/search/providers',
-      icon: 'search'
     },
   ]
   authMenuItems: HeaderNavMenu[] = [

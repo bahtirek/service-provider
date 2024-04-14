@@ -1,9 +1,17 @@
 <ul class="nav-links">
   @if (loggedIn()) {
-    @for (item of loggedInMenuItems; track $index) {
-      <li>
-        <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
-      </li>
+    @if (auth.user().user?.isProvider) {
+      @for (item of providerMenuItems; track $index) {
+        <li>
+          <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+        </li>
+      }
+    } @else {
+      @for (item of clientMenuItems; track $index) {
+        <li>
+          <a [routerLink]="item.url" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+        </li>
+      }
     }
     <span class="pa-md"></span>
     <li>
