@@ -4,10 +4,11 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { FormErrorComponent } from '../../../shared/form-helpers/form-error/form-error.component';
 import { ProviderProfileService } from '../provider-profile.service';
 import { WeekDay } from '../../../shared/interfaces/week-day.interface';
-import { NgFor } from '@angular/common';
+import { NgFor} from '@angular/common';
 import { WorkHour } from '../../../shared/interfaces/work-hour.interface';
 import { Success } from '../../../shared/interfaces/success.interface';
 import { ServiceCategory } from '../../../shared/interfaces/service-category.interface';
+import { Provider } from '../../../shared/interfaces/provider.interface';
 
 @Component({
   selector: 'app-profile-form',
@@ -28,6 +29,7 @@ export class ProfileFormComponent {
   allCategorys: ServiceCategory[] = [];
   categoryErrorMessage: string = '';
   weekdaysErrorMessage: string = '';
+  profile?: Provider;
 
   constructor(private fb: FormBuilder) {
     this.detailsForm = this.fb.group({
@@ -42,9 +44,22 @@ export class ProfileFormComponent {
       availableDays: this.fb.array([]),
       category: this.fb.array([])
     });
+
   }
 
   ngOnInit() {
+    this.setForm();
+  };
+
+  setForm() {
+    const currentState = this.router.lastSuccessfulNavigation;
+    if(!currentState?.extras.replaceUrl) {
+      this.profile = currentState?.extras.state!['data'];
+      this.companyName?.setValue(this.profile!.companyName)
+      this.address?.setValue(this.profile!.address)
+      this.phoneNumber?.setValue(this.profile!.phoneNumber)
+      this.description?.setValue(this.profile!.description)
+    }
     this.getWeekDays();
     this.getWorkHours();
     this.getCategory();
@@ -62,25 +77,40 @@ export class ProfileFormComponent {
 
   setAvailableDays() {
     this.availableDays.clear();
-
+    let weekDayCheck = false
     this.weekDays.forEach(day => {
+      if(this.profile) {
+        const matchedAvailableDay = this.profile.availableDays?.find(availDayFromProfile => {
+          return availDayFromProfile.lkWeekDayId == day.lkWeekDayId
+        })
+        if(matchedAvailableDay) weekDayCheck = true
+      }
       const weekDayControl = this.fb.group ({
         lkWeekDayId: [day.lkWeekDayId],
-        weekDayCheck: [false],
+        weekDayCheck: [weekDayCheck],
       })
       this.availableDays.push(weekDayControl);
+      weekDayCheck = false;
     })
   }
 
   setCategorys() {
     this.category.clear();
+    let categoryCheck = false;
 
     this.allCategorys.forEach(category => {
+      if(this.profile) {
+        const matchedAvailableDay = this.profile.category?.find(categoryFromProfile => {
+          return categoryFromProfile.lkCategoryId == category.lkCategoryId
+        })
+        if(matchedAvailableDay) categoryCheck = true
+      }
       const categoryControl = this.fb.group ({
         lkCategoryId: [category.lkCategoryId],
-        categoryCheck: [false],
+        categoryCheck: [categoryCheck],
       })
       this.category.push(categoryControl);
+      categoryCheck = false;
     })
   }
 
@@ -101,11 +131,26 @@ export class ProfileFormComponent {
     this.providerService.getWorkHours().subscribe({
       next:(response: any) => {
         this.workHoursArray = response;
+        if(this.profile) {
+          this.setHours(this.profile);
+        }
       },
       error: (error: any) => {
         console.log(error);
       }
     })
+  }
+  setHours(profile: any) {
+    const hours = profile?.workHours.split(" - ");
+    const from = this.workHoursArray.find(hour => {
+      return hour.workHour == hours[0];
+    })
+    const to = this.workHoursArray.find(hour => {
+      return hour.workHour == hours[1];
+    })
+
+    this.fromWorkHourId?.setValue(from!.lkWorkHourId)
+    this.toWorkHourId?.setValue(to!.lkWorkHourId)
   }
 
   getCategory() {
@@ -136,11 +181,8 @@ export class ProfileFormComponent {
         workHours: this.workHours?.value
       }
 
-console.log(form);
-
       this.providerService.postProviderProfileDetails(form).subscribe ({
         next: (response: Success) => {
-          console.log(response);
           if(response && response.success) this.router.navigate(['provider'])
         },
         error: (error: any) => {

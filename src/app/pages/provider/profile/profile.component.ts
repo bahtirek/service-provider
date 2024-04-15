@@ -5,6 +5,7 @@ import { NavigationService } from '../../../shared/services/navigation.service';
 import { ProviderService } from '../../../shared/services/provider.service';
 import { Provider } from '../../../shared/interfaces/provider.interface';
 import { AuthService } from '../../../shared/services/auth.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  private navigation = inject(NavigationService);
+  private router = inject(Router);
   private providerService = inject(ProviderService);
   private auth = inject(AuthService);
   providerProfileDetails: Provider = {};
@@ -35,7 +36,11 @@ export class ProfileComponent implements OnInit {
   }
 
   edit(){
-    console.log('edit');
-
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: this.providerProfileDetails
+      }
+    };
+    this.router.navigate(['provider/profile-form'], navigationExtras);
   }
 }
