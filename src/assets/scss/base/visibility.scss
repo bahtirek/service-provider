@@ -83,6 +83,10 @@
   position: relative;
 }
 
+.background-initial {
+  background: initial !important;
+}
+
 .show-on-hover-parent {
   @media (min-width: $screen-lg-min) {
     &:hover {
