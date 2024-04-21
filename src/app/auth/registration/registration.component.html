@@ -6,18 +6,6 @@
           <h1 class="mb-xl">Sign up</h1>
           <form [formGroup]="registrationForm">
             <div class="form-element">
-              <label for="firstName">First Name</label>
-              <input type="text" id="firstName" formControlName="firstName" />
-              <app-form-error [validate]="validate" [control]="firstName" [onValueChanges]="firstName?.value">
-              </app-form-error>
-            </div>
-            <div class="form-element">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" formControlName="lastName" />
-              <app-form-error [validate]="validate" [control]="lastName" [onValueChanges]="lastName?.value">
-              </app-form-error>
-            </div>
-            <div class="form-element">
               <label for="email">Email</label>
               <input type="email" id="email" formControlName="email" />
               <app-form-error [validate]="validate" [control]="email" [onValueChanges]="email?.value"></app-form-error>

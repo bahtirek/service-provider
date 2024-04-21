@@ -25,8 +25,6 @@ export class RegistrationComponent {
 
   constructor(private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, emailValidator()]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -36,8 +34,6 @@ export class RegistrationComponent {
     });
   }
 
-  get firstName() { return this.registrationForm.get('firstName'); }
-  get lastName() { return this.registrationForm.get('lastName'); }
   get email() { return this.registrationForm.get('email'); }
   get password() { return this.registrationForm.get('password'); }
   get confirmPassword() { return this.registrationForm.get('confirmPassword'); }
@@ -60,8 +56,6 @@ export class RegistrationComponent {
     this.validate = true;
     if (this.registrationForm.valid) {
       const user : User = {
-        firstName: this.firstName?.value,
-        lastName: this.lastName?.value,
         email: this.email?.value,
         password: this.password?.value,
       }
