@@ -1,0 +1,50 @@
+<div>
+  <div class="container grid mt-xl">
+    <div class="col flex flex-center">
+      <div class="width-600">
+        <h1 class="mb-lg">Client profile</h1>
+        <form [formGroup]="detailsForm">
+          <div class="form-element">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" />
+            <app-form-error [validate]="validate" [control]="firstName" [onValueChanges]="firstName?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" />
+            <app-form-error [validate]="validate" [control]="lastName" [onValueChanges]="lastName?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element grid mt-lg">
+            <div class="form-element grow">
+              <label for="dob">Date of birth</label>
+              <input type="date" id="dob" formControlName="dob" (change)="validateDob()" />
+              <app-form-error [message]="dobErrorMessage"></app-form-error>
+            </div>
+            <div class="form-element ml-lg ml-none-mob grow">
+              <label for="sex" class="background-initial">Sex</label>
+              <div class="flex">
+                <div class="form-element-radio ml-xxl mr-lg grow">
+                  <input type="radio" id="sex" formControlName="sex" value="1" />
+                  <label for="sex">Male</label>
+                </div>
+                <div class="form-element-radio grow">
+                  <input type="radio" id="sex" formControlName="sex" value="2" />
+                  <label for="sex">Female</label>
+                </div>
+              </div>
+              <div class="pl-xl">
+                <app-form-error [validate]="validate" [control]="sex" [onValueChanges]="sex?.value">
+                </app-form-error>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="text-right">
+          <button (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

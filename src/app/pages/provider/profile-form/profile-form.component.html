@@ -1,16 +1,25 @@
 <div>
   <div class="container grid mt-xl">
-    <div class="col flex flex-center gt-md">
-      <img src="../../../assets/images/login.png" alt="" srcset="">
-    </div>
     <div class="col flex flex-center">
-      <div class="width-400">
+      <div class="width-600">
         <h1 class="mb-lg">Provider profile</h1>
         <form [formGroup]="detailsForm">
           <div class="form-element">
             <label for="companyName">Company Name</label>
             <input type="text" id="companyName" formControlName="companyName" />
             <app-form-error [validate]="validate" [control]="companyName" [onValueChanges]="companyName?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" />
+            <app-form-error [validate]="validate" [control]="firstName" [onValueChanges]="firstName?.value">
+            </app-form-error>
+          </div>
+          <div class="form-element">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" />
+            <app-form-error [validate]="validate" [control]="lastName" [onValueChanges]="lastName?.value">
             </app-form-error>
           </div>
           <div class="form-element">

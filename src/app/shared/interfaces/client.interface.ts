@@ -7,4 +7,6 @@ export interface Client {
   clientUserId?: number;
   newMessage?: number;
   newMessageCount?: number;
+  dob?: string;
+  sex?: string;
 }

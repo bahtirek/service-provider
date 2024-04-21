@@ -22,6 +22,10 @@ export const CLIENT_ROUTES: Route[] = [
         loadComponent: () => import('../pages/client/profile/profile.component').then((c)=>c.ProfileComponent)
       },
       {
+        path: 'profile-form',
+        loadComponent: () => import('../pages/client/profile-form/profile-form.component').then((c) =>c.ProfileFormComponent),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

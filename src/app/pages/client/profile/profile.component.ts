@@ -6,6 +6,7 @@ import { NavigationService } from '../../../shared/services/navigation.service';
 import { ClientService } from '../../../shared/services/client.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { User } from '../../../shared/interfaces/user.interface';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent {
   private clientService = inject(ClientService);
   private auth = inject(AuthService);
   clientProfileDetails: User = {};
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.clientProfileDetails = this.auth.user().user!
@@ -26,7 +28,11 @@ export class ProfileComponent {
 
 
   edit(){
-    console.log('edit');
-
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: this.clientProfileDetails
+      }
+    };
+    this.router.navigate(['client/profile-form'], navigationExtras);
   }
 }

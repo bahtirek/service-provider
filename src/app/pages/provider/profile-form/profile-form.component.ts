@@ -34,6 +34,8 @@ export class ProfileFormComponent {
   constructor(private fb: FormBuilder) {
     this.detailsForm = this.fb.group({
       companyName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       address: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -55,10 +57,12 @@ export class ProfileFormComponent {
     const currentState = this.router.lastSuccessfulNavigation;
     if(!currentState?.extras.replaceUrl) {
       this.profile = currentState?.extras.state!['data'];
-      this.companyName?.setValue(this.profile!.companyName)
-      this.address?.setValue(this.profile!.address)
-      this.phoneNumber?.setValue(this.profile!.phoneNumber)
-      this.description?.setValue(this.profile!.description)
+      this.companyName?.setValue(this.profile!.companyName);
+      this.firstName?.setValue(this.profile!.firstName);
+      this.lastName?.setValue(this.profile!.lastName);
+      this.address?.setValue(this.profile!.address);
+      this.phoneNumber?.setValue(this.profile!.phoneNumber);
+      this.description?.setValue(this.profile!.description);
     }
     this.getWeekDays();
     this.getWorkHours();
@@ -66,6 +70,8 @@ export class ProfileFormComponent {
   }
 
   get companyName() { return this.detailsForm.get('companyName'); }
+  get firstName() { return this.detailsForm.get('firstName'); }
+  get lastName() { return this.detailsForm.get('lastName'); }
   get address() { return this.detailsForm.get('address'); }
   get phoneNumber() { return this.detailsForm.get('phoneNumber'); }
   get description() { return this.detailsForm.get('description'); }
@@ -173,6 +179,8 @@ export class ProfileFormComponent {
     if (this.detailsForm.valid && isCategoryValid && isWeekdaysValid) {
       const form = {
         companyName: this.companyName?.value,
+        firstName: this.firstName?.value,
+        lastName: this.lastName?.value,
         address: this.address?.value,
         phoneNumber: this.phoneNumber?.value,
         description: this.description?.value,
