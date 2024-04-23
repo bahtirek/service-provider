@@ -14,6 +14,10 @@ export const PROVIDER_ROUTES: Route[] = [
         loadComponent: () => import('../pages/provider/dashboard/dashboard.component').then((c) =>c.DashboardComponent),
       },
       {
+        path: 'message',
+        loadChildren: () => import('./messages.routes').then((m) => m.MESSAGES_ROUTES),
+      },
+      {
         path: 'my-client',
         loadComponent: () => import('../pages/provider/dashboard/my-client/my-client.component').then((c) =>c.MyClientComponent),
       },
@@ -27,7 +31,7 @@ export const PROVIDER_ROUTES: Route[] = [
       },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'message',
         pathMatch: 'full',
       },
     ]

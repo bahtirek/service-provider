@@ -1,0 +1,27 @@
+.message-shell {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-wrap: nowrap;
+  .left-container {
+    max-width: 375px;
+    width: 100%;
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+    background-color: #fff;
+    overflow: auto;
+  }
+  .right-container {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+  }
+  ::-webkit-scrollbar {
+    width: 14px;
+  height: 14px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c4c8c7;
+    border-radius: 15px;
+    border: 5px solid #fff;
+  }
+}
