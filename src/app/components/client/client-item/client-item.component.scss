@@ -1,0 +1,23 @@
+.client-item {
+  font-size: 14px;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-bottom: 4px solid #fff;
+  cursor: pointer;
+  &:hover {
+    background-color: #dadce0;
+  }
+  &:active {
+    background-color: #fff;
+  }
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    background-size: 60px 60px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background-image: url('../../../../assets/images/bola_avatar.png');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
