@@ -52,6 +52,11 @@ export class HeaderNavMenuComponent {
       icon: 'dashboard'
     },
     {
+      name: 'Messages',
+      url: 'client/message',
+      icon: 'message'
+    },
+    {
       name: 'Find Provider',
       url: '/search/providers',
       icon: 'search'
@@ -67,6 +72,11 @@ export class HeaderNavMenuComponent {
       name: 'Dashboard',
       url: 'provider/dashboard',
       icon: 'dashboard'
+    },
+    {
+      name: 'Messages',
+      url: 'provider/message',
+      icon: 'message'
     },
     {
       name: 'My Profile',
