@@ -1,5 +1,9 @@
-<div class="flex no-wrap items-center pr-lg pr-md-mob">
-  <span (click)="onSubjectClick()">{{subject.title}}</span>
-  <app-enevelope [newMessageCount]="subject.newMessageCount!"></app-enevelope>
+<div class="subject flex no-wrap items-center pr-md pr-md-mob">
+  <div class="" (click)="onSubjectClick()">{{subject.title}}</div>
+  @if(subject.newMessageCount! > 0){
+    <div class="ml-auto">
+      <span class="badge success">{{subject.newMessageCount!}}</span>
+    </div>
+  }
 </div>
 

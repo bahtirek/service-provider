@@ -1,5 +1,8 @@
-<div class="container container-md">
-  <app-back-button></app-back-button>
+<div>
+  <div class="back-button">
+    <app-back-button></app-back-button>
+  </div>
+  <app-client-item [client]="clientDetails"></app-client-item>
   <div class="flex column">
     <app-subject-list [subjectList]="subjectList" [displayAsCard]="displayAsCard" (onSubjectClick$)="onSubjectClick($event)"></app-subject-list>
   </div>

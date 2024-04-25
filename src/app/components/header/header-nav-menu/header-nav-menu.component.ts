@@ -75,7 +75,7 @@ export class HeaderNavMenuComponent {
     },
     {
       name: 'Messages',
-      url: 'provider/message',
+      url: 'provider/message/clients',
       icon: 'message'
     },
     {

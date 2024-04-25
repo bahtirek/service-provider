@@ -7,24 +7,12 @@ export const MESSAGES_ROUTES: Route[] = [
     component: MessageShellComponent,
     children: [
       {
-        path: 'recipients',
-        loadComponent: () => import('../pages/message/recepients/recepients.component').then((c) =>c.RecepientsComponent),
-        /* outlet: 'left' */
+        path: 'clients',
+        loadComponent: () => import('../pages/provider/dashboard/my-client/recepients/recepients.component').then((c) =>c.RecepientsComponent),
       },
       {
-        path: 'consultations',
-        loadComponent: () => import('../pages/message/consultations/consultations.component').then((c) => c.ConsultationsComponent),
-        /* outlet: 'left' */
-      },
-      {
-        path: 'consultations/chat',
-        loadComponent: () => import('../pages/message/chat/chat.component').then((c) => c.ChatComponent),
-        outlet: 'right'
-      },
-      {
-        path: '',
-        redirectTo: 'recipients',
-        pathMatch: 'full',
+        path: 'clients/consultations',
+        loadComponent: () => import('../pages/provider/dashboard/my-client/consultations/consultations.component').then((c) => c.ConsultationsComponent),
       },
     ],
   },

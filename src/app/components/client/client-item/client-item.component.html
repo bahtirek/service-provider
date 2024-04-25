@@ -1,4 +1,4 @@
-<div class="client-item">
+<div class="client-item" (click)="cardClicked()">
   <ul class="reset">
     <li class="flex no-wrap">
       <div class="text-bold mr-md flex">
@@ -6,7 +6,7 @@
       </div>
       <div>
         <ul class="reset">
-          <li class="mb-xs">
+          <li class="mb-xs text-semibold">
             <span class="mr-sm">{{clientDetails.firstName}}</span><span>{{clientDetails.lastName}}</span>
           </li>
           <li>

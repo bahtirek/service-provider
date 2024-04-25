@@ -1,14 +1,15 @@
 @import "../../../../assets/scss/base/breakpoints.scss";
 
-span {
-  min-height: 40px;
+.subject {
   width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding: 8px 32px;
-  display: flex;
+  padding: 10px 10px;
   align-items: center;
+  min-height: 50px;
   @media (max-width: $screen-sm-max) {
-    padding: 8px 16px;
+    //padding: 8px 16px;
+  }
+
+  .badge-container {
+    margin-left: auto;
   }
 }

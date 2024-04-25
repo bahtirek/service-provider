@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { SubjectListComponent } from '../../../components/subject/subject-list/subject-list.component';
-import { BackButtonComponent } from '../../../components/back-button/back-button.component';
+import { SubjectListComponent } from '../../../../../components/subject/subject-list/subject-list.component';
+import { BackButtonComponent } from '../../../../../components/back-button/back-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientService } from '../../../shared/services/client.service';
-import { SubjectService } from '../../../shared/services/subject.service';
-import { NavigationService } from '../../../shared/services/navigation.service';
+import { ClientService } from '../../../../../shared/services/client.service';
+import { SubjectService } from '../../../../../shared/services/subject.service';
+import { NavigationService } from '../../../../../shared/services/navigation.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { SubjectType } from '../../../shared/interfaces/subject.interface';
-import { Client } from '../../../shared/interfaces/client.interface';
+import { SubjectType } from '../../../../../shared/interfaces/subject.interface';
+import { Client } from '../../../../../shared/interfaces/client.interface';
+import { ClientItemComponent } from '../../../../../components/client/client-item/client-item.component';
 
 @Component({
   selector: 'app-consultations',
   standalone: true,
-  imports: [BackButtonComponent, SubjectListComponent],
+  imports: [BackButtonComponent, SubjectListComponent, ClientItemComponent],
   templateUrl: './consultations.component.html',
   styleUrl: './consultations.component.scss'
 })

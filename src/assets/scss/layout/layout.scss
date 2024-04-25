@@ -26,7 +26,7 @@
   }
 }
 
-li.hoverable {
+/* li.hoverable {
   cursor: pointer;
   &:not(:last-child){
     border-bottom: 1px solid var(--border-color);
@@ -42,7 +42,7 @@ li.hoverable {
   &:hover {
     background-color: #efefef;
   }
-}
+} */
 
 ul.reset {
   list-style-type: none;
