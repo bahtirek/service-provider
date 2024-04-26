@@ -8,6 +8,10 @@
   @media (max-width: $screen-sm-max) {
     //padding: 8px 16px;
   }
+  &.active-subject {
+    background-color: #fff !important;
+    font-weight: 500;
+  }
 
   .badge-container {
     margin-left: auto;

@@ -1,4 +1,4 @@
-<div class="subject flex no-wrap items-center pr-md pr-md-mob" (click)="onSubjectClick()">
+<div class="subject flex no-wrap items-center pr-md pr-md-mob" [ngClass]="{'active-subject': isSubjectActive}" (click)="onSubjectClick()">
   <div class="" >{{subject.title}}</div>
   @if(subject.newMessageCount! > 0){
     <div class="ml-auto">

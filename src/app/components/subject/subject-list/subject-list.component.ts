@@ -11,12 +11,14 @@ import { SubjectComponent } from '../subject/subject.component';
   styleUrl: './subject-list.component.scss'
 })
 export class SubjectListComponent {
+  activeSubjectId: number = 0;
   @Input() subjectList: SubjectType[] = [];
   @Input() displayAsCard: boolean = true;
 
   @Output() onSubjectClick$ = new EventEmitter<SubjectType>();
 
   onSubjectClick(subject: SubjectType){
-    this.onSubjectClick$.emit(subject)
+    this.onSubjectClick$.emit(subject);
+    this.activeSubjectId = subject.subjectId!;
   }
 }
