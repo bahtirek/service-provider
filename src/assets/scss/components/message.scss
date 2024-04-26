@@ -1,4 +1,55 @@
 
+@import "../../../assets/scss/base/breakpoints.scss";
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .messages-body {
+    flex-grow: 1;
+    overflow: auto;
+    .container {
+      height: 100%;
+      .card {
+        height: 100%;
+        padding: 0px;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: auto;
+        border: none;
+        background-color: transparent;
+      }
+
+      &.new-message {
+        border-color: #0171ad9b;
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    @media(max-width: $screen-sm-max) {
+      width: 0px;
+      height: 0px;
+    }
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c4c8c7;
+    border-radius: 15px;
+    border: 5px solid #fff;
+    @media(max-width: $screen-sm-max) {
+      border: 0px;
+    }
+  }
+
+  .date-separator {
+    border-top: 1px solid var(--border-color);
+    color: var(--primary);
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 10px;
+    font-size: 14px;
+  }
+}
 .message-container {
   padding: 5px 32px 5px 12px;
   display: flex;

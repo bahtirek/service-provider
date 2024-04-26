@@ -12,7 +12,7 @@ export class SubjectService {
   private url = environment.apiUrl;
   private http = inject(HttpClient);
   subjects: SubjectType[] = [];
-  subjectsSource: Subject<SubjectType[]> = new Subject;
+  subjectsSwitchedSource: Subject<SubjectType> = new Subject;
   newSubjectsSource: Subject<void> = new Subject;
   providerId?: number;
   clientId?: number;
@@ -32,7 +32,8 @@ export class SubjectService {
   }
 
   saveSubjectToLocal(subject: SubjectType){
-    window.localStorage.setItem('subject', JSON.stringify(subject))
+    window.localStorage.setItem('subject', JSON.stringify(subject));
+    this.subjectsSwitchedSource.next(subject)
   }
 
   getSubjectFromLocal(){

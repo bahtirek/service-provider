@@ -2,7 +2,7 @@
   @if(replyToMessageId || messageToEditId){
     <app-reply-to-message-details [messageProp]="replyToMessage" [isEditingProp]="messageToEditId!" (cancelEmit)="resetMessageInputField()"></app-reply-to-message-details>
   }
-  <div class="message-toolbar">
+  <div class="container container-md message-toolbar">
     <div class="action-btn">
       <label for="attach">
         <span class="material-symbols-outlined text-primary">attach_file</span>

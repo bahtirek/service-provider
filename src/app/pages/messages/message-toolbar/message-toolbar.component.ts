@@ -12,6 +12,7 @@ import { MessageService } from '../../../shared/services/message.service';
 import { ReplyService } from '../../../shared/services/reply.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ReplyToMessageDetailsComponent } from './reply-to-message-details/reply-to-message-details.component';
+import { SubjectType } from '../../../shared/interfaces/subject.interface';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -65,19 +66,16 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
         this.textArea.nativeElement.value = message.message!;
       })
     )
-    this.getSubjectDetails();
+    this._subscription.add(
+      this.subjectService.subjectsSwitchedSource.subscribe((subject: SubjectType) => {
+        this.subjectId = subject.subjectId;
+        this.chatService.setSubjectId(this.subjectId!);
+      })
+    )
   }
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe()
-  }
-
-  getSubjectDetails() {
-    const subject = this.subjectService.getSubjectFromLocal();
-    if(subject) {
-      this.subjectId = subject.subjectId;
-      this.chatService.setSubjectId(this.subjectId!);
-    }
   }
 
   onSubmit(){

@@ -1,1 +1,19 @@
-<p>chat works!</p>
+<div class="messages-container">
+  <div class="messages-body">
+    <div class="container" #messageContainer>
+      <div class="messages-container" [ngClass]="{'new-message': containerBorder}">
+        <div class="card pa-xl" #messagesCard>
+          @for (message of messages(); track message.messageId; let index = $index; let last = $last;) {
+            <app-message [scrollIntoViewProp]="message.highlightMessageOnScrollIntoView" [last]="last" [user]="user.user" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
+            @if(displayDate(index, message.createdAt)){
+              <div class="container container-md date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <app-message-toolbar [receiverId]="receiver.receiverId"></app-message-toolbar>
+  </div>
+</div>

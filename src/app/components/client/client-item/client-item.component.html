@@ -1,4 +1,4 @@
-<div class="client-item" (click)="cardClicked()">
+<div class="client-item" [ngClass]="{'hoverable': isHoverable}" (click)="cardClicked()">
   <ul class="reset">
     <li class="flex no-wrap">
       <div class="text-bold mr-md flex">

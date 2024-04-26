@@ -3,12 +3,14 @@
   background-color: #f7f7f7;
   padding: 10px;
   border-bottom: 4px solid #fff;
-  cursor: pointer;
-  &:hover {
-    background-color: #efefef;
-  }
-  &:active {
-    background-color: #fff;
+  &.hoverable {
+    cursor: pointer;
+    &:hover {
+      background-color: #efefef;
+    }
+    &:active {
+      background-color: #fff;
+    }
   }
   .user-avatar {
     width: 40px;

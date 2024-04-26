@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { SubjectType } from '../../../../../shared/interfaces/subject.interface';
 import { Client } from '../../../../../shared/interfaces/client.interface';
 import { ClientItemComponent } from '../../../../../components/client/client-item/client-item.component';
+import { MessageService } from '../../../../../shared/services/message.service';
 
 @Component({
   selector: 'app-consultations',
@@ -18,12 +19,11 @@ import { ClientItemComponent } from '../../../../../components/client/client-ite
   styleUrl: './consultations.component.scss'
 })
 export class ConsultationsComponent {
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
   private clientService = inject(ClientService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
   private readonly _subscription: Subscription = new Subscription();
+  private messageService = inject(MessageService);
 
   subjectList:SubjectType[] = [];
   displayAsCard: boolean = false
@@ -54,11 +54,22 @@ export class ConsultationsComponent {
         console.log(error);
       }
     })
+  }
 
+  getMessages(subject: SubjectType):void {
+    this.messageService.resetMessages();
+    this.messageService.getMessages(subject.subjectId!, 1).subscribe({
+      next: (response) => {
+        this.messageService.addMessages(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onSubjectClick(subject: SubjectType){
+    this.getMessages(subject);
     this.subjectService.saveSubjectToLocal(subject);
-    this.router.navigate(['./messages'], { relativeTo: this.route });
   }
 }
