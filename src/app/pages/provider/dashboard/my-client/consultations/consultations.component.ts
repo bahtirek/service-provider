@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { SubjectListComponent } from '../../../../../components/subject/subject-list/subject-list.component';
 import { BackButtonComponent } from '../../../../../components/back-button/back-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,13 +18,14 @@ import { MessageService } from '../../../../../shared/services/message.service';
   templateUrl: './consultations.component.html',
   styleUrl: './consultations.component.scss'
 })
-export class ConsultationsComponent {
+export class ConsultationsComponent implements OnInit, OnDestroy {
   private clientService = inject(ClientService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
   private readonly _subscription: Subscription = new Subscription();
   private messageService = inject(MessageService);
 
+  subject: SubjectType = {};
   subjectList:SubjectType[] = [];
   displayAsCard: boolean = false
   clientDetails: Client = {}
@@ -39,7 +40,8 @@ export class ConsultationsComponent {
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe()
+    this._subscription.unsubscribe();
+    this.messageService.resetMessages();
   }
 
   getSubjects(){
@@ -69,6 +71,8 @@ export class ConsultationsComponent {
   }
 
   onSubjectClick(subject: SubjectType){
+    if(this.subject.subjectId && this.subject.subjectId == subject.subjectId) return;
+    this.subject = subject;
     this.getMessages(subject);
     this.subjectService.saveSubjectToLocal(subject);
   }
