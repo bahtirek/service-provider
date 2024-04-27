@@ -18,11 +18,12 @@ import { Client } from '../../../shared/interfaces/client.interface';
 import { Attachment } from '../../../shared/interfaces/attachment.interface';
 import { Message } from '../../../shared/interfaces/message.interface';
 import { Receiver } from '../../../shared/interfaces/receiver.interface';
+import { ChatHeaderComponent } from './chat-header/chat-header.component';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass, AttachmentModalComponent, NgStyle, VideoComponent],
+  imports: [MessageToolbarComponent, MessageComponent, BackButtonComponent, DatePipe, NgClass, AttachmentModalComponent, NgStyle, VideoComponent, ChatHeaderComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -54,7 +55,7 @@ export class ChatComponent {
 
   ngOnInit(){
     this.getReceiverDeatils();
-    //this.getMessages();
+    this.subject = this.subjectService.getSubjectFromLocal()
   }
 
   ngAfterViewInit(): void {
@@ -64,7 +65,6 @@ export class ChatComponent {
 
   getMessages():void {
     this.messageService.resetMessages();
-    this.subject = this.subjectService.getSubjectFromLocal()
     if(this.subject) {
       this.messageService.getMessages(this.subject.subjectId, 1).subscribe({
         next: (response) => {

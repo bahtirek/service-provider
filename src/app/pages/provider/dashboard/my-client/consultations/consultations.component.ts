@@ -10,6 +10,7 @@ import { SubjectType } from '../../../../../shared/interfaces/subject.interface'
 import { Client } from '../../../../../shared/interfaces/client.interface';
 import { ClientItemComponent } from '../../../../../components/client/client-item/client-item.component';
 import { MessageService } from '../../../../../shared/services/message.service';
+import { MessageSwitchService } from '../../../../../shared/services/message-switch.service';
 
 @Component({
   selector: 'app-consultations',
@@ -24,6 +25,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   private navigation = inject(NavigationService);
   private readonly _subscription: Subscription = new Subscription();
   private messageService = inject(MessageService);
+  private messageSwitchService = inject(MessageSwitchService);
 
   subject: SubjectType = {};
   subjectList:SubjectType[] = [];
@@ -75,5 +77,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.subject = subject;
     this.getMessages(subject);
     this.subjectService.saveSubjectToLocal(subject);
+    this.messageSwitchService.messageSwitchSource.next(true);
   }
 }

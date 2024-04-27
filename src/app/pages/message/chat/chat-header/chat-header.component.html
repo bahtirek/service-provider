@@ -1,0 +1,19 @@
+<div class="chat-header">
+  <button (click)="goBack()" class="cta-btn btn-icon" tabindex="0">
+    <span class="material-symbols-outlined">arrow_back_ios</span>
+  </button>
+  @if (subject.subjectId) {
+    <div class="mr-auto chat-header-details">
+      <div class="text-semibold mb-xs">
+        <span>{{receiver.firstName}} </span>
+        <span> {{receiver.lastName}}</span>
+      </div>
+      <div class="text-13">
+        {{subject.title}}
+      </div>
+    </div>
+  }
+  <button (click)="goBack()" class="cta-btn btn-icon more-vert" tabindex="0">
+    <span class="material-symbols-outlined">more_vert</span>
+  </button>
+</div>
