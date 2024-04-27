@@ -6,6 +6,8 @@ li.hoverable {
   cursor: pointer;
   &:hover {
     background-color: #efefef;
+    //background-color: #e7e7e7;
+    font-weight: 500;
   }
   &:active {
     background-color: #fff;
