@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { SubjectComponent } from '../../../../components/subject/subject/subject.component';
 import { SubjectType } from '../../../../shared/interfaces/subject.interface';
 import { Location } from '@angular/common';
@@ -15,9 +15,13 @@ import { MessageSwitchService } from '../../../../shared/services/message-switch
 export class ChatHeaderComponent {
 
   private messageSwitchService = inject(MessageSwitchService);
+  subject: SubjectType = {};
 
   @Input() receiver: Receiver = {};
-  @Input() subject: SubjectType = {};
+  @Input() set subjectProp(subject: SubjectType){
+    this.subject = subject;
+  };
+
 
   goBack(): void {
     this.messageSwitchService.messageSwitchSource.next(false);

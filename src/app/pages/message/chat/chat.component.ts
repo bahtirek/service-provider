@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, WritableSignal, computed, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, WritableSignal, computed, inject } from '@angular/core';
 import { MessageToolbarComponent } from '../../messages/message-toolbar/message-toolbar.component';
 import { MessageComponent } from '../../messages/message/message.component';
 import { BackButtonComponent } from '../../../components/back-button/back-button.component';
@@ -19,6 +19,7 @@ import { Attachment } from '../../../shared/interfaces/attachment.interface';
 import { Message } from '../../../shared/interfaces/message.interface';
 import { Receiver } from '../../../shared/interfaces/receiver.interface';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
+import { SubjectType } from '../../../shared/interfaces/subject.interface';
 
 @Component({
   selector: 'app-chat',
@@ -27,7 +28,7 @@ import { ChatHeaderComponent } from './chat-header/chat-header.component';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
   private subjectService = inject(SubjectService);
   private navigation = inject(NavigationService);
@@ -56,6 +57,15 @@ export class ChatComponent {
   ngOnInit(){
     this.getReceiverDeatils();
     this.subject = this.subjectService.getSubjectFromLocal()
+    this._subscription.add(
+      this.subjectService.subjectsSwitchedSource.subscribe((subject: SubjectType) => {
+        this.subject = subject;
+      })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {
