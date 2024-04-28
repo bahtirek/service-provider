@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { Client } from '../../../shared/interfaces/client.interface';
-import { Router } from '@angular/router';
-import { ClientService } from '../../../shared/services/client.service';
-import { ClientListComponent } from '../../../components/client/client-list/client-list.component';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ClientListComponent } from '../../../../../components/client/client-list/client-list.component';
+import { ClientService } from '../../../../../shared/services/client.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { Client } from '../../../../../shared/interfaces/client.interface';
+import { BackButtonComponent } from '../../../../../components/back-button/back-button.component';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-recepients',
   standalone: true,
-  imports: [ClientListComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  imports: [RouterLink, RouterLinkActive, ClientListComponent, BackButtonComponent],
+  templateUrl: './recepients.component.html',
+  styleUrl: './recepients.component.scss'
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class RecepientsComponent {
   private router = inject(Router);
   private clientService = inject(ClientService);
   private readonly _subscription: Subscription = new Subscription();
@@ -45,6 +46,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   cardClicked(client: Client){
+    console.log(client);
+
     this.clientService.saveClientToLocal(client)
     this.router.navigate([`/provider/my-client`]);
   }

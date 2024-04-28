@@ -26,6 +26,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   private readonly _subscription: Subscription = new Subscription();
   private messageService = inject(MessageService);
   private messageSwitchService = inject(MessageSwitchService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   subject: SubjectType = {};
   subjectList:SubjectType[] = [];
@@ -78,5 +80,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.getMessages(subject);
     this.subjectService.saveSubjectToLocal(subject);
     this.messageSwitchService.messageSwitchSource.next(true);
+    this.router.navigate(['./chat'], { relativeTo: this.route });
   }
 }

@@ -2,18 +2,19 @@ import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
 import { SubjectType } from '../../../../shared/interfaces/subject.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { SubjectService } from '../../../../shared/services/subject.service';
 import { ProviderService } from '../../../../shared/services/provider.service';
 import { ClientService } from '../../../../shared/services/client.service';
 import { Client } from '../../../../shared/interfaces/client.interface';
 import { NavigationService } from '../../../../shared/services/navigation.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ConsultationsComponent } from './consultations/consultations.component';
 
 @Component({
   selector: 'app-my-client',
   standalone: true,
-  imports: [BackButtonComponent, SubjectListComponent],
+  imports: [BackButtonComponent, SubjectListComponent, ConsultationsComponent, RouterOutlet],
   templateUrl: './my-client.component.html',
   styleUrl: './my-client.component.scss'
 })

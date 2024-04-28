@@ -8,7 +8,7 @@ export const MESSAGES_ROUTES: Route[] = [
     children: [
       {
         path: 'clients',
-        loadComponent: () => import('../pages/provider/dashboard/my-client/recepients/recepients.component').then((c) =>c.RecepientsComponent),
+        loadComponent: () => import('../pages/provider/dashboard/dashboard/recepients/recepients.component').then((c) =>c.RecepientsComponent),
       },
       {
         path: 'clients/consultations',

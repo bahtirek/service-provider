@@ -11,7 +11,7 @@ export const PROVIDER_ROUTES: Route[] = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('../pages/provider/dashboard/dashboard.component').then((c) =>c.DashboardComponent),
+        loadComponent: () => import('../pages/provider/dashboard/dashboard/dashboard.component').then((c) =>c.DashboardComponent),
       },
       {
         path: 'message',
@@ -20,10 +20,21 @@ export const PROVIDER_ROUTES: Route[] = [
       {
         path: 'my-client',
         loadComponent: () => import('../pages/provider/dashboard/my-client/my-client.component').then((c) =>c.MyClientComponent),
-      },
-      {
-        path: 'my-client/messages',
-        loadComponent: () => import('../pages/messages/messages.component').then((c) =>c.MessagesComponent),
+        children: [
+          {
+            path: 'chat',
+            loadComponent: () => import('../pages/message/chat/chat.component').then((c) =>c.ChatComponent),
+          },
+          {
+            path: 'details',
+            loadComponent: () => import('../pages/provider/dashboard/my-client/client-details/client-details.component').then((c) =>c.ClientDetailsComponent),
+          },
+          {
+            path: '',
+            redirectTo: 'details',
+            pathMatch: 'full',
+          }
+        ]
       },
       {
         path: 'profile',

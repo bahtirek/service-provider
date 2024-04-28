@@ -73,11 +73,11 @@ export class HeaderNavMenuComponent {
       url: 'provider/dashboard',
       icon: 'dashboard'
     },
-    {
+    /* {
       name: 'Messages',
       url: 'provider/message/clients',
       icon: 'message'
-    },
+    }, */
     {
       name: 'My Profile',
       url: `provider/profile`,
