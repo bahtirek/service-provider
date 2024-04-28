@@ -1,65 +1,31 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
-import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
-import { SubjectType } from '../../../../shared/interfaces/subject.interface';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { SubjectService } from '../../../../shared/services/subject.service';
-import { ProviderService } from '../../../../shared/services/provider.service';
-import { ClientService } from '../../../../shared/services/client.service';
-import { Client } from '../../../../shared/interfaces/client.interface';
-import { NavigationService } from '../../../../shared/services/navigation.service';
+import { RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ConsultationsComponent } from './consultations/consultations.component';
+import { MessageSwitchService } from '../../../../shared/services/message-switch.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-my-client',
   standalone: true,
-  imports: [BackButtonComponent, SubjectListComponent, ConsultationsComponent, RouterOutlet],
+  imports: [ConsultationsComponent, RouterOutlet, NgClass],
   templateUrl: './my-client.component.html',
   styleUrl: './my-client.component.scss'
 })
 export class MyClientComponent implements OnInit, OnDestroy {
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private clientService = inject(ClientService);
-  private subjectService = inject(SubjectService);
-  private navigation = inject(NavigationService);
   private readonly _subscription: Subscription = new Subscription();
-
-  subjectList:SubjectType[] = [];
-  displayAsCard: boolean = false
-  clientDetails: Client = {}
+  private messageSwitchService = inject(MessageSwitchService);
+  showMessages: boolean = false;
 
   ngOnInit(){
-    this.getSubjects();
     this._subscription.add(
-      this.subjectService.newSubjectsSource.subscribe(() => {
-        this.getSubjects();
+      this.messageSwitchService.messageSwitchSource.subscribe((value) => {
+        this.showMessages = value;
       })
     )
   }
 
   ngOnDestroy(): void {
     this._subscription.unsubscribe()
-  }
-
-  getSubjects(){
-    this.clientDetails = this.clientService.getClient();
-    if(!this.clientDetails.clientId) this.navigation.back();
-    this.subjectService.getClientSubjectsAPI(this.clientDetails.clientId!).subscribe({
-      next: (response: SubjectType[]) => {
-        this.subjectList = response;
-        this.subjectService.subjects = response;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-
-  }
-
-  onSubjectClick(subject: SubjectType){
-    this.subjectService.saveSubjectToLocal(subject);
-    this.router.navigate(['./messages'], { relativeTo: this.route });
   }
 }

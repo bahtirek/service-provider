@@ -46,8 +46,6 @@ export class RecepientsComponent {
   }
 
   cardClicked(client: Client){
-    console.log(client);
-
     this.clientService.saveClientToLocal(client)
     this.router.navigate([`/provider/my-client`]);
   }

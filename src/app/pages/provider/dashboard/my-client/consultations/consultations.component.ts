@@ -33,12 +33,18 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   subjectList:SubjectType[] = [];
   displayAsCard: boolean = false
   clientDetails: Client = {}
+  isMessageClassOn: boolean = false;
 
   ngOnInit(){
     this.getSubjects();
     this._subscription.add(
       this.subjectService.newSubjectsSource.subscribe(() => {
         this.getSubjects();
+      })
+    )
+    this._subscription.add(
+      this.messageSwitchService.messageSwitchSource.subscribe((value) => {
+        this.isMessageClassOn = value
       })
     )
   }
@@ -75,7 +81,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   }
 
   onSubjectClick(subject: SubjectType){
-    if(this.subject.subjectId && this.subject.subjectId == subject.subjectId) return;
+    if(this.isMessageClassOn && this.subject.subjectId && this.subject.subjectId == subject.subjectId) return;
     this.subject = subject;
     this.getMessages(subject);
     this.subjectService.saveSubjectToLocal(subject);

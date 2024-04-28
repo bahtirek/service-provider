@@ -13,7 +13,7 @@ import { MessageSwitchService } from '../../../../shared/services/message-switch
   styleUrl: './chat-header.component.scss'
 })
 export class ChatHeaderComponent {
-
+  private location = inject(Location)
   private messageSwitchService = inject(MessageSwitchService);
   subject: SubjectType = {};
 
@@ -24,6 +24,7 @@ export class ChatHeaderComponent {
 
 
   goBack(): void {
+    this.location.back();
     this.messageSwitchService.messageSwitchSource.next(false);
   }
 }
