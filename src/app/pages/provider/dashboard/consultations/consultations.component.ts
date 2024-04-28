@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { SubjectListComponent } from '../../../../../components/subject/subject-list/subject-list.component';
-import { BackButtonComponent } from '../../../../../components/back-button/back-button.component';
+import { SubjectListComponent } from '../../../../components/subject/subject-list/subject-list.component';
+import { BackButtonComponent } from '../../../../components/back-button/back-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientService } from '../../../../../shared/services/client.service';
-import { SubjectService } from '../../../../../shared/services/subject.service';
-import { NavigationService } from '../../../../../shared/services/navigation.service';
+import { ClientService } from '../../../../shared/services/client.service';
+import { SubjectService } from '../../../../shared/services/subject.service';
+import { NavigationService } from '../../../../shared/services/navigation.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { SubjectType } from '../../../../../shared/interfaces/subject.interface';
-import { Client } from '../../../../../shared/interfaces/client.interface';
-import { ClientItemComponent } from '../../../../../components/client/client-item/client-item.component';
-import { MessageService } from '../../../../../shared/services/message.service';
-import { MessageSwitchService } from '../../../../../shared/services/message-switch.service';
+import { SubjectType } from '../../../../shared/interfaces/subject.interface';
+import { Client } from '../../../../shared/interfaces/client.interface';
+import { ClientItemComponent } from '../../../../components/client/client-item/client-item.component';
+import { MessageService } from '../../../../shared/services/message.service';
+import { MessageSwitchService } from '../../../../shared/services/message-switch.service';
 
 @Component({
   selector: 'app-consultations',
@@ -42,6 +42,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.messageSwitchService.messageSwitchSource.next(false);
     this._subscription.unsubscribe();
     this.messageService.resetMessages();
   }

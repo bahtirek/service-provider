@@ -8,11 +8,11 @@ export const MESSAGES_ROUTES: Route[] = [
     children: [
       {
         path: 'clients',
-        loadComponent: () => import('../pages/provider/dashboard/my-client/recepients/recepients.component').then((c) =>c.RecepientsComponent),
+        loadComponent: () => import('../pages/provider/dashboard/recepients/recepients.component').then((c) =>c.RecepientsComponent),
       },
       {
         path: 'clients/consultations',
-        loadComponent: () => import('../pages/provider/dashboard/my-client/consultations/consultations.component').then((c) => c.ConsultationsComponent),
+        loadComponent: () => import('../pages/provider/dashboard/consultations/consultations.component').then((c) => c.ConsultationsComponent),
       },
     ],
   },
