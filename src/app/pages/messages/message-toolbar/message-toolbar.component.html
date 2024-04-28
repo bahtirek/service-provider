@@ -20,3 +20,7 @@
 <app-modal [(modal)]="toggleModal">
   <app-file-upload (cancel)="cancel()" (onFileUpload)="submitAttachmentMessage($event)" (thumbnailEvent)="handleThumbnailEvent($event)" [filesProp]="files!"></app-file-upload>
 </app-modal>
+<app-modal [(modal)]="toggleWarningModal">
+  <h4> Choose receipient and consulation to sent a message!</h4>
+  <button (click)="closeWarningModal()" class="block ml-auto mt-xxl">Ok</button>
+</app-modal>

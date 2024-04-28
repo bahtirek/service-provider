@@ -13,6 +13,7 @@ import { ReplyService } from '../../../shared/services/reply.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ReplyToMessageDetailsComponent } from './reply-to-message-details/reply-to-message-details.component';
 import { SubjectType } from '../../../shared/interfaces/subject.interface';
+import { MessageSwitchService } from '../../../shared/services/message-switch.service';
 
 @Component({
   selector: 'app-message-toolbar',
@@ -29,6 +30,7 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
   private replyService = inject(ReplyService);
   private readonly _subscription: Subscription = new Subscription();
+  private messageSwitchService = inject(MessageSwitchService);
 
 
   message: string = "";
@@ -41,6 +43,8 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
   replyToMessageId?: number | null = null;
   replyToMessage: Message = {};
   messageToEditId?: number;
+  isReadyToSendMessage: boolean = false;
+  toggleWarningModal: boolean = false;
 
   @Input() receiverId?: number;
 
@@ -72,6 +76,11 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
         this.chatService.setSubjectId(this.subjectId!);
       })
     )
+    this._subscription.add(
+      this.messageSwitchService.messageSwitchSource.subscribe((value) => {
+        this.isReadyToSendMessage = value;
+      })
+    )
   }
 
   ngOnDestroy(): void {
@@ -79,7 +88,7 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    if(!this.subjectId || !this.receiverId) return;
+    if(!this.isReadyToSendMessage || !this.subjectId || !this.receiverId) return;
     const newMessage = this.textAreaContainer.nativeElement.dataset['replicatedValue']?.trim();
     if (!newMessage) return;
     if(this.messageToEditId) {
@@ -192,6 +201,9 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
 
   onFocus(){
     this.showCursor = false;
+    if(!this.isReadyToSendMessage) {
+      this.toggleWarningModal = true
+    }
   }
 
   cancel() {
@@ -200,5 +212,9 @@ export class MessageToolbarComponent implements OnInit, OnDestroy {
     this.replyToMessage = {};
     this.replyToMessageId = null;
     this.messageToEditId = undefined;
+  }
+
+  closeWarningModal() {
+    this.toggleWarningModal = false
   }
 }
