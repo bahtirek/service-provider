@@ -4,9 +4,11 @@
       <div class="messages-container" [ngClass]="{'new-message': containerBorder}">
         <div class="card pa-xl" #messagesCard>
           @for (message of messages(); track message.messageId; let index = $index; let last = $last;) {
-            <app-message [scrollIntoViewProp]="message.highlightMessageOnScrollIntoView" [last]="last" [user]="user.user" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
-            @if(displayDate(index, message.createdAt)){
-              <div class="container container-md date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
+            @if(!showAttchmentsOnly || (showAttchmentsOnly && message.attachments && message.attachments.length > 0)) {
+              <app-message [scrollIntoViewProp]="message.highlightMessageOnScrollIntoView" [last]="last" [user]="user.user" [message$]="message" [receiver]="receiver" [index]="index" (onMessageIntersect)="onMessageIntersect($event)" (onAttachmentClickEmit)="onAttachmentClick($event)"></app-message>
+              @if(displayDate(index, message.createdAt)){
+                <div class="container container-md date-separator">{{message.createdAt | date: 'dd/MM/YYYY,  EEEE'}}</div>
+              }
             }
           }
         </div>

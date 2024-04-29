@@ -55,6 +55,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
       icon: "delete",
     },
   ];
+  showAttchmentsOnly: boolean = false;
 
   @Input() user?: User;
   @Input() receiver?: Receiver;
@@ -81,6 +82,10 @@ export class MessageComponent implements OnInit, AfterViewInit {
       this.messageType = 'in';
       this.menuItems = this.menuItemsIn;
     }
+  }
+
+  @Input() set showAttachmentOnlyProp (value: boolean) {
+    this.showAttchmentsOnly = value;
   }
 
   @Output() onMessageIntersect = new EventEmitter<number>();

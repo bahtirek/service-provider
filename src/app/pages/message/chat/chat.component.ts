@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   chunkNum: number = 1;
   containerBorder: boolean = false;
   receiver: Receiver = {};
+  showAttchmentsOnly: boolean = false;
 
   @ViewChild('messageContainer') messageContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('messagesCard') messagesCard!: ElementRef<HTMLDivElement>;
