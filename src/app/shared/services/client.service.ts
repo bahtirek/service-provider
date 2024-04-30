@@ -12,6 +12,7 @@ export class ClientService {
   private http = inject(HttpClient);
   client: Client = {};
   updateClientsSource: Subject<void> = new Subject;
+  updateClientsMessageCountsSource: Subject<number> = new Subject;
 
   getMyClients() {
     return this.http.get<Client[]>(this.url + '/providers/my-clients');
@@ -35,5 +36,9 @@ export class ClientService {
   getClient(){
     if(this.client?.clientId) return this.client;
     return this.client = this.getClientFromLocal()
+  }
+
+  updateClients(createdBy: number) {
+    this.updateClientsMessageCountsSource.next(createdBy)
   }
 }

@@ -72,6 +72,10 @@ export class ChatService {
         this.subjectService.updateSubjects(message.subjectId!);
       }
 
+      if(!this.router.url.includes('/consultations') || this.clientService.client.clientId != message.createdBy) {
+        this.clientService.updateClients(message.createdBy!);
+      }
+
       if(this.router.url.includes('/provider/dashboard')) {
         this.clientService.updateClientsSource.next();
       }

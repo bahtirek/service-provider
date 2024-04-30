@@ -12,6 +12,7 @@ import { NgClass } from '@angular/common';
 export class ClientItemComponent {
   clientDetails: Client = {};
   isHoverable: boolean = true;
+  showMessagesCount: boolean = true;
 
   @Input() set client (value: Client) {
     this.clientDetails = value;
@@ -19,6 +20,10 @@ export class ClientItemComponent {
 
   @Input() set hoverable (value: boolean) {
     this.isHoverable = value;
+  }
+
+  @Input() set messagesCount (value: boolean) {
+    this.showMessagesCount = value;
   }
 
   @Output() cardClickled: EventEmitter<Client> = new EventEmitter();

@@ -27,6 +27,18 @@ export class RecepientsComponent {
         this.getMyClients();
       })
     )
+    this._subscription.add(
+      this.clientService.updateClientsMessageCountsSource.subscribe((value) => {
+        this.updateMessageCounts(value)
+      })
+    )
+  }
+
+  updateMessageCounts(clientId: number) {
+    const index = this.clients.findIndex(client => client.clientId === clientId);
+    if(index != -1) {
+      this.clients[index].newMessageCount = this.clients[index].newMessageCount!+1
+    }
   }
 
   ngOnDestroy(): void {
