@@ -89,4 +89,12 @@ export class SubjectService {
       this.newSubjectsSource.next()
     }
   }
+
+  onMessageIntersect(id: number) {
+    const index = this.subjects.findIndex(subject => subject.subjectId === id);
+    if(index != -1) {
+      this.subjects[index].newMessageCount = this.subjects[index].newMessageCount!-1
+      this.newSubjectsSource.next()
+    }
+  }
 }

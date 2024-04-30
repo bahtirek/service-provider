@@ -98,11 +98,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onMessageIntersect(messageId: number):void {
+    this.subjectService.onMessageIntersect(this.subject.subjectId)
     const messageDetails = {
       accessToken: this.user?.accessToken,
       messageId: messageId
     }
-    this.chatService.sendViewedMessageConfirmation(messageDetails)
+    this.chatService.sendViewedMessageConfirmation(messageDetails);
   }
 
   getReceiverDeatils() {

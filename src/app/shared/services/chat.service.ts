@@ -68,7 +68,7 @@ export class ChatService {
         this.messageService.addMessage(message);
       }
 
-      if(!this.router.url.includes('/messages') || this.subjectId != message.subjectId) {
+      if(!this.router.url.includes('/consultations') || this.subjectId != message.subjectId) {
         this.subjectService.updateSubjects(message.subjectId!);
       }
 
